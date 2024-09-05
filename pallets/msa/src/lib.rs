@@ -803,7 +803,7 @@ pub mod pallet {
 
 		/// Retires a MSA
 		///
-		/// When a user wants to disassociate themselves from Frequency, they can retire their MSA for free provided that:
+		/// When a user wants to disassociate themselves from Recurrency, they can retire their MSA for free provided that:
 		///  (1) They own the MSA
 		///  (2) The MSA is not a registered provider.
 		///  (3) They retire their user handle (if they have one)

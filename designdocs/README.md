@@ -1,31 +1,31 @@
 # Design Documents
 
-To create a new design document, Please see the [Design Doc README](https://github.com/frequency-chain/meta/blob/main/DESIGN_DOCS.md) for details on what goes in each section, and use the provided template there.
+To create a new design document, Please see the [Design Doc README](https://github.com/rustadot/meta/blob/main/DESIGN_DOCS.md) for details on what goes in each section, and use the provided template there.
 
 ## Accepted Design Documents
 
 - [Accounts](./accounts.md)
-  - [PR](https://github.com/frequency-chain/frequency/pull/13)
+  - [PR](https://github.com/rustadot/recurrency/pull/13)
 - [On Chain Message Storage](message_storage.md)
-  - [Merged Pull Request](https://github.com/frequency-chain/frequency/pull/15)
+  - [Merged Pull Request](https://github.com/rustadot/recurrency/pull/15)
 - [Delegation](./delegation.md)
-  - [PR](https://github.com/frequency-chain/frequency/pull/14)
+  - [PR](https://github.com/rustadot/recurrency/pull/14)
 - [Message Schema(s)](./schema.md)
-  - [Merged Pull Request](https://github.com/frequency-chain/frequency/pull/17)
+  - [Merged Pull Request](https://github.com/rustadot/recurrency/pull/17)
 - [Provider Permissions and Grants](./provider_permissions.md)
-  - [Merged Pull Request](https://github.com/frequency-chain/frequency/pull/150)
+  - [Merged Pull Request](https://github.com/rustadot/recurrency/pull/150)
 - [Provider Registration](./provider_registration.md)
-  - [Merged Pull Request](https://github.com/frequency-chain/frequency/pull/208)
+  - [Merged Pull Request](https://github.com/rustadot/recurrency/pull/208)
 - [Capacity](./capacity.md)
-  - [Merged Pull Request](https://github.com/frequency-chain/frequency/pull/426)
+  - [Merged Pull Request](https://github.com/rustadot/recurrency/pull/426)
 - [Stateful Storage](./stateful_storage.md)
-  - [PR](https://github.com/frequency-chain/frequency/pull/900)
+  - [PR](https://github.com/rustadot/recurrency/pull/900)
 - [Graph Sdk](./graph_sdk.md)
-  - [PR](https://github.com/frequency-chain/frequency/pull/1159)
+  - [PR](https://github.com/rustadot/recurrency/pull/1159)
 
 ## Basic Data Model
 
-There are three core data models in Frequency and each corresponds to a pallet.
+There are three core data models in Recurrency and each corresponds to a pallet.
 
 - [Message Source Account (MSA)](../pallets/msa/)
   - Represents a pseudonymous identity that can be the source of messages or provide access to the chain to others
@@ -39,14 +39,14 @@ There are three core data models in Frequency and each corresponds to a pallet.
 
 ![Basic Data Model drawio](../docs/images/BasicDataModel.drawio.png?raw=true)
 
-## Frequency Glossary
+## Recurrency Glossary
 
 - `AccountId`: A public key that could be a `Token Account` and/or associated with an `MSA`
 - `Announcer AccountId`: The `AccountId` that signs a capacity transaction and is associated with an MSA from which capacity will be deducted for that capacity transaction.
 - `Announcer MSA`: The `MSA` associated with the `AccountId` that signs a capacity transaction.
 - `Delegate` (verb): The action of an `MSA` (the `Delegator`) delegating to a `Provider`. _A verb only. Do not use as a noun!_
 - `Delegator`: An `MSA` that has delegated to a `Provider`.
-- `MRC`: The old name for Frequency
+- `MRC`: The old name for Recurrency
 - `MSA Id`: The 64 bit unsigned integer associated with an `MSA`.
 - `MSA`: Message Source Account. A registered identifier with the MSA pallet. `AccountIds` (aka public keys) may only be associated with one `MSA` and that association is immutable.
 - `Message`: A message that matches a registered `Schema` (on-chain or off-chain).

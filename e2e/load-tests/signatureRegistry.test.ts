@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import assert from 'assert';
 import {
   createKeys,

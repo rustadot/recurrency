@@ -170,9 +170,9 @@ Please see [Batching Source Dependent Messages With Delegation](https://forums.p
 the benefits of announcing batch files on chain rather than all types of
 user-created messages.
 
-One risk is that providers on Frequency could simply register a new schema and
+One risk is that providers on Recurrency could simply register a new schema and
 announce batches "unofficially". We have not decided whether or not to let everyone
-with enough token balance register a schema. Other Frequency participants would need to
+with enough token balance register a schema. Other Recurrency participants would need to
 first learn about and evaluate new schemas, then update their software to
 consume a new message type.
 
@@ -232,4 +232,4 @@ pub struct MessageResponse<AccountId, BlockNumber> {
 
 - _IPFS_ [InterPlanetary File System](https://docs.ipfs.io/), a decentralized file system for building the next generation of the internet
 - _CID_ [Content IDentifier](https://github.com/multiformats/cid/), Self-describing content-addressed identifiers for distributed systems
-- _MsaId_ [Message Source Account ID](https://github.com/frequency-chain/frequency/blob/main/designdocs/accounts.md) an identifier for a MSA.
+- _MsaId_ [Message Source Account ID](https://github.com/rustadot/recurrency/blob/main/designdocs/accounts.md) an identifier for a MSA.

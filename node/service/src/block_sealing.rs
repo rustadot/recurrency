@@ -25,10 +25,10 @@ use sp_inherents::CreateInherentDataProviders;
 use sp_runtime::traits::Block as BlockT;
 use std::{sync::Arc, task::Poll};
 
-/// Function to start Frequency in dev mode without a relay chain
+/// Function to start Recurrency in dev mode without a relay chain
 /// This function is called when --chain dev --sealing= is passed.
 #[allow(clippy::expect_used)]
-pub fn start_frequency_dev_sealing_node(
+pub fn start_recurrency_dev_sealing_node(
 	config: Configuration,
 	sealing_mode: SealingMode,
 	sealing_interval: u16,
@@ -111,7 +111,7 @@ pub fn start_frequency_dev_sealing_node(
 	let role = config.role.clone();
 
 	let select_chain = maybe_select_chain
-		.expect("In frequency dev mode, `new_partial` will return some `select_chain`; qed");
+		.expect("In recurrency dev mode, `new_partial` will return some `select_chain`; qed");
 
 	// Only block authoring nodes create, seal and finalize blocks
 	let command_sink = if role.is_authority() {

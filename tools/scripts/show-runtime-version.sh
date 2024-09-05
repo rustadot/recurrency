@@ -12,5 +12,5 @@ EOF
   exit 1
 fi
 
-(git cat-file -p "${1}:runtime/frequency/src/lib.rs" | grep "spec_version:") 2>/dev/null \
+(git cat-file -p "${1}:runtime/recurrency/src/lib.rs" | grep "spec_version:") 2>/dev/null \
 || (git cat-file -p "${1}:runtime/mrc/src/lib.rs" | grep "spec_version:" )

@@ -1,14 +1,14 @@
-//! Frequency CLI library.
+//! Recurrency CLI library.
 
 // File originally from https://github.com/paritytech/cumulus/blob/master/parachain-template/node/src/cli.rs
 
 use crate::{ExportMetadataCmd, ExportRuntimeVersionCmd};
 use std::path::PathBuf;
 
-#[cfg(feature = "frequency-no-relay")]
+#[cfg(feature = "recurrency-no-relay")]
 use std::num::NonZeroU16;
 
-#[cfg(feature = "frequency-no-relay")]
+#[cfg(feature = "recurrency-no-relay")]
 use cli_opt::SealingMode;
 
 /// Sub-commands supported by the collator.
@@ -87,17 +87,17 @@ pub struct Cli {
 	/// Instant block sealing
 	/// Blocks are triggered to be formed each time a transaction hits the validated transaction pool
 	/// Empty blocks can also be formed using the `engine_createBlock` RPC
-	#[cfg(feature = "frequency-no-relay")]
+	#[cfg(feature = "recurrency-no-relay")]
 	#[clap(long, value_enum, help = "The sealing mode", default_value_t=SealingMode::Instant)]
 	pub sealing: SealingMode,
 
 	/// Interval in seconds for interval sealing.
-	#[cfg(feature = "frequency-no-relay")]
+	#[cfg(feature = "recurrency-no-relay")]
 	#[clap(long, help = "The interval in seconds", default_value = "12", value_name = "SECONDS")]
 	pub sealing_interval: NonZeroU16,
 
 	/// Whether to create empty blocks in manual and interval sealing modes.
-	#[cfg(feature = "frequency-no-relay")]
+	#[cfg(feature = "recurrency-no-relay")]
 	#[clap(long, help = "Create empty blocks in interval sealing modes", default_value = "false")]
 	pub sealing_create_empty_blocks: bool,
 }
@@ -121,7 +121,7 @@ impl RelayChainCli {
 		relay_chain_args: impl Iterator<Item = &'a String>,
 	) -> Self {
 		let extension =
-			frequency_service::chain_spec::Extensions::try_get(&*para_config.chain_spec);
+			recurrency_service::chain_spec::Extensions::try_get(&*para_config.chain_spec);
 		let chain_id = extension.map(|e| e.relay_chain.clone());
 		let base_path = para_config.base_path.path().join("polkadot");
 		Self {

@@ -4,7 +4,7 @@
 
 Feeless transactions are essential in reaching mass adoption as it removes the overhead costs of transactions for app developers to acquire a far-reaching user base.
 
-In this document, I will introduce the concept of [Capacity](https://forums.projectliberty.io/t/05-what-is-capacity-frequency-economics-part-1/248), a non-transferable resource that is associated with an MSA account of a [Registered Provider](https://github.com/frequency-chain/frequency/blob/main/designdocs/provider_registration.md), and how Capacity can be acquired through staking, refills, and used to perform transactions such as:
+In this document, I will introduce the concept of [Capacity](https://forums.projectliberty.io/t/05-what-is-capacity-recurrency-economics-part-1/248), a non-transferable resource that is associated with an MSA account of a [Registered Provider](https://github.com/rustadot/recurrency/blob/main/designdocs/provider_registration.md), and how Capacity can be acquired through staking, refills, and used to perform transactions such as:
 
 - Create an MSA.
 - Add a key to an MSA.
@@ -15,7 +15,7 @@ In this document, I will introduce the concept of [Capacity](https://forums.proj
 
 ## Proposal
 
-Frequency explains how Capacity can be acquired through staking, refills, and used to perform certain transactions. This approach is addressed in each section below:
+Recurrency explains how Capacity can be acquired through staking, refills, and used to perform certain transactions. This approach is addressed in each section below:
 
 - [Implementation of acquiring Capacity through staking](#staking)
 - [Implementation of replenishing Capacity](#replenish)
@@ -29,7 +29,7 @@ This section is limited to the interfaces for staking and un-staking tokens.
 
 As a Registered Provider, you can receive Capacity by staking your tokens to the network or when others stake their tokens to the network.
 
-When staking tokens to the network, the network generates Capacity based on a Capacity-generating function that considers usage and other criteria. When you stake tokens, you will also provide a target Registered Provider to receive the Capacity generated. In exchange for staking Token to the network, you receive rewards. Rewards are deferred to a supplemental [staking design doc](https://github.com/frequency-chain/frequency/issues/40). You may increase your stake to network many times and target different Service Providers each time you stake. Note every time you stake to network your tokens are locked until you decide to unstake.
+When staking tokens to the network, the network generates Capacity based on a Capacity-generating function that considers usage and other criteria. When you stake tokens, you will also provide a target Registered Provider to receive the Capacity generated. In exchange for staking Token to the network, you receive rewards. Rewards are deferred to a supplemental [staking design doc](https://github.com/rustadot/recurrency/issues/40). You may increase your stake to network many times and target different Service Providers each time you stake. Note every time you stake to network your tokens are locked until you decide to unstake.
 
 Unstaking tokens allow you to schedule a number of tokens to be unlocked from your balance. There is no limit on the amount that you can schedule to be unlocked (up to the amount staked), but there is a limit on how many scheduled requests you can make. After scheduling tokens to be unlocked using **`unstake`**, you can withdraw those tokens after a thaw period has elapsed by using the **`withdraw_unstaked`** extrinsic. If the call is successful, all thawed tokens become unlocked and increase the ability to make more scheduled requests.
 
@@ -246,7 +246,7 @@ pub enum Error<T> {
 ```rust
 
 pub enum Event<T: Config> {
-  /// Tokens have been staked to the Frequency network.
+  /// Tokens have been staked to the Recurrency network.
   Staked {
     /// The token account that staked tokens to the network.
     account: T::AccountId,
@@ -264,7 +264,7 @@ pub enum Event<T: Config> {
     /// the total amount withdrawn, i.e. put back into free balance.
     amount: BalanceOf<T>,
   },
-  /// A token account has unstaked the Frequency network.
+  /// A token account has unstaked the Recurrency network.
   UnStaked {
     /// The token account that staked tokens to the network.
     account: T::AccountId,

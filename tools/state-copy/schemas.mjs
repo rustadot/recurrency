@@ -2,7 +2,7 @@
 
 import { copy } from "./copy.mjs";
 
-const SOURCE_URL = "wss://1.rpc.frequency.xyz";
+const SOURCE_URL = "wss://1.rpc.recurrency.xyz";
 const DEST_URL = "ws://127.0.0.1:9944";
 const STORAGE_KEY = "0xeec6f3c13d26ae2507c99b6751e19e76";
 const FILTER_OUT = [

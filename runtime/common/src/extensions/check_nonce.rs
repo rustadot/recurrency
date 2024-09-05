@@ -1,4 +1,4 @@
-// This file overrides the default Substrate CheckNonce for Frequency.
+// This file overrides the default Substrate CheckNonce for Recurrency.
 // It only creates the token account for paid extrinsics.
 
 // Copyright (C) 2017-2022 Parity Technologies (UK) Ltd.

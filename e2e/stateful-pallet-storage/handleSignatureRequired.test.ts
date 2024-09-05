@@ -1,5 +1,5 @@
 // E2E tests for pallets/stateful-pallet-storage/handleItemizedWithSignature.ts
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import assert from 'assert';
 import {
   DOLLARS,
@@ -19,7 +19,7 @@ import {
 import { KeyringPair } from '@polkadot/keyring/types';
 import { ExtrinsicHelper } from '../scaffolding/extrinsicHelpers';
 import { AVRO_CHAT_MESSAGE } from '../stateful-pallet-storage/fixtures/itemizedSchemaType';
-import { MessageSourceId, SchemaId } from '@frequency-chain/api-augment/interfaces';
+import { MessageSourceId, SchemaId } from '@rustadot/api-augment/interfaces';
 import { Bytes, u16 } from '@polkadot/types';
 import { getFundingSource } from '../scaffolding/funding';
 
@@ -82,8 +82,8 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
     it('provider should be able to call applyItemizedActionWithSignature and apply actions', async function () {
       const { payload, signature } = await generateItemizedActionsSignedPayload(
         generateItemizedActions([
-          { action: 'Add', value: 'Hello, world from Frequency' },
-          { action: 'Add', value: 'Hello, world again from Frequency' },
+          { action: 'Add', value: 'Hello, world from Recurrency' },
+          { action: 'Add', value: 'Hello, world again from Recurrency' },
         ]),
         itemizedSchemaId,
         delegatorKeys,
@@ -118,8 +118,8 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
     it('delegator (owner) should be able to call applyItemizedActionWithSignature and apply actions', async function () {
       const { payload, signature } = await generateItemizedActionsSignedPayload(
         generateItemizedActions([
-          { action: 'Add', value: 'Hello, world from Frequency' },
-          { action: 'Add', value: 'Hello, world again from Frequency' },
+          { action: 'Add', value: 'Hello, world from Recurrency' },
+          { action: 'Add', value: 'Hello, world again from Recurrency' },
         ]),
         itemizedSchemaId,
         delegatorKeys,
@@ -154,8 +154,8 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
     it('provider should be able to call applyItemizedActionWithSignatureV2 and apply actions', async function () {
       const { payload, signature } = await generateItemizedActionsSignedPayloadV2(
         generateItemizedActions([
-          { action: 'Add', value: 'Hello, world from Frequency' },
-          { action: 'Add', value: 'Hello, world again from Frequency' },
+          { action: 'Add', value: 'Hello, world from Recurrency' },
+          { action: 'Add', value: 'Hello, world again from Recurrency' },
         ]),
         itemizedSchemaId,
         delegatorKeys,
@@ -190,8 +190,8 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
     it('delegator (owner) should be able to call applyItemizedActionWithSignatureV2 and apply actions', async function () {
       const { payload, signature } = await generateItemizedActionsSignedPayloadV2(
         generateItemizedActions([
-          { action: 'Add', value: 'Hello, world from Frequency' },
-          { action: 'Add', value: 'Hello, world again from Frequency' },
+          { action: 'Add', value: 'Hello, world from Recurrency' },
+          { action: 'Add', value: 'Hello, world again from Recurrency' },
         ]),
         itemizedSchemaId,
         delegatorKeys,
@@ -225,8 +225,8 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
 
     it('provider should not be able to call applyItemizedAction', async function () {
       const add_actions = generateItemizedActions([
-        { action: 'Add', value: 'Hello, world from Frequency' },
-        { action: 'Add', value: 'Hello, world again from Frequency' },
+        { action: 'Add', value: 'Hello, world from Recurrency' },
+        { action: 'Add', value: 'Hello, world again from Recurrency' },
       ]);
 
       const target_hash = await getCurrentItemizedHash(msa_id, itemizedSchemaId);
@@ -252,8 +252,8 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
 
     it('owner should be able to call applyItemizedAction', async function () {
       const add_actions = generateItemizedActions([
-        { action: 'Add', value: 'Hello, world from Frequency' },
-        { action: 'Add', value: 'Hello, world again from Frequency' },
+        { action: 'Add', value: 'Hello, world from Recurrency' },
+        { action: 'Add', value: 'Hello, world again from Recurrency' },
       ]);
 
       const target_hash = await getCurrentItemizedHash(msa_id, itemizedSchemaId);
@@ -296,7 +296,7 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
         targetHash: target_hash,
         schemaId: paginatedSchemaId,
         pageId: page_id,
-        payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+        payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
       });
       const upsertPayloadData = ExtrinsicHelper.api.registry.createType(
         'PalletStatefulStoragePaginatedUpsertSignaturePayload',
@@ -373,7 +373,7 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
         targetHash: target_hash,
         schemaId: paginatedSchemaId,
         pageId: page_id,
-        payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+        payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
       });
       const upsertPayloadData = ExtrinsicHelper.api.registry.createType(
         'PalletStatefulStoragePaginatedUpsertSignaturePayload',
@@ -449,7 +449,7 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
         targetHash: target_hash,
         schemaId: paginatedSchemaId,
         pageId: page_id,
-        payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+        payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
       });
       const upsertPayloadData = ExtrinsicHelper.api.registry.createType(
         'PalletStatefulStoragePaginatedUpsertSignaturePayloadV2',
@@ -524,7 +524,7 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
         targetHash: target_hash,
         schemaId: paginatedSchemaId,
         pageId: page_id,
-        payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+        payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
       });
       const upsertPayloadData = ExtrinsicHelper.api.registry.createType(
         'PalletStatefulStoragePaginatedUpsertSignaturePayloadV2',
@@ -600,7 +600,7 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
         paginatedSchemaId,
         msa_id,
         page_id,
-        new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+        new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
         target_hash
       );
       await assert.rejects(upsert.fundAndSend(fundingSource), { name: 'UnauthorizedDelegate' });
@@ -610,7 +610,7 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
         paginatedSchemaId,
         msa_id,
         page_id,
-        new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+        new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
         target_hash
       );
       await assert.rejects(upsert_2.fundAndSend(fundingSource), { name: 'UnsupportedOperationForSchema' });
@@ -626,7 +626,7 @@ describe('📗 Stateful Pallet Storage Signature Required', function () {
         paginatedSchemaId,
         msa_id,
         page_id,
-        new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+        new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
         target_hash
       );
       const { target: pageUpdateEvent, eventMap: chainEvents1 } = await upsert_result.fundAndSend(fundingSource);

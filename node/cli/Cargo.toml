@@ -1,11 +1,11 @@
 [package]
-authors = ["Frequency"]
-description = "Substrate cli for frequency node"
+authors = ["Recurrency"]
+description = "Substrate cli for recurrency node"
 edition = "2021"
-homepage = "https://frequency.xyz/"
+homepage = "https://recurrency.xyz/"
 license = "Apache-2.0"
-name = "frequency-cli"
-repository = "https://github.com/frequency-chain/frequency/"
+name = "recurrency-cli"
+repository = "https://github.com/rustadot/recurrency/"
 version = "0.0.0"
 
 [dependencies]
@@ -16,13 +16,13 @@ hex-literal = { workspace = true }
 log = { workspace = true }
 serde_json = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
-# Frequency Runtime
+# Recurrency Runtime
 common-primitives = { default-features = false, path = "../../common/primitives" }
 common-runtime = { package = "common-runtime", path = "../../runtime/common", default-features = false }
-frequency-runtime = { package = "frequency-runtime", path = "../../runtime/frequency", default-features = false }
-frequency-service = { package = "frequency-service", path = "../service", default-features = false, optional = true }
+recurrency-runtime = { package = "recurrency-runtime", path = "../../runtime/recurrency", default-features = false }
+recurrency-service = { package = "recurrency-service", path = "../service", default-features = false, optional = true }
 pallet-msa = { package = "pallet-msa", path = "../../pallets/msa", default-features = false }
-pallet-frequency-tx-payment = { package = "pallet-frequency-tx-payment", path = "../../pallets/frequency-tx-payment", default-features = false }
+pallet-recurrency-tx-payment = { package = "pallet-recurrency-tx-payment", path = "../../pallets/recurrency-tx-payment", default-features = false }
 pallet-handles = { package = "pallet-handles", path = "../../pallets/handles", default-features = false }
 pallet-stateful-storage = { package = "pallet-stateful-storage", path = "../../pallets/stateful-storage", default-features = false }
 cli-opt = { default-features = false, path = "../cli-opt" }
@@ -68,7 +68,7 @@ substrate-build-script-utils = { workspace = true }
 [features]
 std = ["sp-io/std", "sp-api/std", "frame-support/std", "sp-runtime/std", "sp-core/std"]
 cli = [
-  "frequency-service",
+  "recurrency-service",
   "sp-core",
   "sc-cli",
   "sc-service",
@@ -78,24 +78,24 @@ cli = [
 default = ["std", "cli"]
 runtime-benchmarks = [
   "polkadot-cli/runtime-benchmarks",
-  "frequency-runtime/runtime-benchmarks",
+  "recurrency-runtime/runtime-benchmarks",
   "sc-service?/runtime-benchmarks",
   "frame-benchmarking-cli/runtime-benchmarks",
   "sp-runtime/runtime-benchmarks",
 ]
 try-runtime = [
-  "frequency-service/try-runtime",
+  "recurrency-service/try-runtime",
   "sp-runtime/try-runtime"
 ]
 on-chain-release-build = ["sp-api/disable-logging"]
-frequency = ["frequency-service/frequency"]
-frequency-no-relay = ["frequency-service/frequency-no-relay"]
-frequency-local = ["frequency-service/frequency-local"]
-frequency-testnet = ["frequency-service/frequency-testnet"]
-frequency-lint-check = [
-  "frequency",
-  "frequency-no-relay",
-  "frequency-local",
-  "frequency-testnet",
-  "frequency-service/frequency-lint-check",
+recurrency = ["recurrency-service/recurrency"]
+recurrency-no-relay = ["recurrency-service/recurrency-no-relay"]
+recurrency-local = ["recurrency-service/recurrency-local"]
+recurrency-testnet = ["recurrency-service/recurrency-testnet"]
+recurrency-lint-check = [
+  "recurrency",
+  "recurrency-no-relay",
+  "recurrency-local",
+  "recurrency-testnet",
+  "recurrency-service/recurrency-lint-check",
 ]

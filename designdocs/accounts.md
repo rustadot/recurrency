@@ -1,8 +1,8 @@
 ## Context and Scope
 
-The ability to create an on-chain account without a token to increase user accessibility for Frequency.
+The ability to create an on-chain account without a token to increase user accessibility for Recurrency.
 
-In Polkadot an on-chain account is created when an existential deposit is made to an address generated from cryptographic keys. In order to be able to make such deposit a user needs to acquire tokens via an exchange or transfer tokens into an account address. The process of creating an on-chain account can discourage users from using Frequency and by removing this overhead it allows Frequency to extend it services to a wider audience.
+In Polkadot an on-chain account is created when an existential deposit is made to an address generated from cryptographic keys. In order to be able to make such deposit a user needs to acquire tokens via an exchange or transfer tokens into an account address. The process of creating an on-chain account can discourage users from using Recurrency and by removing this overhead it allows Recurrency to extend it services to a wider audience.
 
 ## Goals
 
@@ -17,7 +17,7 @@ In addition, the message sender must preserve the following characteristics:
 
 ## Proposal
 
-I propose a dual account system in Frequency. 
+I propose a dual account system in Recurrency. 
 
 These two different types of accounts act as building blocks to facilitate the aforementioned goals. One type of account, [Token] Account, will be responsible for holding a balance, transferring tokens to other accounts, and pay certain transactions [list transactions]. Another account, Message Source Account (MSA), will be used to  broadcast messages and delegate to another MSA account.  
 
@@ -27,7 +27,7 @@ A token account has the ability to transfer value between accounts. More general
 
 Similar to Bitcoin, an account address is derived from cryptographic keys and is created by sending token to a public key. It also carries an existential deposit that keeps an account from being pruned. More on the type of supported keys below.
 
-In Substrate a [Token] Account can be implemented by using the Balances Pallet to create a Frequency Token and storing a [Token] balance in System pallet.
+In Substrate a [Token] Account can be implemented by using the Balances Pallet to create a Recurrency Token and storing a [Token] balance in System pallet.
 
 ### Message Source Account (MSA)
 

@@ -85,21 +85,21 @@ jobs:
         include:
           - network: dev
             git_branch: ${{github.head_ref}}
-            spec: frequency-no-relay
+            spec: recurrency-no-relay
             branch_alias: pr
           - network: local
             git_branch: ${{github.head_ref}}
-            spec: frequency-local
+            spec: recurrency-local
             branch_alias: pr
           - network: local
             git_branch: main
-            spec: frequency-local
+            spec: recurrency-local
             branch_alias: main
           - network: testnet
-            spec: frequency-testnet
+            spec: recurrency-testnet
             branch_alias: pr
           - network: mainnet
-            spec: frequency
+            spec: recurrency
             branch_alias: pr
     steps:
       - run: echo "Just a dummy matrix to satisfy GitHub required checks that were skipped"
@@ -114,24 +114,24 @@ jobs:
         include:
           - network: dev
             git_branch: ${{github.head_ref}}
-            spec: frequency-no-relay
+            spec: recurrency-no-relay
             branch_alias: pr
           - network: local
             git_branch: ${{github.head_ref}}
-            spec: frequency-local
+            spec: recurrency-local
             branch_alias: pr
           - network: local
             git_branch: main
-            spec: frequency-local
+            spec: recurrency-local
             branch_alias: main
           - network: testnet
-            spec: frequency-testnet
+            spec: recurrency-testnet
             branch_alias: pr
           - network: mainnet
-            spec: frequency
+            spec: recurrency
             branch_alias: pr
     runs-on: ubicloud-standard-16
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     env:
       NETWORK: mainnet
     steps:
@@ -141,7 +141,7 @@ jobs:
           ref: ${{matrix.git_branch}}
       - name: Set Env Vars
         run: |
-          export BUILT_BIN_FILENAME=frequency; echo "BUILT_BIN_FILENAME=$BUILT_BIN_FILENAME" >> $GITHUB_ENV
+          export BUILT_BIN_FILENAME=recurrency; echo "BUILT_BIN_FILENAME=$BUILT_BIN_FILENAME" >> $GITHUB_ENV
           echo "FINAL_BIN_FILENAME=$BUILT_BIN_FILENAME.${{matrix.network}}.${{matrix.spec}}.${{matrix.branch_alias}}" >> $GITHUB_ENV
       # # XXX Keep this step as it lets us skip full binary builds during development/testing
       # - name: Cache Binary for Testing
@@ -177,7 +177,7 @@ jobs:
     if: needs.changes.outputs.cargo-lock == 'true'
     name: Check for Vulnerable Crates
     runs-on: ubuntu-22.04
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
@@ -194,7 +194,7 @@ jobs:
     name: Verify Rust Code Format
     runs-on: ubuntu-22.04
     container:
-      image: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+      image: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repository
         uses: actions/checkout@v4
@@ -216,14 +216,14 @@ jobs:
     if: needs.changes.outputs.rust == 'true'
     name: Lint Rust Code
     runs-on: ubicloud-standard-4
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
       - name: Lint
         run: |
           SKIP_WASM_BUILD=1 env -u RUSTFLAGS cargo clippy \
-            --features runtime-benchmarks,frequency-lint-check \
+            --features runtime-benchmarks,recurrency-lint-check \
             -- \
             -D warnings
 
@@ -232,47 +232,47 @@ jobs:
     if: needs.changes.outputs.rust == 'true'
     name: Verify Rust Developer Docs
     runs-on: ubicloud-standard-4
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
       - name: Build Docs
         run: |
-          RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="--enable-index-page --check -Zunstable-options" cargo doc --no-deps --workspace --features frequency
+          RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="--enable-index-page --check -Zunstable-options" cargo doc --no-deps --workspace --features recurrency
 
   verify-rust-packages-and-deps:
     needs: changes
     if: needs.changes.outputs.rust == 'true'
     name: Verify Rust Packages and Dependencies
     runs-on: ubicloud-standard-4
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
       - name: Check
-        run: SKIP_WASM_BUILD= cargo check --features runtime-benchmarks,frequency-lint-check
+        run: SKIP_WASM_BUILD= cargo check --features runtime-benchmarks,recurrency-lint-check
 
   run-rust-tests:
     needs: changes
     if: needs.changes.outputs.rust == 'true'
     name: Run Rust Tests
     runs-on: ubicloud-standard-8
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
       - name: Init Git
         run: |
-          git config --global --add safe.directory /__w/frequency/frequency
+          git config --global --add safe.directory /__w/recurrency/recurrency
       - name: Run Tests
-        run: cargo test --features runtime-benchmarks,frequency-lint-check --workspace --release
+        run: cargo test --features runtime-benchmarks,recurrency-lint-check --workspace --release
 
   calc-code-coverage:
     needs: changes
     if: needs.changes.outputs.rust == 'true'
     name: Calculate Code Coverage
     runs-on: ubicloud-standard-8
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
@@ -304,34 +304,34 @@ jobs:
       fail-fast: true
       matrix:
         # Remember, runtimes are separate for each relay chain
-        # We do not release frequency-*-local runtimes however
+        # We do not release recurrency-*-local runtimes however
         # Also should match `verify-build-runtimes-dummy`
         network: [dev, paseo, mainnet]
         include:
           - network: dev
             chain: dev
             build-profile: release
-            package: frequency-runtime
-            runtime-dir: runtime/frequency
-            built-wasm-file-name-prefix: frequency_runtime
-            features: frequency-no-relay
-            wasm-core-version: frequency-testnet
+            package: recurrency-runtime
+            runtime-dir: runtime/recurrency
+            built-wasm-file-name-prefix: recurrency_runtime
+            features: recurrency-no-relay
+            wasm-core-version: recurrency-testnet
           - network: paseo
-            chain: frequency-paseo
+            chain: recurrency-paseo
             build-profile: release
-            package: frequency-runtime
-            runtime-dir: runtime/frequency
-            built-wasm-file-name-prefix: frequency_runtime
-            features: frequency-testnet
-            wasm-core-version: frequency-testnet
+            package: recurrency-runtime
+            runtime-dir: runtime/recurrency
+            built-wasm-file-name-prefix: recurrency_runtime
+            features: recurrency-testnet
+            wasm-core-version: recurrency-testnet
           - network: mainnet
-            chain: frequency
+            chain: recurrency
             build-profile: release
-            package: frequency-runtime
-            runtime-dir: runtime/frequency
-            built-wasm-file-name-prefix: frequency_runtime
-            features: frequency
-            wasm-core-version: frequency
+            package: recurrency-runtime
+            runtime-dir: runtime/recurrency
+            built-wasm-file-name-prefix: recurrency_runtime
+            features: recurrency
+            wasm-core-version: recurrency
     runs-on: ubicloud-standard-8
     steps:
       - name: Check Out Repo
@@ -392,13 +392,13 @@ jobs:
     needs: build-binaries
     name: Verify JS API Augment
     runs-on: ubuntu-22.04
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
       - name: Set Env Vars
         run: |
-          echo "BIN_FILENAME=frequency.local.frequency-local.pr" >> $GITHUB_ENV
+          echo "BIN_FILENAME=recurrency.local.recurrency-local.pr" >> $GITHUB_ENV
       - name: Set up NodeJs
         uses: actions/setup-node@v4
         with:
@@ -428,7 +428,7 @@ jobs:
         run: |
           chmod 755 ${{env.BIN_FILENAME}}
       - name: Output Metadata
-        run: ${{env.BIN_DIR}}/${{env.BIN_FILENAME}} export-metadata  --chain=frequency-paseo-local --tmp ./js/api-augment/metadata.json
+        run: ${{env.BIN_DIR}}/${{env.BIN_FILENAME}} export-metadata  --chain=recurrency-paseo-local --tmp ./js/api-augment/metadata.json
       - name: Build
         run: npm run build
         working-directory: js/api-augment
@@ -445,7 +445,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: artifacts-api-augment-${{github.run_id}}
-          path: js/api-augment/dist/frequency-chain-api-augment-0.0.0.tgz
+          path: js/api-augment/dist/rustadot-api-augment-0.0.0.tgz
           if-no-files-found: error
 
   verify-node-docker-images:
@@ -457,8 +457,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Set Env Vars
         run: |
-          echo "BUILT_BIN_FILENAME=frequency.mainnet.frequency.pr" >> $GITHUB_ENV
-          echo "DOCKER_BIN_FILENAME=frequency" >> $GITHUB_ENV
+          echo "BUILT_BIN_FILENAME=recurrency.mainnet.recurrency.pr" >> $GITHUB_ENV
+          echo "DOCKER_BIN_FILENAME=recurrency" >> $GITHUB_ENV
       - name: Download Binaries
         id: download-binaries
         uses: actions/download-artifact@v4
@@ -510,7 +510,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Set Env Vars
         run: |
-          echo "TEST_BIN_FILENAME=frequency.mainnet.frequency.pr" >> $GITHUB_ENV
+          echo "TEST_BIN_FILENAME=recurrency.mainnet.recurrency.pr" >> $GITHUB_ENV
       - name: Download Binaries
         id: download-binaries
         uses: actions/download-artifact@v4
@@ -545,8 +545,8 @@ jobs:
           fetch-depth: 0
       - name: Set Env Vars
         run: |
-          echo "TEST_BIN_FILENAME=frequency.local.frequency-local.pr" >> $GITHUB_ENV
-          echo "REF_BIN_FILENAME=frequency.local.frequency-local.main" >> $GITHUB_ENV
+          echo "TEST_BIN_FILENAME=recurrency.local.recurrency-local.pr" >> $GITHUB_ENV
+          echo "REF_BIN_FILENAME=recurrency.local.recurrency-local.main" >> $GITHUB_ENV
       - name: Download Binaries
         id: download-binaries
         uses: actions/download-artifact@v4
@@ -569,9 +569,9 @@ jobs:
         working-directory: ${{env.BIN_DIR}}
         run: |
           set -x
-          ./$REF_BIN_FILENAME export-metadata --chain=frequency-paseo-local --tmp metadata-ref.json
+          ./$REF_BIN_FILENAME export-metadata --chain=recurrency-paseo-local --tmp metadata-ref.json
           metadata_ref=$(cat metadata-ref.json | jq -r .result)
-          ./$TEST_BIN_FILENAME export-metadata --chain=frequency-paseo-local --tmp metadata.json
+          ./$TEST_BIN_FILENAME export-metadata --chain=recurrency-paseo-local --tmp metadata.json
           metadata=$(cat metadata.json | jq -r .result)
           matches=$([ "$metadata" = "$metadata_ref" ] && echo 'true' || echo 'false')
           echo "Metadata matches?: $match"
@@ -626,8 +626,8 @@ jobs:
           fetch-depth: 0
       - name: Set Env Vars
         run: |
-          echo "BIN_FILENAME=frequency.dev.frequency-no-relay.pr" >> $GITHUB_ENV
-          echo "FREQUENCY_PROCESS_NAME=frequency" >> $GITHUB_ENV
+          echo "BIN_FILENAME=recurrency.dev.recurrency-no-relay.pr" >> $GITHUB_ENV
+          echo "RECURRENCY_PROCESS_NAME=recurrency" >> $GITHUB_ENV
       - name: Download Binaries
         id: download-binaries
         uses: actions/download-artifact@v4
@@ -673,7 +673,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: e2e/package-lock.json
       - name: Install Built api-augment
-        run: npm install ../js/api-augment/dist/frequency-chain-api-augment-0.0.0.tgz
+        run: npm install ../js/api-augment/dist/rustadot-api-augment-0.0.0.tgz
         working-directory: e2e
       - name: Install NPM Modules
         run: npm ci
@@ -689,7 +689,7 @@ jobs:
         run: npm test
       - name: Stop Local Node
         if: always()
-        run: pkill ${{env.FREQUENCY_PROCESS_NAME}}
+        run: pkill ${{env.RECURRENCY_PROCESS_NAME}}
 
   verify-genesis-state:
     needs: build-binaries
@@ -700,8 +700,8 @@ jobs:
         run: |
           echo "EXPECTED_GENESIS_STATE_PASEO=0x000000000000000000000000000000000000000000000000000000000000000000805f6ddb6879aa31316a38c149e52ffe4e9f2a193e966ddcf3b6a2cb5846e96903170a2e7597b7b7e3d84c05391d139a62b157e78786d8c082f29dcf4c11131400" >> $GITHUB_ENV
           echo "EXPECTED_GENESIS_STATE_MAINNET=0x000000000000000000000000000000000000000000000000000000000000000000393a2a0f7778716d006206c5a4787cbf2ea3b26a67379b7a38ee54519d7fd4be03170a2e7597b7b7e3d84c05391d139a62b157e78786d8c082f29dcf4c11131400" >> $GITHUB_ENV
-          echo "BIN_FILENAME_TESTNET=frequency.testnet.frequency-testnet.pr" >> $GITHUB_ENV
-          echo "BIN_FILENAME_MAINNET=frequency.mainnet.frequency.pr" >> $GITHUB_ENV
+          echo "BIN_FILENAME_TESTNET=recurrency.testnet.recurrency-testnet.pr" >> $GITHUB_ENV
+          echo "BIN_FILENAME_MAINNET=recurrency.mainnet.recurrency.pr" >> $GITHUB_ENV
       - name: Download Binaries
         id: download-binaries
         uses: actions/download-artifact@v4
@@ -719,16 +719,16 @@ jobs:
         run: |
           chmod 755 $BIN_FILENAME_TESTNET
           chmod 755 $BIN_FILENAME_MAINNET
-      - name: Test Frequency Paseo Genesis State
+      - name: Test Recurrency Paseo Genesis State
         working-directory: ${{env.BIN_DIR}}
         run: |
           expected_genesis_state=${{env.EXPECTED_GENESIS_STATE_PASEO}}
           echo "Expected genesis state: $expected_genesis_state"
-          actual_genesis_state=$(./${{env.BIN_FILENAME_TESTNET}} export-genesis-state --chain=frequency-paseo)
+          actual_genesis_state=$(./${{env.BIN_FILENAME_TESTNET}} export-genesis-state --chain=recurrency-paseo)
           echo "Actual genesis state: $actual_genesis_state"
           [ $actual_genesis_state = $expected_genesis_state ] || \
             (echo "ERROR: The actual genesis state does not match the expected" && exit 1)
-      - name: Test Frequency Mainnet Genesis State
+      - name: Test Recurrency Mainnet Genesis State
         working-directory: ${{env.BIN_DIR}}
         run: |
           expected_genesis_state=${{env.EXPECTED_GENESIS_STATE_MAINNET}}

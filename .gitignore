@@ -19,7 +19,7 @@ res/
 
 scratch/
 
-frequency.log
+recurrency.log
 
 scripts/js/onboard/.yarnrc.yml
 scripts/js/onboard/.yarn/cache

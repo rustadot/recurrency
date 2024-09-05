@@ -1,5 +1,5 @@
 // E2E tests for pallets/stateful-pallet-storage/handlePaginated.ts
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import assert from 'assert';
 import {
   createProviderKeysAndId,
@@ -12,7 +12,7 @@ import {
 import { KeyringPair } from '@polkadot/keyring/types';
 import { ExtrinsicHelper } from '../scaffolding/extrinsicHelpers';
 import { AVRO_CHAT_MESSAGE } from './fixtures/itemizedSchemaType';
-import { MessageSourceId, SchemaId } from '@frequency-chain/api-augment/interfaces';
+import { MessageSourceId, SchemaId } from '@rustadot/api-augment/interfaces';
 import { Bytes, u16, u64 } from '@polkadot/types';
 import { getFundingSource } from '../scaffolding/funding';
 
@@ -61,7 +61,7 @@ describe('📗 Stateful Pallet Storage', function () {
       let target_hash = await getCurrentPaginatedHash(msa_id, schemaId, page_id);
 
       // Add and update actions
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
       const paginated_add_result_1 = ExtrinsicHelper.upsertPage(
         providerKeys,
         schemaId,
@@ -143,7 +143,7 @@ describe('📗 Stateful Pallet Storage', function () {
     it('🛑 should fail call to upsert page with invalid schemaId', async function () {
       const page_id = 0;
       const target_hash = await getCurrentPaginatedHash(msa_id, schemaId, page_id);
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
       const fake_schema_id = new u16(ExtrinsicHelper.api.registry, badSchemaId);
       const paginated_add_result_1 = ExtrinsicHelper.upsertPage(
         delegatorKeys,
@@ -162,7 +162,7 @@ describe('📗 Stateful Pallet Storage', function () {
     it('🛑 should fail call to upsert page with invalid schema location', async function () {
       const page_id = 0;
       const target_hash = await getCurrentPaginatedHash(msa_id, schemaId, page_id);
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
       const paginated_add_result_1 = ExtrinsicHelper.upsertPage(
         delegatorKeys,
         schemaId_unsupported,
@@ -179,7 +179,7 @@ describe('📗 Stateful Pallet Storage', function () {
 
     it('🛑 should fail call to upsert page with for un-delegated attempts', async function () {
       const page_id = 0;
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
 
       const target_hash = await getCurrentPaginatedHash(msa_id, schemaId, page_id);
       const paginated_add_result_1 = ExtrinsicHelper.upsertPage(
@@ -198,7 +198,7 @@ describe('📗 Stateful Pallet Storage', function () {
 
     it('🛑 should fail call to upsert page with stale target hash', async function () {
       const page_id = 0;
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
 
       const paginated_add_result_1 = ExtrinsicHelper.upsertPage(providerKeys, schemaId, msa_id, page_id, payload_1, 0);
       await assert.rejects(paginated_add_result_1.signAndSend('current'), {

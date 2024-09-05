@@ -45,7 +45,7 @@ impl From<SchemaRpcError> for i32 {
 	}
 }
 
-/// Frequency Schema Custom RPC API
+/// Recurrency Schema Custom RPC API
 #[rpc(client, server)]
 pub trait SchemasApi<BlockHash> {
 	/// retrieving schema by schema id
@@ -61,7 +61,7 @@ pub trait SchemasApi<BlockHash> {
 	fn get_versions(&self, schema_name: String) -> RpcResult<Option<Vec<SchemaVersionResponse>>>;
 }
 
-/// The client handler for the API used by Frequency Service RPC with `jsonrpsee`
+/// The client handler for the API used by Recurrency Service RPC with `jsonrpsee`
 pub struct SchemasHandler<C, M> {
 	client: Arc<C>,
 	_marker: std::marker::PhantomData<M>,

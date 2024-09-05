@@ -2,17 +2,17 @@
 name = "pallet-handles-rpc"
 version = "0.0.0"
 description = "A package that adds RPC to Handles pallet"
-authors = ["Frequency"]
+authors = ["Recurrency"]
 license = "Apache-2.0"
 publish = false
-homepage = "https://frequency.xyz"
-repository = "https://github.com/frequency-chain/frequency/"
+homepage = "https://recurrency.xyz"
+repository = "https://github.com/rustadot/recurrency/"
 edition = "2021"
 
 [dependencies]
 jsonrpsee = { workspace = true, features = ["client-core", "server", "macros"] }
 rayon = { workspace = true }
-# Frequency crates
+# Recurrency crates
 pallet-handles-runtime-api = { default-features = false, path = "../runtime-api" }
 common-primitives = { default-features = false, path = "../../../../common/primitives" }
 common-helpers = { default-features = false, path = "../../../../common/helpers" }

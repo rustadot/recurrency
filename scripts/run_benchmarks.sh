@@ -28,7 +28,7 @@ ALL_CUSTOM_PALLETS=( \
   handles \
   time-release \
   capacity \
-  frequency-tx-payment \
+  recurrency-tx-payment \
   passkey \
 )
 
@@ -167,7 +167,7 @@ then
   OVERHEAD=overhead
 fi
 
-RUNTIME=${PROJECT}/target/${PROFILE_DIR}/frequency
+RUNTIME=${PROJECT}/target/${PROFILE_DIR}/recurrency
 BENCHMARK="${RUNTIME} benchmark "
 
 echo "Running benchmarks for the following pallets:\
@@ -182,7 +182,7 @@ function run_benchmark() {
   ${BENCHMARK} pallet \
   --pallet=${1} \
   --extrinsic "*" \
-  --chain="frequency-bench" \
+  --chain="recurrency-bench" \
   --heap-pages=4096 \
   --wasm-execution=compiled \
   --steps=${2} \
@@ -198,7 +198,7 @@ function run_benchmark() {
 
 if [[ ${skip_build} == false ]]
 then
-  CMD="cargo build --profile=${PROFILE} --features=runtime-benchmarks,frequency-lint-check --workspace"
+  CMD="cargo build --profile=${PROFILE} --features=runtime-benchmarks,recurrency-lint-check --workspace"
   echo ${CMD}
   ${CMD} || exit_err
 fi
@@ -232,6 +232,6 @@ then
 fi
 
 echo "Running tests..."
-CMD="cargo test --profile=${PROFILE} --features=runtime-benchmarks,frequency-lint-check --workspace"
+CMD="cargo test --profile=${PROFILE} --features=runtime-benchmarks,recurrency-lint-check --workspace"
 echo ${CMD}
 ${CMD} || exit_err

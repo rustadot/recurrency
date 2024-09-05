@@ -28,7 +28,7 @@ use std::sync::Arc;
 #[cfg(test)]
 mod tests;
 
-/// Frequency Stateful Storage Custom RPC API
+/// Recurrency Stateful Storage Custom RPC API
 #[rpc(client, server)]
 pub trait StatefulStorageApi<BlockHash> {
 	/// retrieving pages of stateful storage
@@ -48,7 +48,7 @@ pub trait StatefulStorageApi<BlockHash> {
 	) -> RpcResult<ItemizedStoragePageResponse>;
 }
 
-/// The client handler for the API used by Frequency Service RPC with `jsonrpsee`
+/// The client handler for the API used by Recurrency Service RPC with `jsonrpsee`
 pub struct StatefulStorageHandler<C, M> {
 	client: Arc<C>,
 	_marker: std::marker::PhantomData<M>,

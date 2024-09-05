@@ -26,7 +26,7 @@ The primary motivation for delegation is to support End Users of the DSNP platfo
 Market research makes it clear that End Users are extremely reluctant to pay to use applications, particularly social networks.
 This means there needs to be some way to onboard End Users and relay their activity through the DSNP platform without charging them.
 The use of authorized Delegates enables the creation of End User accounts as well as processing and storing user messages and other data for the End Users, paid for by a Provider, who can recoup these costs by other means (outside the scope of this Design Document).
-The vast majority of this activity will not reside on chain, however, Frequency needs to be able to coordinate the exchange of data, and to securely allow an End User or any other type of account holder to manage their Delegates.
+The vast majority of this activity will not reside on chain, however, Recurrency needs to be able to coordinate the exchange of data, and to securely allow an End User or any other type of account holder to manage their Delegates.
 The delegation is managed by assigning each account, called a Message Source Account or MSA, an ID number, called an MsaId.
 
 ## Goals and Non-Goals
@@ -37,7 +37,7 @@ Put another way, delegation must have the following properties:
 - **Authorizable** - delegations can be authorized with specific permissions by MSAs.
 - **Verifiable** - there is a way to check that Providers are doing things only when authorized and only what they are authorized to do.
 - **Transparent** - delegations can be readable by anyone, in order to maximize opportunities to police Provider actions.
-- **Changeable** - a Delegator can change Provider permissions to give MSAs control over what tasks are permitted to the Provider. https://github.com/frequency-chain/frequency/blob/main/designdocs/provider_permissions.md
+- **Changeable** - a Delegator can change Provider permissions to give MSAs control over what tasks are permitted to the Provider. https://github.com/rustadot/recurrency/blob/main/designdocs/provider_permissions.md
 - **Revocable** - a Delegator can withdraw permissions completely from the Provider.
 
 ### Non-Goals
@@ -208,7 +208,7 @@ Directly adding a provider, with or without a provider's permission, is not to b
 
 ## Glossary
 
-- **Provider**: An MSA that has been granted specific permissions by its Delegator. A company or individual operating an on-chain Provider MSA in order to post Frequency transactions on behalf of other MSAs.
+- **Provider**: An MSA that has been granted specific permissions by its Delegator. A company or individual operating an on-chain Provider MSA in order to post Recurrency transactions on behalf of other MSAs.
 - **Delegator**: An MSA that has granted specific permissions to a Provider.
 - **MSA**: Message Source Account. A collection of key pairs which can have a specific token balance.
 - **Public Key**: A 32-byte (u256) number that is used to refer to an on-chain MSA and verify signatures. It is one of the keys of an MSA key pair

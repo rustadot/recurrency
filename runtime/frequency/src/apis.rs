@@ -19,7 +19,7 @@ use super::{
 	AccountId, Balance, Block, Executive, InherentDataExt, Runtime, RuntimeCall,
 	RuntimeGenesisConfig, SessionKeys, System, TransactionPayment, VERSION,
 };
-use crate::{FrequencyTxPayment, Handles, Messages, Msa, Schemas, StatefulStorage};
+use crate::{RecurrencyTxPayment, Handles, Messages, Msa, Schemas, StatefulStorage};
 
 use common_primitives::{
 	handles::{BaseHandle, DisplayHandle, HandleResponse, PresumptiveSuffixesResponse},
@@ -34,7 +34,7 @@ use common_primitives::{
 	stateful_storage::{ItemizedStoragePageResponse, PaginatedStorageResponse},
 };
 
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 use super::{ConsensusHook, ParachainSystem};
 
 #[cfg(feature = "try-runtime")]
@@ -56,7 +56,7 @@ impl_runtime_apis! {
 		}
 	}
 
-	#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+	#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 	impl cumulus_primitives_aura::AuraUnincludedSegmentApi<Block> for Runtime {
 		fn can_build_upon(
 			included_hash: <Block as BlockT>::Hash,
@@ -184,7 +184,7 @@ impl_runtime_apis! {
 		}
 	}
 
-	impl pallet_frequency_tx_payment_runtime_api::CapacityTransactionPaymentRuntimeApi<Block, Balance> for Runtime {
+	impl pallet_recurrency_tx_payment_runtime_api::CapacityTransactionPaymentRuntimeApi<Block, Balance> for Runtime {
 		fn compute_capacity_fee(
 			uxt: <Block as BlockT>::Extrinsic,
 			len: u32,
@@ -193,26 +193,26 @@ impl_runtime_apis! {
 			// if the call is wrapped in a batch, we need to get the weight of the outer call
 			// and use that to compute the fee with the inner call's stable weight(s)
 			let dispatch_weight = match &uxt.function {
-				RuntimeCall::FrequencyTxPayment(pallet_frequency_tx_payment::Call::pay_with_capacity { .. }) |
-				RuntimeCall::FrequencyTxPayment(pallet_frequency_tx_payment::Call::pay_with_capacity_batch_all { .. }) => {
+				RuntimeCall::RecurrencyTxPayment(pallet_recurrency_tx_payment::Call::pay_with_capacity { .. }) |
+				RuntimeCall::RecurrencyTxPayment(pallet_recurrency_tx_payment::Call::pay_with_capacity_batch_all { .. }) => {
 					<<Block as BlockT>::Extrinsic as GetDispatchInfo>::get_dispatch_info(&uxt).weight
 				},
 				_ => {
 					Weight::zero()
 				}
 			};
-			FrequencyTxPayment::compute_capacity_fee_details(&uxt.function, &dispatch_weight, len)
+			RecurrencyTxPayment::compute_capacity_fee_details(&uxt.function, &dispatch_weight, len)
 		}
 	}
 
-	#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+	#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 	impl cumulus_primitives_core::CollectCollationInfo<Block> for Runtime {
 		fn collect_collation_info(header: &<Block as BlockT>::Header) -> cumulus_primitives_core::CollationInfo {
 			ParachainSystem::collect_collation_info(header)
 		}
 	}
 
-	// Frequency runtime APIs
+	// Recurrency runtime APIs
 	impl pallet_messages_runtime_api::MessagesRuntimeApi<Block> for Runtime {
 		fn get_messages_by_schema_and_block(schema_id: SchemaId, schema_payload_location: PayloadLocation, block_number: BlockNumber,) ->
 			Vec<MessageResponse> {
@@ -296,7 +296,7 @@ impl_runtime_apis! {
 	#[cfg(feature = "try-runtime")]
 	impl frame_try_runtime::TryRuntime<Block> for Runtime {
 		fn on_runtime_upgrade(checks: UpgradeCheckSelect) -> (Weight, Weight) {
-			log::info!("try-runtime::on_runtime_upgrade frequency.");
+			log::info!("try-runtime::on_runtime_upgrade recurrency.");
 			let weight = Executive::try_runtime_upgrade(checks).unwrap();
 			(weight, RuntimeBlockWeights::get().max_block)
 		}
@@ -307,7 +307,7 @@ impl_runtime_apis! {
 						try_state: TryStateSelect,
 		) -> Weight {
 			log::info!(
-				target: "runtime::frequency", "try-runtime: executing block #{} ({:?}) / root checks: {:?} / sanity-checks: {:?}",
+				target: "runtime::recurrency", "try-runtime: executing block #{} ({:?}) / root checks: {:?} / sanity-checks: {:?}",
 				block.header.number,
 				block.header.hash(),
 				state_root_check,

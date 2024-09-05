@@ -3615,16 +3615,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "frequency"
+name = "recurrency"
 version = "0.0.0"
 dependencies = [
- "frequency-cli",
- "frequency-service",
+ "recurrency-cli",
+ "recurrency-service",
  "substrate-build-script-utils",
 ]
 
 [[package]]
-name = "frequency-cli"
+name = "recurrency-cli"
 version = "0.0.0"
 dependencies = [
  "clap",
@@ -3642,13 +3642,13 @@ dependencies = [
  "frame-metadata-hash-extension",
  "frame-support",
  "frame-system",
- "frequency-runtime",
- "frequency-service",
+ "recurrency-runtime",
+ "recurrency-service",
  "futures",
  "hex-literal",
  "log",
  "pallet-balances",
- "pallet-frequency-tx-payment",
+ "pallet-recurrency-tx-payment",
  "pallet-handles",
  "pallet-msa",
  "pallet-stateful-storage",
@@ -3677,7 +3677,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "frequency-runtime"
+name = "recurrency-runtime"
 version = "0.0.0"
 dependencies = [
  "common-primitives",
@@ -3706,8 +3706,8 @@ dependencies = [
  "pallet-collator-selection",
  "pallet-collective",
  "pallet-democracy",
- "pallet-frequency-tx-payment",
- "pallet-frequency-tx-payment-runtime-api",
+ "pallet-recurrency-tx-payment",
+ "pallet-recurrency-tx-payment-runtime-api",
  "pallet-handles",
  "pallet-handles-runtime-api",
  "pallet-messages",
@@ -3756,7 +3756,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "frequency-service"
+name = "recurrency-service"
 version = "0.0.0"
 dependencies = [
  "clap",
@@ -3780,14 +3780,14 @@ dependencies = [
  "frame-benchmarking",
  "frame-benchmarking-cli",
  "frame-system",
- "frequency-runtime",
+ "recurrency-runtime",
  "futures",
  "hex",
  "hex-literal",
  "jsonrpsee",
  "log",
- "pallet-frequency-tx-payment-rpc",
- "pallet-frequency-tx-payment-runtime-api",
+ "pallet-recurrency-tx-payment-rpc",
+ "pallet-recurrency-tx-payment-runtime-api",
  "pallet-handles-rpc",
  "pallet-handles-runtime-api",
  "pallet-messages-rpc",
@@ -6986,7 +6986,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pallet-frequency-tx-payment"
+name = "pallet-recurrency-tx-payment"
 version = "0.0.0"
 dependencies = [
  "common-primitives",
@@ -7009,13 +7009,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "pallet-frequency-tx-payment-rpc"
+name = "pallet-recurrency-tx-payment-rpc"
 version = "0.0.0"
 dependencies = [
  "common-helpers",
  "common-primitives",
  "jsonrpsee",
- "pallet-frequency-tx-payment-runtime-api",
+ "pallet-recurrency-tx-payment-runtime-api",
  "parity-scale-codec",
  "rayon",
  "sc-client-api",
@@ -7030,7 +7030,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pallet-frequency-tx-payment-runtime-api"
+name = "pallet-recurrency-tx-payment-runtime-api"
 version = "0.0.0"
 dependencies = [
  "common-primitives",

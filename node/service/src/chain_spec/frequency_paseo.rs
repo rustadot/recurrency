@@ -1,10 +1,10 @@
 #![allow(missing_docs)]
 use common_primitives::node::AccountId;
 use common_runtime::constants::{
-	currency::EXISTENTIAL_DEPOSIT, FREQUENCY_LOCAL_TOKEN, TOKEN_DECIMALS,
+	currency::EXISTENTIAL_DEPOSIT, RECURRENCY_LOCAL_TOKEN, TOKEN_DECIMALS,
 };
 use cumulus_primitives_core::ParaId;
-use frequency_runtime::{AuraId, CouncilConfig, Ss58Prefix, SudoConfig, TechnicalCommitteeConfig};
+use recurrency_runtime::{AuraId, CouncilConfig, Ss58Prefix, SudoConfig, TechnicalCommitteeConfig};
 use polkadot_service::chain_spec::Extensions as RelayChainExtensions;
 use sc_service::ChainType;
 use sp_runtime::traits::AccountIdConversion;
@@ -19,10 +19,10 @@ use sp_core::sr25519;
 pub type RelayChainSpec = sc_service::GenericChainSpec<RelayChainExtensions>;
 
 #[allow(clippy::unwrap_used)]
-/// Generates the Frequency Paseo chain spec from the raw json
-pub fn load_frequency_paseo_spec() -> ChainSpec {
+/// Generates the Recurrency Paseo chain spec from the raw json
+pub fn load_recurrency_paseo_spec() -> ChainSpec {
 	ChainSpec::from_json_bytes(
-		&include_bytes!("../../../../resources/frequency-paseo.raw.json")[..],
+		&include_bytes!("../../../../resources/recurrency-paseo.raw.json")[..],
 	)
 	.unwrap()
 }
@@ -46,25 +46,25 @@ pub fn load_paseo_local_spec() -> RelayChainSpec {
 /// Generate the session keys from individual elements.
 ///
 /// The input must be a tuple of individual keys (a single arg for now since we have just one key).
-fn template_session_keys(keys: AuraId) -> frequency_runtime::SessionKeys {
-	frequency_runtime::SessionKeys { aura: keys }
+fn template_session_keys(keys: AuraId) -> recurrency_runtime::SessionKeys {
+	recurrency_runtime::SessionKeys { aura: keys }
 }
 
 /// Generates the chain spec for a local testnet
 pub fn local_paseo_testnet_config() -> ChainSpec {
 	// Give your base currency a unit name and decimal places
 	let properties =
-		get_properties(FREQUENCY_LOCAL_TOKEN, TOKEN_DECIMALS as u32, Ss58Prefix::get().into());
+		get_properties(RECURRENCY_LOCAL_TOKEN, TOKEN_DECIMALS as u32, Ss58Prefix::get().into());
 
 	ChainSpec::builder(
-		frequency_runtime::wasm_binary_unwrap(),
+		recurrency_runtime::wasm_binary_unwrap(),
 		Extensions {
 			relay_chain: "paseo-local".into(), // You MUST set this to the correct network!
 			para_id: 2000,
 		},
 	)
-	.with_name("Frequency Local Testnet")
-	.with_protocol_id("frequency-paseo-local")
+	.with_name("Recurrency Local Testnet")
+	.with_protocol_id("recurrency-paseo-local")
 	.with_properties(properties)
 	.with_chain_type(ChainType::Local)
 	.with_genesis_config(testnet_genesis(
@@ -123,21 +123,21 @@ fn testnet_genesis(
 	technical_committee_members: Vec<AccountId>,
 	id: ParaId,
 ) -> serde_json::Value {
-	let genesis = frequency_runtime::RuntimeGenesisConfig {
-		system: frequency_runtime::SystemConfig { ..Default::default() },
-		balances: frequency_runtime::BalancesConfig {
+	let genesis = recurrency_runtime::RuntimeGenesisConfig {
+		system: recurrency_runtime::SystemConfig { ..Default::default() },
+		balances: recurrency_runtime::BalancesConfig {
 			balances: endowed_accounts.iter().cloned().map(|k| (k, 1 << 60)).collect(),
 		},
-		parachain_info: frequency_runtime::ParachainInfoConfig {
+		parachain_info: recurrency_runtime::ParachainInfoConfig {
 			parachain_id: id,
 			..Default::default()
 		},
-		collator_selection: frequency_runtime::CollatorSelectionConfig {
+		collator_selection: recurrency_runtime::CollatorSelectionConfig {
 			invulnerables: invulnerables.iter().cloned().map(|(acc, _)| acc).collect(),
 			candidacy_bond: EXISTENTIAL_DEPOSIT * 16,
 			..Default::default()
 		},
-		session: frequency_runtime::SessionConfig {
+		session: recurrency_runtime::SessionConfig {
 			keys: invulnerables
 				.into_iter()
 				.map(|(acc, aura)| {
@@ -153,7 +153,7 @@ fn testnet_genesis(
 		// of this.
 		aura: Default::default(),
 		aura_ext: Default::default(),
-		#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+		#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 		parachain_system: Default::default(),
 		sudo: SudoConfig {
 			// Assign network admin rights.

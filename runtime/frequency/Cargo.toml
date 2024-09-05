@@ -1,11 +1,11 @@
 [package]
-authors = ["Frequency"]
-description = "Runtime for Frequency mainnet"
+authors = ["Recurrency"]
+description = "Runtime for Recurrency mainnet"
 edition = "2021"
-homepage = "https://frequency.xyz"
+homepage = "https://recurrency.xyz"
 license = "Apache-2.0"
-name = "frequency-runtime"
-repository = "https://github.com/frequency-chain/frequency/"
+name = "recurrency-runtime"
+repository = "https://github.com/rustadot/recurrency/"
 version = "0.0.0"
 
 [package.metadata.docs.rs]
@@ -65,12 +65,12 @@ sp-transaction-pool = { workspace = true }
 sp-version = { workspace = true }
 # Ported Pallet from ORML
 pallet-time-release = { path = "../../pallets/time-release", default-features = false }
-# Frequency
+# Recurrency
 common-primitives = { default-features = false, path = "../../common/primitives" }
 common-runtime = { path = "../common", default-features = false }
 pallet-capacity = { path = "../../pallets/capacity", default-features = false }
-pallet-frequency-tx-payment = { path = "../../pallets/frequency-tx-payment", default-features = false }
-pallet-frequency-tx-payment-runtime-api = { path = "../../pallets/frequency-tx-payment/src/runtime-api", default-features = false }
+pallet-recurrency-tx-payment = { path = "../../pallets/recurrency-tx-payment", default-features = false }
+pallet-recurrency-tx-payment-runtime-api = { path = "../../pallets/recurrency-tx-payment/src/runtime-api", default-features = false }
 pallet-messages = { path = "../../pallets/messages", default-features = false }
 pallet-messages-runtime-api = { path = "../../pallets/messages/src/runtime-api", default-features = false }
 pallet-msa = { path = "../../pallets/msa", default-features = false }
@@ -119,8 +119,8 @@ std = [
   "pallet-collator-selection/std",
   "pallet-collective/std",
   "pallet-democracy/std",
-  "pallet-frequency-tx-payment-runtime-api/std",
-  "pallet-frequency-tx-payment/std",
+  "pallet-recurrency-tx-payment-runtime-api/std",
+  "pallet-recurrency-tx-payment/std",
   "pallet-handles-runtime-api/std",
   "pallet-handles/std",
   "pallet-passkey/std",
@@ -183,7 +183,7 @@ runtime-benchmarks = [
   "pallet-collator-selection/runtime-benchmarks",
   "pallet-collective/runtime-benchmarks",
   "pallet-democracy/runtime-benchmarks",
-  "pallet-frequency-tx-payment/runtime-benchmarks",
+  "pallet-recurrency-tx-payment/runtime-benchmarks",
   "pallet-handles/runtime-benchmarks",
   "pallet-passkey/runtime-benchmarks",
   "pallet-messages/runtime-benchmarks",
@@ -216,7 +216,7 @@ try-runtime = [
   "pallet-collator-selection/try-runtime",
   "pallet-collective/try-runtime",
   "pallet-democracy/try-runtime",
-  "pallet-frequency-tx-payment/try-runtime",
+  "pallet-recurrency-tx-payment/try-runtime",
   "pallet-handles/try-runtime",
   "pallet-passkey/try-runtime",
   "pallet-messages/try-runtime",
@@ -238,10 +238,10 @@ try-runtime = [
   "common-runtime/try-runtime",
   "sp-runtime/try-runtime",
 ]
-frequency = ["common-runtime/frequency"]
-frequency-testnet = ["common-runtime/frequency-testnet"]
-frequency-local = ["common-runtime/frequency-local"]
-frequency-no-relay = ["common-runtime/frequency-no-relay"]
+recurrency = ["common-runtime/recurrency"]
+recurrency-testnet = ["common-runtime/recurrency-testnet"]
+recurrency-local = ["common-runtime/recurrency-local"]
+recurrency-no-relay = ["common-runtime/recurrency-no-relay"]
 # Following features are used in generating lean wasms
 no-metadata-docs = ["frame-support/no-metadata-docs"]
 on-chain-release-build = ["metadata-hash", "sp-api/disable-logging"]
@@ -254,6 +254,6 @@ on-chain-release-build = ["metadata-hash", "sp-api/disable-logging"]
 # `RUNTIME_METADATA_HASH` environment variable set for the `CheckMetadataHash`
 # extension.
 metadata-hash = ["substrate-wasm-builder/metadata-hash"]
-frequency-lint-check = []
+recurrency-lint-check = []
 test = []
 parameterized-consensus-hook = []

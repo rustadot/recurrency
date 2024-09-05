@@ -7,9 +7,9 @@ all: build
 clean:
 	cargo clean
 
-.PHONY: start start-frequency start-frequency-docker start-manual start-interval start-interval-short start-with-offchain start-frequency-with-offchain start-manual-with-offchain start-interval-with-offchain
+.PHONY: start start-recurrency start-recurrency-docker start-manual start-interval start-interval-short start-with-offchain start-recurrency-with-offchain start-manual-with-offchain start-interval-with-offchain
 start:
-	./scripts/init.sh start-frequency-instant
+	./scripts/init.sh start-recurrency-instant
 
 start-paseo-relay:
 	./scripts/init.sh start-paseo-relay-chain
@@ -21,42 +21,42 @@ start-paseo-collator-alice:
 start-paseo-collator-bob:
 	./scripts/init.sh start-paseo-collator-bob
 
-start-frequency:
-	./scripts/init.sh start-frequency
+start-recurrency:
+	./scripts/init.sh start-recurrency
 
-start-frequency-docker:
-	./scripts/init.sh start-frequency-docker
+start-recurrency-docker:
+	./scripts/init.sh start-recurrency-docker
 
 start-manual:
-	./scripts/init.sh start-frequency-manual
+	./scripts/init.sh start-recurrency-manual
 
 start-interval:
-	./scripts/init.sh start-frequency-interval
+	./scripts/init.sh start-recurrency-interval
 
 start-interval-short:
-	./scripts/init.sh start-frequency-interval 0 1
+	./scripts/init.sh start-recurrency-interval 0 1
 
 start-with-offchain:
-	./scripts/init.sh start-frequency-instant with-offchain
+	./scripts/init.sh start-recurrency-instant with-offchain
 
-start-frequency-with-offchain:
-	./scripts/init.sh start-frequency with-offchain
+start-recurrency-with-offchain:
+	./scripts/init.sh start-recurrency with-offchain
 
 start-manual-with-offchain:
-	./scripts/init.sh start-frequency-manual with-offchain
+	./scripts/init.sh start-recurrency-manual with-offchain
 
 start-interval-with-offchain:
-	./scripts/init.sh start-frequency-interval with-offchain
+	./scripts/init.sh start-recurrency-interval with-offchain
 
-.PHONY: stop stop-relay stop-frequency-docker
+.PHONY: stop stop-relay stop-recurrency-docker
 stop-relay:
 	./scripts/init.sh stop-relay-chain
 
 stop-paseo-relay:
 	./scripts/init.sh stop-paseo-relay-chain
 
-stop-frequency-docker:
-	./scripts/init.sh stop-frequency-docker
+stop-recurrency-docker:
+	./scripts/init.sh stop-recurrency-docker
 
 .PHONY: local-block
 local-block:
@@ -69,15 +69,15 @@ local-block:
 
 .PHONY: register
 register:
-	./scripts/init.sh register-frequency-paseo-local
+	./scripts/init.sh register-recurrency-paseo-local
 
 .PHONY: onboard
 onboard:
-	./scripts/init.sh onboard-frequency-paseo-local
+	./scripts/init.sh onboard-recurrency-paseo-local
 
 .PHONY: offboard
 offboard:
-	./scripts/init.sh offboard-frequency-paseo-local
+	./scripts/init.sh offboard-recurrency-paseo-local
 
 .PHONY: specs-testnet-2000 specs-paseo-local
 specs-testnet-2000:
@@ -93,8 +93,8 @@ format:
 .PHONY: lint lint-audit
 lint:
 	cargo +nightly-2024-08-01 fmt --check
-	SKIP_WASM_BUILD=1 env -u RUSTFLAGS cargo clippy --features runtime-benchmarks,frequency-lint-check -- -D warnings
-	RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="--enable-index-page --check -Zunstable-options" cargo doc --no-deps --features frequency
+	SKIP_WASM_BUILD=1 env -u RUSTFLAGS cargo clippy --features runtime-benchmarks,recurrency-lint-check -- -D warnings
+	RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="--enable-index-page --check -Zunstable-options" cargo doc --no-deps --features recurrency
 
 lint-audit:
 	cargo deny check -c deny.toml
@@ -107,10 +107,10 @@ ci-local: check lint lint-audit test js e2e-tests
 
 .PHONY: upgrade-local upgrade-no-relay
 upgrade-local:
-	./scripts/init.sh upgrade-frequency-paseo-local
+	./scripts/init.sh upgrade-recurrency-paseo-local
 
 upgrade-no-relay:
-	./scripts/init.sh upgrade-frequency-no-relay
+	./scripts/init.sh upgrade-recurrency-no-relay
 
 
 #
@@ -123,7 +123,7 @@ upgrade-no-relay:
 BENCH_TARGETS=\
 benchmarks-messages \
 benchmarks-msa \
-benchmarks-frequency-tx-payment \
+benchmarks-recurrency-tx-payment \
 benchmarks-overhead \
 benchmarks-schemas \
 benchmarks-stateful-storage \
@@ -147,7 +147,7 @@ benchmarks-messages-local \
 benchmarks-msa-local \
 benchmarks-overhead-local \
 benchmarks-schemas-local \
-benchmarks-frequency-tx-payment-local \
+benchmarks-recurrency-tx-payment-local \
 benchmarks-stateful-storage-local \
 benchmarks-handles-local \
 benchmarks-passkey-local \
@@ -203,7 +203,7 @@ benchmarks-capacity:
 
 .PHONY: docs
 docs:
-	RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo doc --no-deps --workspace --features frequency
+	RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo doc --no-deps --workspace --features recurrency
 
 # Cleans unused docker resources and artifacts
 .PHONY: docs
@@ -212,19 +212,19 @@ docker-prune:
 
 .PHONY: check check-no-relay check-local check-testnet check-mainnet
 check:
-	SKIP_WASM_BUILD= cargo check --features runtime-benchmarks,frequency-lint-check
+	SKIP_WASM_BUILD= cargo check --features runtime-benchmarks,recurrency-lint-check
 
 check-no-relay:
-	SKIP_WASM_BUILD= cargo check --features frequency-no-relay
+	SKIP_WASM_BUILD= cargo check --features recurrency-no-relay
 
 check-local:
-	SKIP_WASM_BUILD= cargo check --features frequency-paseo-local
+	SKIP_WASM_BUILD= cargo check --features recurrency-paseo-local
 
 check-testnet:
-	SKIP_WASM_BUILD= cargo check --features frequency-testnet
+	SKIP_WASM_BUILD= cargo check --features recurrency-testnet
 
 check-mainnet:
-	SKIP_WASM_BUILD= cargo check --features frequency
+	SKIP_WASM_BUILD= cargo check --features recurrency
 
 .PHONY: js
 js:
@@ -232,32 +232,32 @@ js:
 
 .PHONY: build build-benchmarks build-no-relay build-local build-testnet build-mainnet build-testnet-release build-mainnet-release
 build:
-	cargo build --features frequency-no-relay
+	cargo build --features recurrency-no-relay
 
 build-benchmarks:
-	cargo build --release --features runtime-benchmarks,frequency-lint-check --workspace
+	cargo build --release --features runtime-benchmarks,recurrency-lint-check --workspace
 
 build-no-relay:
-	cargo build --features frequency-no-relay
+	cargo build --features recurrency-no-relay
 
 build-local:
-	cargo build --features frequency-local
+	cargo build --features recurrency-local
 
 build-testnet:
-	cargo build --features frequency-testnet
+	cargo build --features recurrency-testnet
 
 build-mainnet:
-	cargo build --features frequency
+	cargo build --features recurrency
 
 build-testnet-release:
-	cargo build --locked --features frequency-testnet --release
+	cargo build --locked --features recurrency-testnet --release
 
 build-mainnet-release:
-	cargo build --locked --features  frequency --release
+	cargo build --locked --features  recurrency --release
 
 .PHONY: test e2e-tests e2e-tests-serial e2e-tests-only e2e-tests-load e2e-tests-load-only e2e-tests-testnet-paseo e2e-tests-paseo-local
 test:
-	cargo test --workspace --features runtime-benchmarks,frequency-lint-check
+	cargo test --workspace --features runtime-benchmarks,recurrency-lint-check
 
 e2e-tests:
 	./scripts/run_e2e_tests.sh
@@ -290,27 +290,27 @@ try-runtime-create-snapshot-paseo-testnet: check-try-runtime-installed
 
 # mainnet snapshot takes as many as 24 hours to complete
 try-runtime-create-snapshot-mainnet: check-try-runtime-installed
-	try-runtime create-snapshot --uri wss://1.rpc.frequency.xyz:443 mainnet-all-pallets.state
+	try-runtime create-snapshot --uri wss://1.rpc.recurrency.xyz:443 mainnet-all-pallets.state
 
 try-runtime-upgrade-paseo-testnet: check-try-runtime-installed
-	cargo build --release --features frequency-testnet,try-runtime && \
-	try-runtime --runtime ./target/release/wbuild/frequency-runtime/frequency_runtime.wasm on-runtime-upgrade live --uri wss://0.rpc.testnet.amplica.io:443
+	cargo build --release --features recurrency-testnet,try-runtime && \
+	try-runtime --runtime ./target/release/wbuild/recurrency-runtime/recurrency_runtime.wasm on-runtime-upgrade live --uri wss://0.rpc.testnet.amplica.io:443
 
 try-runtime-upgrade-mainnet: check-try-runtime-installed
-	cargo build --release --features frequency,try-runtime && \
-	try-runtime --runtime ./target/release/wbuild/frequency-runtime/frequency_runtime.wasm on-runtime-upgrade live --uri wss://1.rpc.frequency.xyz:443
+	cargo build --release --features recurrency,try-runtime && \
+	try-runtime --runtime ./target/release/wbuild/recurrency-runtime/recurrency_runtime.wasm on-runtime-upgrade live --uri wss://1.rpc.recurrency.xyz:443
 
 try-runtime-use-snapshot-paseo-testnet: check-try-runtime-installed
-	cargo build --release --features frequency-testnet,try-runtime && \
-	try-runtime --runtime ./target/release/wbuild/frequency-runtime/frequency_runtime.wasm on-runtime-upgrade snap --path testnet-paseo-all-pallets.state
+	cargo build --release --features recurrency-testnet,try-runtime && \
+	try-runtime --runtime ./target/release/wbuild/recurrency-runtime/recurrency_runtime.wasm on-runtime-upgrade snap --path testnet-paseo-all-pallets.state
 
 try-runtime-use-snapshot-mainnet: check-try-runtime-installed
-	cargo build --release --features frequency,try-runtime && \
-	try-runtime --runtime ./target/release/wbuild/frequency-runtime/frequency_runtime.wasm on-runtime-upgrade snap --path mainnet-all-pallets.state
+	cargo build --release --features recurrency,try-runtime && \
+	try-runtime --runtime ./target/release/wbuild/recurrency-runtime/recurrency_runtime.wasm on-runtime-upgrade snap --path mainnet-all-pallets.state
 
 try-runtime-check-migrations-paseo-testnet: check-try-runtime-installed
-	cargo build --release --features frequency-testnet,try-runtime -q --locked && \
-	try-runtime --runtime ./target/release/wbuild/frequency-runtime/frequency_runtime.wasm on-runtime-upgrade --checks="pre-and-post" --disable-spec-version-check --no-weight-warnings live --uri wss://0.rpc.testnet.amplica.io:443
+	cargo build --release --features recurrency-testnet,try-runtime -q --locked && \
+	try-runtime --runtime ./target/release/wbuild/recurrency-runtime/recurrency_runtime.wasm on-runtime-upgrade --checks="pre-and-post" --disable-spec-version-check --no-weight-warnings live --uri wss://0.rpc.testnet.amplica.io:443
 # Pull the Polkadot version from the polkadot-cli package in the Cargo.lock file.
 # This will break if the lock file format changes
 POLKADOT_VERSION=$(shell grep -o 'release-polkadot-v[0-9.]*' Cargo.toml | sed 's/release-polkadot-v//' | head -n 1)

@@ -1,11 +1,11 @@
 [package]
-authors = ["Frequency"]
-description = "Substrate CLI options for Frequency node"
+authors = ["Recurrency"]
+description = "Substrate CLI options for Recurrency node"
 edition = "2021"
-homepage = "https://frequency.xyz/"
+homepage = "https://recurrency.xyz/"
 license = "Apache-2.0"
 name = "cli-opt"
-repository = "https://github.com/frequency-chain/frequency/"
+repository = "https://github.com/rustadot/recurrency/"
 version = "0.0.0"
 
 [dependencies]

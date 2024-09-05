@@ -38,12 +38,12 @@ The Messages pallet provides for:
 
 | Name/Description                                                                         | Caller   | Payment            | Key Events                                                                                                                        | Runtime Added |
 | ---------------------------------------------------------------------------------------- | -------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `add_ipfs_message`<br />Add a message to a Schema with an `IPFS` payload location        | Provider | Capacity or Tokens | [`MessagesInBlock`](https://frequency-chain.github.io/frequency/pallet_messages/pallet/enum.Event.html#variant.MessagesInBlock)\* | 1             |
-| `add_onchain_message`<br />Add a message to a Schema with an `ON_CHAIN` payload location | Provider | Capacity or Tokens | [`MessagesInBlock`](https://frequency-chain.github.io/frequency/pallet_messages/pallet/enum.Event.html#variant.MessagesInBlock)\* | 1             |
+| `add_ipfs_message`<br />Add a message to a Schema with an `IPFS` payload location        | Provider | Capacity or Tokens | [`MessagesInBlock`](https://rustadot.github.io/recurrency/pallet_messages/pallet/enum.Event.html#variant.MessagesInBlock)\* | 1             |
+| `add_onchain_message`<br />Add a message to a Schema with an `ON_CHAIN` payload location | Provider | Capacity or Tokens | [`MessagesInBlock`](https://rustadot.github.io/recurrency/pallet_messages/pallet/enum.Event.html#variant.MessagesInBlock)\* | 1             |
 
 \* The `MessagesInBlock` may not occur more than once per block and does _not_ indicate which schema received messages.
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_messages/pallet/struct.Pallet.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_messages/pallet/struct.Pallet.html) for more details.
 
 ### State Queries
 
@@ -52,7 +52,7 @@ See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_messages/pall
 | Get Messages v2 | _Suggested_: Use RPC instead of this storage directly. Storage for the messages by Block number, Schema Id, and Message Index | `messagesV2` | 61            |
 | Get Messages v1 | Removed in Runtime 60                                                                                                         | `messages`   | 1-60          |
 
-See the [Rust Docs](https://frequency-chain.github.io/frequency/pallet_messages/pallet/storage_types/index.html) for additional state queries and details.
+See the [Rust Docs](https://rustadot.github.io/recurrency/pallet_messages/pallet/storage_types/index.html) for additional state queries and details.
 
 ### RPCs
 
@@ -60,6 +60,6 @@ Note: May be restricted based on node settings and configuration.
 
 | Name                      | Description                                                                                      | Call                                                                                                                                               | Node Version |
 | ------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Get Messages by Schema Id | Fetch paginated messages for a specific Schema Id in the given block range for a given Schema Id | [`getBySchemaId`](https://frequency-chain.github.io/frequency/pallet_messages_rpc/trait.MessagesApiServer.html#tymethod.get_messages_by_schema_id) | v1.0.0+      |
+| Get Messages by Schema Id | Fetch paginated messages for a specific Schema Id in the given block range for a given Schema Id | [`getBySchemaId`](https://rustadot.github.io/recurrency/pallet_messages_rpc/trait.MessagesApiServer.html#tymethod.get_messages_by_schema_id) | v1.0.0+      |
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_messages_rpc/trait.MessagesApiServer.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_messages_rpc/trait.MessagesApiServer.html) for more details.

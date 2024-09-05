@@ -1,6 +1,6 @@
-// This file is part of Frequency.
+// This file is part of Recurrency.
 
-// Copyright (C) Frequency Network Foundation.
+// Copyright (C) Recurrency Network Foundation.
 // SPDX-License-Identifier: Apache-2.0
 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,13 +19,13 @@
 //! DATE: 2024-09-04 (Y/M/D)
 //! HOSTNAME: `ip-10-173-10-33`, CPU: `Intel(R) Xeon(R) Platinum 8375C CPU @ 2.90GHz`
 //!
-//! SHORT-NAME: `extrinsic`, LONG-NAME: `ExtrinsicBase`, RUNTIME: `Frequency Development (No Relay)`
+//! SHORT-NAME: `extrinsic`, LONG-NAME: `ExtrinsicBase`, RUNTIME: `Recurrency Development (No Relay)`
 //! WARMUPS: `10`, REPEAT: `100`
 //! WEIGHT-PATH: `runtime/common/src/weights`
 //! WEIGHT-METRIC: `Average`, WEIGHT-MUL: `1.0`, WEIGHT-ADD: `0`
 
 // Executed Command:
-//   ./scripts/../target/release/frequency
+//   ./scripts/../target/release/recurrency
 //   benchmark
 //   overhead
 //   --wasm-execution=compiled

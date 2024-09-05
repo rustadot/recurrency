@@ -43,14 +43,14 @@ The Stateful Storage pallet provides for:
 
 | Name/Description                 | Caller        | Payment | Key Events                                                                                                    | Runtime Added |
 | -------------------------------- | ------------- | ------- | ------------------------------------------------------------------------------------------------------------- | ------------- |
-| `apply_item_actions`<br />Applies a set of actions to an itemized storage array | Provider or MSA Owner | Capacity or Tokens  | [`ItemizedPageUpdated`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.ItemizedPageUpdated)<br />[`ItemizedPageDeleted`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.ItemizedPageDeleted) | 22             |
-| `apply_item_actions_with_signature_v2`<br />Applies a set of actions to an itemized storage array  with a signature authorization | Provider or MSA Owner | Capacity or Tokens  | [`ItemizedPageUpdated`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.ItemizedPageUpdated)<br />[`ItemizedPageDeleted`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.ItemizedPageDeleted) | 45             |
-| `upsert_page`<br />Sets the data for a specific page index | Provider or MSA Owner | Capacity or Tokens  | [`PaginatedPageUpdated`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.PaginatedPageUpdated) | 22             |
-| `delete_page`<br />Deletes a specific page index | Provider or MSA Owner | Capacity or Tokens  | [`PaginatedPageDeleted`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.PaginatedPageDeleted)| 22             |
-| `upsert_page_with_signature_v2`<br />Sets the data for a specific page index with a signature authorization | Provider or MSA Owner | Capacity or Tokens  | [`PaginatedPageUpdated`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.PaginatedPageUpdated) | 46             |
-| `delete_page_with_signature_v2`<br />Deletes a specific page index with a signature authorization | Provider or MSA Owner | Capacity or Tokens  | [`PaginatedPageDeleted`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.PaginatedPageDeleted)| 46             |
+| `apply_item_actions`<br />Applies a set of actions to an itemized storage array | Provider or MSA Owner | Capacity or Tokens  | [`ItemizedPageUpdated`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.ItemizedPageUpdated)<br />[`ItemizedPageDeleted`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.ItemizedPageDeleted) | 22             |
+| `apply_item_actions_with_signature_v2`<br />Applies a set of actions to an itemized storage array  with a signature authorization | Provider or MSA Owner | Capacity or Tokens  | [`ItemizedPageUpdated`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.ItemizedPageUpdated)<br />[`ItemizedPageDeleted`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.ItemizedPageDeleted) | 45             |
+| `upsert_page`<br />Sets the data for a specific page index | Provider or MSA Owner | Capacity or Tokens  | [`PaginatedPageUpdated`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.PaginatedPageUpdated) | 22             |
+| `delete_page`<br />Deletes a specific page index | Provider or MSA Owner | Capacity or Tokens  | [`PaginatedPageDeleted`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.PaginatedPageDeleted)| 22             |
+| `upsert_page_with_signature_v2`<br />Sets the data for a specific page index with a signature authorization | Provider or MSA Owner | Capacity or Tokens  | [`PaginatedPageUpdated`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.PaginatedPageUpdated) | 46             |
+| `delete_page_with_signature_v2`<br />Deletes a specific page index with a signature authorization | Provider or MSA Owner | Capacity or Tokens  | [`PaginatedPageDeleted`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.PaginatedPageDeleted)| 46             |
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/struct.Pallet.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/{pallet_name}/pallet/struct.Pallet.html) for more details.
 
 ### RPCs
 
@@ -58,7 +58,7 @@ Note: May be restricted based on node settings and configuration.
 
 | Name    | Description       | Call                                                                                                 | Node Version |
 | ------- | ----------------- | ---------------------------------------------------------------------------------------------------- | ------------ |
-| Get Paginated Storage | Retrieves the paginated storage for the given MSA Id and Schema Id | [`getPaginatedStorage`](https://frequency-chain.github.io/frequency/pallet_stateful_storage_rpc/trait.StatefulStorageApiServer.html#tymethod.get_paginated_storage) | v1.4.0+      |
-| Get Itemized Storage | Retrieves the itemized storage for the given MSA Id and Schema Id | [`getItemizedStorage`](https://frequency-chain.github.io/frequency/pallet_stateful_storage_rpc/trait.StatefulStorageApiServer.html#tymethod.get_itemized_storage) | v1.4.0+      |
+| Get Paginated Storage | Retrieves the paginated storage for the given MSA Id and Schema Id | [`getPaginatedStorage`](https://rustadot.github.io/recurrency/pallet_stateful_storage_rpc/trait.StatefulStorageApiServer.html#tymethod.get_paginated_storage) | v1.4.0+      |
+| Get Itemized Storage | Retrieves the itemized storage for the given MSA Id and Schema Id | [`getItemizedStorage`](https://rustadot.github.io/recurrency/pallet_stateful_storage_rpc/trait.StatefulStorageApiServer.html#tymethod.get_itemized_storage) | v1.4.0+      |
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_stateful_storage_rpc/trait.StatefulStorageApiServer.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_stateful_storage_rpc/trait.StatefulStorageApiServer.html) for more details.

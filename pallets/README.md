@@ -5,7 +5,7 @@
 - The pallet should have a `README.md` file in the root. See `README.template.md` for a template.
 - The Readme file should strictly follow the standard as the contents may be used elsewhere.
 - The Readme file _must only_ use full links so the links work where ever the content is used.
-- Any additional technical notes for Frequency developers may be placed in the docs after the Readme is included.
+- Any additional technical notes for Recurrency developers may be placed in the docs after the Readme is included.
 
 The standard documentation header for `lib.rs`:
 

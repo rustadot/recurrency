@@ -7,9 +7,9 @@ use crate::{
 use common_primitives::node::Block;
 use cumulus_client_service::storage_proof_size::HostFunctions as ReclaimHostFunctions;
 use frame_benchmarking_cli::BenchmarkCmd;
-use frequency_service::{
+use recurrency_service::{
 	chain_spec,
-	service::{frequency_runtime::VERSION, new_partial},
+	service::{recurrency_runtime::VERSION, new_partial},
 };
 use sc_cli::{
 	ChainSpec, CliConfiguration, DefaultConfigurationValues, ImportParams, KeystoreParams,
@@ -19,10 +19,10 @@ use sc_service::config::{BasePath, PrometheusConfig};
 use sp_runtime::traits::HashingFor;
 
 enum ChainIdentity {
-	Frequency,
-	FrequencyPaseo,
-	FrequencyLocal,
-	FrequencyDev,
+	Recurrency,
+	RecurrencyPaseo,
+	RecurrencyLocal,
+	RecurrencyDev,
 }
 
 trait IdentifyChain {
@@ -31,14 +31,14 @@ trait IdentifyChain {
 
 impl IdentifyChain for dyn sc_service::ChainSpec {
 	fn identify(&self) -> ChainIdentity {
-		if self.id() == "frequency" {
-			ChainIdentity::Frequency
-		} else if self.id() == "frequency-paseo" {
-			ChainIdentity::FrequencyPaseo
-		} else if self.id() == "frequency-local" {
-			ChainIdentity::FrequencyLocal
+		if self.id() == "recurrency" {
+			ChainIdentity::Recurrency
+		} else if self.id() == "recurrency-paseo" {
+			ChainIdentity::RecurrencyPaseo
+		} else if self.id() == "recurrency-local" {
+			ChainIdentity::RecurrencyLocal
 		} else if self.id() == "dev" {
-			ChainIdentity::FrequencyDev
+			ChainIdentity::RecurrencyDev
 		} else {
 			panic!("Unknown chain identity")
 		}
@@ -48,10 +48,10 @@ impl IdentifyChain for dyn sc_service::ChainSpec {
 impl PartialEq for ChainIdentity {
 	fn eq(&self, other: &Self) -> bool {
 		match (self, other) {
-			(ChainIdentity::Frequency, ChainIdentity::Frequency) => true,
-			(ChainIdentity::FrequencyPaseo, ChainIdentity::FrequencyPaseo) => true,
-			(ChainIdentity::FrequencyLocal, ChainIdentity::FrequencyLocal) => true,
-			(ChainIdentity::FrequencyDev, ChainIdentity::FrequencyDev) => true,
+			(ChainIdentity::Recurrency, ChainIdentity::Recurrency) => true,
+			(ChainIdentity::RecurrencyPaseo, ChainIdentity::RecurrencyPaseo) => true,
+			(ChainIdentity::RecurrencyLocal, ChainIdentity::RecurrencyLocal) => true,
+			(ChainIdentity::RecurrencyDev, ChainIdentity::RecurrencyDev) => true,
 			_ => false,
 		}
 	}
@@ -65,53 +65,53 @@ impl<T: sc_service::ChainSpec + 'static> IdentifyChain for T {
 
 fn load_spec(id: &str) -> std::result::Result<Box<dyn ChainSpec>, String> {
 	match id {
-		#[cfg(feature = "frequency")]
-		"frequency-bench" => return Ok(Box::new(chain_spec::frequency::benchmark_mainnet_config())),
-		#[cfg(feature = "frequency")]
-		"frequency" => return Ok(Box::new(chain_spec::frequency::load_frequency_spec())),
-		#[cfg(feature = "frequency-no-relay")]
-		"dev" | "frequency-no-relay" =>
-			return Ok(Box::new(chain_spec::frequency_dev::development_config())),
-		#[cfg(feature = "frequency-local")]
-		"frequency-paseo-local" =>
-			return Ok(Box::new(chain_spec::frequency_paseo::local_paseo_testnet_config())),
-		#[cfg(feature = "frequency-testnet")]
-		"frequency-testnet" | "frequency-paseo" | "paseo" | "testnet" =>
-			return Ok(Box::new(chain_spec::frequency_paseo::load_frequency_paseo_spec())),
+		#[cfg(feature = "recurrency")]
+		"recurrency-bench" => return Ok(Box::new(chain_spec::recurrency::benchmark_mainnet_config())),
+		#[cfg(feature = "recurrency")]
+		"recurrency" => return Ok(Box::new(chain_spec::recurrency::load_recurrency_spec())),
+		#[cfg(feature = "recurrency-no-relay")]
+		"dev" | "recurrency-no-relay" =>
+			return Ok(Box::new(chain_spec::recurrency_dev::development_config())),
+		#[cfg(feature = "recurrency-local")]
+		"recurrency-paseo-local" =>
+			return Ok(Box::new(chain_spec::recurrency_paseo::local_paseo_testnet_config())),
+		#[cfg(feature = "recurrency-testnet")]
+		"recurrency-testnet" | "recurrency-paseo" | "paseo" | "testnet" =>
+			return Ok(Box::new(chain_spec::recurrency_paseo::load_recurrency_paseo_spec())),
 		path => {
 			if path.is_empty() {
-				if cfg!(feature = "frequency") {
-					#[cfg(feature = "frequency")]
+				if cfg!(feature = "recurrency") {
+					#[cfg(feature = "recurrency")]
 					{
-						return Ok(Box::new(chain_spec::frequency::load_frequency_spec()));
+						return Ok(Box::new(chain_spec::recurrency::load_recurrency_spec()));
 					}
-					#[cfg(not(feature = "frequency"))]
-					return Err("Frequency runtime is not available.".into());
-				} else if cfg!(feature = "frequency-no-relay") {
-					#[cfg(feature = "frequency-no-relay")]
+					#[cfg(not(feature = "recurrency"))]
+					return Err("Recurrency runtime is not available.".into());
+				} else if cfg!(feature = "recurrency-no-relay") {
+					#[cfg(feature = "recurrency-no-relay")]
 					{
-						return Ok(Box::new(chain_spec::frequency_dev::development_config()));
+						return Ok(Box::new(chain_spec::recurrency_dev::development_config()));
 					}
-					#[cfg(not(feature = "frequency-no-relay"))]
-					return Err("Frequency Development (no relay) runtime is not available.".into());
-				} else if cfg!(feature = "frequency-local") {
-					#[cfg(feature = "frequency-local")]
-					{
-						return Ok(Box::new(
-							chain_spec::frequency_paseo::local_paseo_testnet_config(),
-						));
-					}
-					#[cfg(not(feature = "frequency-local"))]
-					return Err("Frequency Local runtime is not available.".into());
-				} else if cfg!(feature = "frequency-testnet") {
-					#[cfg(feature = "frequency-testnet")]
+					#[cfg(not(feature = "recurrency-no-relay"))]
+					return Err("Recurrency Development (no relay) runtime is not available.".into());
+				} else if cfg!(feature = "recurrency-local") {
+					#[cfg(feature = "recurrency-local")]
 					{
 						return Ok(Box::new(
-							chain_spec::frequency_paseo::load_frequency_paseo_spec(),
+							chain_spec::recurrency_paseo::local_paseo_testnet_config(),
 						));
 					}
-					#[cfg(not(feature = "frequency-testnet"))]
-					return Err("Frequency Paseo runtime is not available.".into());
+					#[cfg(not(feature = "recurrency-local"))]
+					return Err("Recurrency Local runtime is not available.".into());
+				} else if cfg!(feature = "recurrency-testnet") {
+					#[cfg(feature = "recurrency-testnet")]
+					{
+						return Ok(Box::new(
+							chain_spec::recurrency_paseo::load_recurrency_paseo_spec(),
+						));
+					}
+					#[cfg(not(feature = "recurrency-testnet"))]
+					return Err("Recurrency Paseo runtime is not available.".into());
 				} else {
 					return Err("No chain spec is available.".into());
 				}
@@ -119,42 +119,42 @@ fn load_spec(id: &str) -> std::result::Result<Box<dyn ChainSpec>, String> {
 			let path_buf = std::path::PathBuf::from(path);
 			let spec = Box::new(chain_spec::DummyChainSpec::from_json_file(path_buf.clone())?)
 				as Box<dyn ChainSpec>;
-			if ChainIdentity::Frequency == spec.identify() {
-				#[cfg(feature = "frequency")]
+			if ChainIdentity::Recurrency == spec.identify() {
+				#[cfg(feature = "recurrency")]
 				{
-					return Ok(Box::new(chain_spec::frequency::ChainSpec::from_json_file(
+					return Ok(Box::new(chain_spec::recurrency::ChainSpec::from_json_file(
 						path_buf,
 					)?));
 				}
-				#[cfg(not(feature = "frequency"))]
-				return Err("Frequency runtime is not available.".into());
-			} else if ChainIdentity::FrequencyPaseo == spec.identify() {
-				#[cfg(feature = "frequency-testnet")]
+				#[cfg(not(feature = "recurrency"))]
+				return Err("Recurrency runtime is not available.".into());
+			} else if ChainIdentity::RecurrencyPaseo == spec.identify() {
+				#[cfg(feature = "recurrency-testnet")]
 				{
-					return Ok(Box::new(chain_spec::frequency_paseo::ChainSpec::from_json_file(
+					return Ok(Box::new(chain_spec::recurrency_paseo::ChainSpec::from_json_file(
 						path_buf,
 					)?));
 				}
-				#[cfg(not(feature = "frequency-testnet"))]
-				return Err("Frequency Paseo runtime is not available.".into());
-			} else if ChainIdentity::FrequencyLocal == spec.identify() {
-				#[cfg(feature = "frequency-local")]
+				#[cfg(not(feature = "recurrency-testnet"))]
+				return Err("Recurrency Paseo runtime is not available.".into());
+			} else if ChainIdentity::RecurrencyLocal == spec.identify() {
+				#[cfg(feature = "recurrency-local")]
 				{
-					return Ok(Box::new(chain_spec::frequency_paseo::ChainSpec::from_json_file(
+					return Ok(Box::new(chain_spec::recurrency_paseo::ChainSpec::from_json_file(
 						path_buf,
 					)?));
 				}
-				#[cfg(not(feature = "frequency-local"))]
-				return Err("Frequency Local runtime is not available.".into());
-			} else if ChainIdentity::FrequencyDev == spec.identify() {
-				#[cfg(feature = "frequency-no-relay")]
+				#[cfg(not(feature = "recurrency-local"))]
+				return Err("Recurrency Local runtime is not available.".into());
+			} else if ChainIdentity::RecurrencyDev == spec.identify() {
+				#[cfg(feature = "recurrency-no-relay")]
 				{
-					return Ok(Box::new(chain_spec::frequency_paseo::ChainSpec::from_json_file(
+					return Ok(Box::new(chain_spec::recurrency_paseo::ChainSpec::from_json_file(
 						path_buf,
 					)?));
 				}
-				#[cfg(not(feature = "frequency-no-relay"))]
-				return Err("Frequency Dev (no relay) runtime is not available.".into());
+				#[cfg(not(feature = "recurrency-no-relay"))]
+				return Err("Recurrency Dev (no relay) runtime is not available.".into());
 			} else {
 				return Err("Unknown chain spec.".into());
 			}
@@ -163,7 +163,7 @@ fn load_spec(id: &str) -> std::result::Result<Box<dyn ChainSpec>, String> {
 }
 
 fn chain_name() -> String {
-	"Frequency".into()
+	"Recurrency".into()
 }
 
 impl SubstrateCli for Cli {
@@ -176,10 +176,10 @@ impl SubstrateCli for Cli {
 	}
 
 	fn description() -> String {
-		"Frequency\n\nThe command-line arguments provided first will be \
+		"Recurrency\n\nThe command-line arguments provided first will be \
 		passed to the parachain node, while the arguments provided after -- will be passed \
 		to the relay chain node.\n\n\
-		frequency <parachain-args> -- <relay-chain-args>"
+		recurrency <parachain-args> -- <relay-chain-args>"
 			.into()
 	}
 
@@ -188,7 +188,7 @@ impl SubstrateCli for Cli {
 	}
 
 	fn support_url() -> String {
-		"https://github.com/frequency-chain/frequency/issues/new".into()
+		"https://github.com/rustadot/recurrency/issues/new".into()
 	}
 
 	fn copyright_start_year() -> i32 {
@@ -209,7 +209,7 @@ impl Cli {
 
 impl SubstrateCli for RelayChainCli {
 	fn impl_name() -> String {
-		"Frequency".into()
+		"Recurrency".into()
 	}
 
 	fn impl_version() -> String {
@@ -217,10 +217,10 @@ impl SubstrateCli for RelayChainCli {
 	}
 
 	fn description() -> String {
-		"Frequency\n\nThe command-line arguments provided first will be \
+		"Recurrency\n\nThe command-line arguments provided first will be \
 		passed to the parachain node, while the arguments provided after -- will be passed \
 		to the relay chain node.\n\n\
-		frequency <parachain-args> -- <relay-chain-args>"
+		recurrency <parachain-args> -- <relay-chain-args>"
 			.into()
 	}
 
@@ -239,11 +239,11 @@ impl SubstrateCli for RelayChainCli {
 	fn load_spec(&self, id: &str) -> std::result::Result<Box<dyn sc_service::ChainSpec>, String> {
 		match id {
 			// TODO: Remove once on a Polkadot-SDK with Paseo-Local
-			#[cfg(feature = "frequency-local")]
-			"paseo-local" => return Ok(Box::new(chain_spec::frequency_paseo::load_paseo_local_spec())),
+			#[cfg(feature = "recurrency-local")]
+			"paseo-local" => return Ok(Box::new(chain_spec::recurrency_paseo::load_paseo_local_spec())),
 			// TODO: Remove once on a Polkadot-SDK with Paseo
-			#[cfg(feature = "frequency-testnet")]
-			"paseo" => return Ok(Box::new(chain_spec::frequency_paseo::load_paseo_spec())),
+			#[cfg(feature = "recurrency-testnet")]
+			"paseo" => return Ok(Box::new(chain_spec::recurrency_paseo::load_paseo_spec())),
 			_ =>
 				return polkadot_cli::Cli::from_iter([RelayChainCli::executable_name()].iter())
 					.load_spec(id),
@@ -411,11 +411,11 @@ pub fn run() -> Result<()> {
 pub fn run_chain(cli: Cli) -> sc_service::Result<(), sc_cli::Error> {
 	#[allow(unused)]
 	let mut result: sc_service::Result<(), polkadot_cli::Error> = Ok(());
-	#[cfg(feature = "frequency-no-relay")]
+	#[cfg(feature = "recurrency-no-relay")]
 	{
 		result = crate::run_as_localchain::run_as_localchain(cli);
 	}
-	#[cfg(not(feature = "frequency-no-relay"))]
+	#[cfg(not(feature = "recurrency-no-relay"))]
 	{
 		result = crate::run_as_parachain::run_as_parachain(cli);
 	}

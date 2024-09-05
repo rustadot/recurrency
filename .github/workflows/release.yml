@@ -153,23 +153,23 @@ jobs:
         arch: [amd64]
         include:
           - network: dev
-            spec: frequency-no-relay
+            spec: recurrency-no-relay
             build-profile: release
-            release-file-name-prefix: frequency-dev
+            release-file-name-prefix: recurrency-dev
           - network: local
-            spec: frequency-local
+            spec: recurrency-local
             build-profile: release
-            release-file-name-prefix: frequency-local
+            release-file-name-prefix: recurrency-local
           - network: testnet
-            spec: frequency-testnet
+            spec: recurrency-testnet
             build-profile: release
-            release-file-name-prefix: frequency-testnet
+            release-file-name-prefix: recurrency-testnet
           - network: mainnet
-            spec: frequency
+            spec: recurrency
             build-profile: release
-            release-file-name-prefix: frequency
+            release-file-name-prefix: recurrency
     runs-on: ubicloud-standard-8
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     env:
       SIGNING_SUBKEY_FINGERPRINT: B6327D1474C6392032870E8EFA4FD1E73A0FE707
     steps:
@@ -180,7 +180,7 @@ jobs:
       - name: Set Env Vars
         run: |
           echo "BIN_DIR=target/${{matrix.build-profile}}" >> $GITHUB_ENV
-          echo "BUILT_BIN_FILENAME=frequency" >> $GITHUB_ENV
+          echo "BUILT_BIN_FILENAME=recurrency" >> $GITHUB_ENV
           echo "RELEASE_BIN_FILENAME=${{matrix.release-file-name-prefix}}.${{matrix.arch}}" >> $GITHUB_ENV
       - name: Compile for ${{matrix.network}}
         run: |
@@ -203,13 +203,13 @@ jobs:
         id: import-gpg
         uses: crazy-max/ghaction-import-gpg@01dd5d3ca463c7f10f7f4f7b4f177225ac661ee4
         with:
-          gpg_private_key: ${{secrets.FREQUENCY_PGP_SECRET_SUBKEYS}}
-          passphrase: ${{secrets.FREQUENCY_PGP_MASTER_KEY_PASSWORD}}
+          gpg_private_key: ${{secrets.RECURRENCY_PGP_SECRET_SUBKEYS}}
+          passphrase: ${{secrets.RECURRENCY_PGP_MASTER_KEY_PASSWORD}}
           fingerprint: ${{env.SIGNING_SUBKEY_FINGERPRINT}}
       - name: List GPG Keys
         run: gpg -k; gpg -K
       # The error in this step may be due to expired signing subkey
-      # See https://github.com/frequency-chain/frequency/issues/1695
+      # See https://github.com/rustadot/recurrency/issues/1695
       - name: Generate Binary Signature
         working-directory: ${{env.BIN_DIR}}
         run: |
@@ -217,7 +217,7 @@ jobs:
           gpg --local-user ${{env.SIGNING_SUBKEY_FINGERPRINT}} \
             --sign --armor \
             --pinentry-mode=loopback \
-            --passphrase="${{secrets.FREQUENCY_PGP_MASTER_KEY_PASSWORD}}" \
+            --passphrase="${{secrets.RECURRENCY_PGP_MASTER_KEY_PASSWORD}}" \
             --detach-sig \
             ${{env.RELEASE_BIN_FILENAME}}
       - name: Verify Binary
@@ -246,33 +246,33 @@ jobs:
       fail-fast: true
       matrix:
         # Remember, runtimes are separate for each relay chain
-        # We do not release frequency-*-local runtimes however
+        # We do not release recurrency-*-local runtimes however
         network: [dev, paseo, mainnet]
         include:
           - network: dev
             build-profile: release
-            package: frequency-runtime
-            runtime-dir: runtime/frequency
-            built-wasm-file-name-prefix: frequency_runtime
-            release-wasm-file-name-prefix: frequency-dev_runtime
-            features: frequency-no-relay
-            wasm-core-version: frequency-testnet
+            package: recurrency-runtime
+            runtime-dir: runtime/recurrency
+            built-wasm-file-name-prefix: recurrency_runtime
+            release-wasm-file-name-prefix: recurrency-dev_runtime
+            features: recurrency-no-relay
+            wasm-core-version: recurrency-testnet
           - network: paseo
             build-profile: release
-            package: frequency-runtime
-            runtime-dir: runtime/frequency
-            built-wasm-file-name-prefix: frequency_runtime
-            release-wasm-file-name-prefix: frequency-paseo_runtime
-            features: frequency-testnet
-            wasm-core-version: frequency-testnet
+            package: recurrency-runtime
+            runtime-dir: runtime/recurrency
+            built-wasm-file-name-prefix: recurrency_runtime
+            release-wasm-file-name-prefix: recurrency-paseo_runtime
+            features: recurrency-testnet
+            wasm-core-version: recurrency-testnet
           - network: mainnet
             build-profile: release
-            package: frequency-runtime
-            runtime-dir: runtime/frequency
-            built-wasm-file-name-prefix: frequency_runtime
-            release-wasm-file-name-prefix: frequency_runtime
-            features: frequency
-            wasm-core-version: frequency
+            package: recurrency-runtime
+            runtime-dir: runtime/recurrency
+            built-wasm-file-name-prefix: recurrency_runtime
+            release-wasm-file-name-prefix: recurrency_runtime
+            features: recurrency
+            wasm-core-version: recurrency
     runs-on: ubicloud-standard-8
     steps:
       - name: Check Out Repo
@@ -338,7 +338,7 @@ jobs:
     needs: version-code
     name: Build Rust Developer Docs
     runs-on: ubicloud-standard-4
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
@@ -348,7 +348,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build Docs
         run: |
-          RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo doc --no-deps --workspace --features frequency
+          RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo doc --no-deps --workspace --features recurrency
       - name: Fix file permissions
         shell: sh
         run: |
@@ -368,10 +368,10 @@ jobs:
       NETWORK: local
       BUILD_PROFILE: release
       BIN_DIR: target/release
-      RELEASE_FILENAME_PREFIX: frequency-local
+      RELEASE_FILENAME_PREFIX: recurrency-local
       ARCH: amd64
     runs-on: ubuntu-22.04
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     steps:
       - name: Set Env Vars
         run: |
@@ -409,7 +409,7 @@ jobs:
           mv ${{env.RELEASE_BIN_FILENAME}} ${{env.BIN_DIR}}
           chmod 755 ${{env.BIN_DIR}}/${{env.RELEASE_BIN_FILENAME}}
       - name: Output Metadata
-        run: ${{env.BIN_DIR}}/${{env.RELEASE_BIN_FILENAME}} export-metadata --chain=frequency-paseo-local --tmp ./js/api-augment/metadata.json
+        run: ${{env.BIN_DIR}}/${{env.RELEASE_BIN_FILENAME}} export-metadata --chain=recurrency-paseo-local --tmp ./js/api-augment/metadata.json
       - name: Build
         run: npm run build
         working-directory: js/api-augment
@@ -430,9 +430,9 @@ jobs:
         network: [mainnet]
         include:
           - network: mainnet
-            spec: frequency
+            spec: recurrency
             build-profile: release
-            release-file-name-prefix: frequency
+            release-file-name-prefix: recurrency
           - os: ubuntu-22.04
             arch: amd64
     runs-on: ${{matrix.os}}
@@ -440,7 +440,7 @@ jobs:
       - name: Set Env Vars
         run: |
           echo "BIN_DIR=target/${{matrix.build-profile}}" >> $GITHUB_ENV
-          echo "BUILT_BIN_FILENAME=frequency" >> $GITHUB_ENV
+          echo "BUILT_BIN_FILENAME=recurrency" >> $GITHUB_ENV
           echo "RELEASE_BIN_FILENAME=${{matrix.release-file-name-prefix}}.${{matrix.arch}}" >> $GITHUB_ENV
       - name: Check Out Repo
         uses: actions/checkout@v4
@@ -477,7 +477,7 @@ jobs:
   # Could not port this job to container because the reference node will be started in a
   # parallel container to the job polkadot-js-tools container and the latter will not
   # be able to connect to the former without runner supporting DinD mode first.
-  # See https://github.com/frequency-chain/frequency/issues/1543
+  # See https://github.com/rustadot/recurrency/issues/1543
   compare-metadata:
     needs: build-binaries
     name: Compare Metadata
@@ -485,13 +485,13 @@ jobs:
     env:
       NETWORK: mainnet
       BIN_DIR: target/release
-      BIN_FILENAME: frequency.amd64
-      TEST_BIN_FILENAME: frequency.amd64
+      BIN_FILENAME: recurrency.amd64
+      TEST_BIN_FILENAME: recurrency.amd64
       TEST_DOWNLOAD_DIR: download-test
-      REF_BIN_FILENAME: frequency-ref.amd64
+      REF_BIN_FILENAME: recurrency-ref.amd64
       REF_DOWNLOAD_DIR: download-ref
       OUTPUT_DIR: target/release
-      FREQUENCY_PROCESS_NAME: frequency
+      RECURRENCY_PROCESS_NAME: recurrency
     steps:
       - name: Set Env Vars
         run: |
@@ -542,7 +542,7 @@ jobs:
             --name test-node \
             ubuntu:22.04 \
               /bin/sh -c "chmod +x /app/${{env.TEST_BIN_FILENAME}} && /app/${{env.TEST_BIN_FILENAME}} \
-              --chain=frequency-bench \
+              --chain=recurrency-bench \
               --rpc-external \
               --rpc-cors=all \
               --rpc-methods=Unsafe \
@@ -561,7 +561,7 @@ jobs:
             --name ref-node \
             ubuntu:22.04 \
               /bin/sh -c "chmod +x /app/${{env.REF_BIN_FILENAME}} && /app/${{env.REF_BIN_FILENAME}} \
-              --chain=frequency-bench \
+              --chain=recurrency-bench \
               --rpc-external \
               --rpc-cors=all \
               --rpc-methods=Unsafe \
@@ -605,7 +605,7 @@ jobs:
       - name: Stop Local Nodes
         if: always()
         run: |
-          echo "Attempting to kill all frequency processes..."
+          echo "Attempting to kill all recurrency processes..."
           docker stop ref-node || true
           docker stop test-node || true
           docker network rm net-${{env.RELEASE_BRANCH_NAME}}
@@ -634,7 +634,7 @@ jobs:
     needs: wait-for-all-builds
     name: Release Built Artifacts
     runs-on: ubuntu-22.04
-    container: ghcr.io/frequency-chain/frequency/ci-base-image:1.3.1
+    container: ghcr.io/rustadot/recurrency/ci-base-image:1.3.1
     permissions:
       contents: write
     steps:
@@ -761,7 +761,7 @@ jobs:
           body_path: tools/ci/release-notes/release-notes.md
           tag_name: ${{env.NEW_RELEASE_TAG}}
           files: |
-            /tmp/frequency*.*
+            /tmp/recurrency*.*
             /tmp/metadata-compare-*
       - name: Publish Full Release on GitHub
         if: steps.is-full-release.outputs.is-full-release == 'true'
@@ -770,7 +770,7 @@ jobs:
           body_path: tools/ci/release-notes/release-notes.md
           tag_name: ${{env.NEW_RELEASE_TAG}}
           files: |
-            /tmp/frequency*.*
+            /tmp/recurrency*.*
             /tmp/metadata-compare-*
       - name: Get Latest Commit
         id: get-latest-commit
@@ -795,7 +795,7 @@ jobs:
           github-token: ${{secrets.GHA_WORKFLOW_TRIGGER}}
           script: |
             await github.rest.actions.createWorkflowDispatch({
-              owner: 'frequency-chain',
+              owner: 'rustadot',
               repo: 'metadata-portal',
               workflow_id: 'auto-sign.yml',
               ref: 'main'
@@ -812,21 +812,21 @@ jobs:
         include:
           - network: testnet
             build-profile: release
-            release-file-name-prefix: frequency-testnet
+            release-file-name-prefix: recurrency-testnet
           - network: mainnet
             build-profile: release
-            release-file-name-prefix: frequency
+            release-file-name-prefix: recurrency
           - arch: amd64
             docker-platform: linux/amd64
     env:
-      DOCKER_HUB_PROFILE: frequencychain
+      DOCKER_HUB_PROFILE: recurrencychain
       IMAGE_NAME: parachain-node
     runs-on: ubuntu-22.04
     steps:
       - name: Set Env Vars
         run: |
           echo "BIN_DIR=target/${{matrix.build-profile}}" >> $GITHUB_ENV
-          echo "BUILT_BIN_FILENAME=frequency" >> $GITHUB_ENV
+          echo "BUILT_BIN_FILENAME=recurrency" >> $GITHUB_ENV
           echo "RELEASE_BIN_FILENAME=${{matrix.release-file-name-prefix}}.${{matrix.arch}}" >> $GITHUB_ENV
       - name: Check Out Repo
         uses: actions/checkout@v4
@@ -905,19 +905,19 @@ jobs:
           - node: collator-node-local
             network: local
             build-profile: release
-            release-file-name-prefix: frequency-local
+            release-file-name-prefix: recurrency-local
           - node: standalone-node
             network: dev
             build-profile: release
-            release-file-name-prefix: frequency-dev
+            release-file-name-prefix: recurrency-dev
     env:
-      DOCKER_HUB_PROFILE: frequencychain
+      DOCKER_HUB_PROFILE: recurrencychain
     runs-on: ubuntu-22.04
     steps:
       - name: Set Env Vars
         run: |
           echo "BIN_DIR=target/${{matrix.build-profile}}" >> $GITHUB_ENV
-          echo "BUILT_BIN_FILENAME=frequency" >> $GITHUB_ENV
+          echo "BUILT_BIN_FILENAME=recurrency" >> $GITHUB_ENV
           echo "RELEASE_BIN_FILENAME=${{matrix.release-file-name-prefix}}.${{matrix.arch}}" >> $GITHUB_ENV
       - name: Check Out Repo
         uses: actions/checkout@v4
@@ -985,7 +985,7 @@ jobs:
           repository: ${{env.DOCKER_HUB_PROFILE}}/${{matrix.node}}
           readme-filepath: docker/${{matrix.node}}.overview.md
 
-  # Published to https://frequency-chain.github.io/frequency/
+  # Published to https://rustadot.github.io/recurrency/
   release-rust-developer-docs:
     needs: wait-for-all-builds
     name: Release Rust Developer Docs

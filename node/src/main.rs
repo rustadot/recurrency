@@ -2,6 +2,6 @@
 
 #![warn(missing_docs)]
 
-fn main() -> frequency_cli::Result<()> {
-	frequency_cli::run()
+fn main() -> recurrency_cli::Result<()> {
+	recurrency_cli::run()
 }

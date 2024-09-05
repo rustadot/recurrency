@@ -2,10 +2,10 @@
 use common_primitives::node::{AccountId, Balance};
 use common_runtime::constants::{
 	currency::{DOLLARS, UNITS},
-	FREQUENCY_TOKEN, TOKEN_DECIMALS,
+	RECURRENCY_TOKEN, TOKEN_DECIMALS,
 };
 use cumulus_primitives_core::ParaId;
-use frequency_runtime::{AuraId, CouncilConfig, Ss58Prefix, TechnicalCommitteeConfig};
+use recurrency_runtime::{AuraId, CouncilConfig, Ss58Prefix, TechnicalCommitteeConfig};
 
 use hex::FromHex;
 use sc_service::ChainType;
@@ -18,7 +18,7 @@ pub type ChainSpec = sc_service::GenericChainSpec<Extensions>;
 
 use super::{get_properties, Extensions};
 
-pub mod frequency_mainnet_keys {
+pub mod recurrency_mainnet_keys {
 
 	// Unfinished Collator 1 public key (sr25519) and session key
 	pub const UNFINISHED_COLLATOR_1_SR25519: &str =
@@ -64,15 +64,15 @@ pub mod frequency_mainnet_keys {
 	pub const TECHNICAL_COUNCIL_3: &str =
 		"0xcee0137a698a9a616193c80550185ea91387f16208544a8b47d477703b055b4b";
 
-	pub const FREQUENCY_COUNCIL_1: &str =
+	pub const RECURRENCY_COUNCIL_1: &str =
 		"0x9286ca034a2523b7a53c30e433bc148aa43a4eccbceffe2569df30c915bf666f";
-	pub const FREQUENCY_COUNCIL_2: &str =
+	pub const RECURRENCY_COUNCIL_2: &str =
 		"0x3692687b80fcc7293aeae47847e234d9744a81963881d262d044d0dc7080f059";
-	pub const FREQUENCY_COUNCIL_3: &str =
+	pub const RECURRENCY_COUNCIL_3: &str =
 		"0x96a666eb5d96e39f555094e37f32885f6c8fad30e17bee5fddb138843285c237";
-	pub const FREQUENCY_COUNCIL_4: &str =
+	pub const RECURRENCY_COUNCIL_4: &str =
 		"0xaab55f57a977dfed1fc64e88c242c9a6c7f02abe2b581fc58f2bbfc0bdaad224";
-	pub const FREQUENCY_COUNCIL_5: &str =
+	pub const RECURRENCY_COUNCIL_5: &str =
 		"0xfcac9ce9c9807732f092a84efde7cfbf77b4c3abedffadfb12cc63c6f6836605";
 }
 
@@ -110,43 +110,43 @@ pub mod foundation_keys {
 }
 
 #[allow(clippy::unwrap_used)]
-pub fn load_frequency_spec() -> ChainSpec {
-	ChainSpec::from_json_bytes(&include_bytes!("../../../../resources/frequency.raw.json")[..])
+pub fn load_recurrency_spec() -> ChainSpec {
+	ChainSpec::from_json_bytes(&include_bytes!("../../../../resources/recurrency.raw.json")[..])
 		.unwrap()
 }
 
 #[allow(clippy::unwrap_used)]
 pub fn benchmark_mainnet_config() -> ChainSpec {
 	let properties =
-		get_properties(FREQUENCY_TOKEN, TOKEN_DECIMALS as u32, Ss58Prefix::get().into());
+		get_properties(RECURRENCY_TOKEN, TOKEN_DECIMALS as u32, Ss58Prefix::get().into());
 	let para_id: ParaId = 2091.into();
 	ChainSpec::builder(
-		frequency_runtime::wasm_binary_unwrap(),
+		recurrency_runtime::wasm_binary_unwrap(),
 		Extensions { relay_chain: "polkadot".into(), para_id: para_id.into() },
 	).with_name(
-		"Frequency",
+		"Recurrency",
 	).with_protocol_id(
-		"frequency",
+		"recurrency",
 	).with_properties(
 		properties,
 	).with_chain_type(
 		ChainType::Live
 	).with_telemetry_endpoints(
-		TelemetryEndpoints::new(vec![("wss://telemetry.polkadot.io/submit/".into(), 0), ("wss://telemetry.frequency.xyz/submit/".into(), 0)]).unwrap()	
+		TelemetryEndpoints::new(vec![("wss://telemetry.polkadot.io/submit/".into(), 0), ("wss://telemetry.recurrency.xyz/submit/".into(), 0)]).unwrap()	
 	).with_boot_nodes(vec![
-		"/dns4/0.boot.frequency.xyz/tcp/30333/ws/p2p/12D3KooWBd4aEArNvXECtt2JHQACBdFmeafpyfre3q81iM1xCcpP".parse().unwrap(),
-		"/dns4/1.boot.frequency.xyz/tcp/30333/ws/p2p/12D3KooWCW8d7Yz2d3Jcb49rWcNppRNEs1K2NZitCpPtrHSQb6dw".parse().unwrap(),
+		"/dns4/0.boot.recurrency.xyz/tcp/30333/ws/p2p/12D3KooWBd4aEArNvXECtt2JHQACBdFmeafpyfre3q81iM1xCcpP".parse().unwrap(),
+		"/dns4/1.boot.recurrency.xyz/tcp/30333/ws/p2p/12D3KooWCW8d7Yz2d3Jcb49rWcNppRNEs1K2NZitCpPtrHSQb6dw".parse().unwrap(),
 	]).with_genesis_config(
-			frequency_genesis(
+			recurrency_genesis(
 				vec![
 					(
-						frequency_mainnet_keys::UNFINISHED_COLLATOR_1_SR25519
+						recurrency_mainnet_keys::UNFINISHED_COLLATOR_1_SR25519
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
 						AuraId::from_slice(
 							&<[u8; 32]>::from_hex(
-								frequency_mainnet_keys::UNFINISHED_COLLATOR_1_SESSION_KEY
+								recurrency_mainnet_keys::UNFINISHED_COLLATOR_1_SESSION_KEY
 									.strip_prefix("0x")
 									.unwrap(),
 							)
@@ -155,13 +155,13 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 						.unwrap(),
 					),
 					(
-						frequency_mainnet_keys::UNFINISHED_COLLATOR_2_SR25519
+						recurrency_mainnet_keys::UNFINISHED_COLLATOR_2_SR25519
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
 						AuraId::from_slice(
 							&<[u8; 32]>::from_hex(
-								frequency_mainnet_keys::UNFINISHED_COLLATOR_2_SESSION_KEY
+								recurrency_mainnet_keys::UNFINISHED_COLLATOR_2_SESSION_KEY
 									.strip_prefix("0x")
 									.unwrap(),
 							)
@@ -170,13 +170,13 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 						.unwrap(),
 					),
 					(
-						frequency_mainnet_keys::UNFINISHED_COLLATOR_3_SR25519
+						recurrency_mainnet_keys::UNFINISHED_COLLATOR_3_SR25519
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
 						AuraId::from_slice(
 							&<[u8; 32]>::from_hex(
-								frequency_mainnet_keys::UNFINISHED_COLLATOR_3_SESSION_KEY
+								recurrency_mainnet_keys::UNFINISHED_COLLATOR_3_SESSION_KEY
 									.strip_prefix("0x")
 									.unwrap(),
 							)
@@ -185,13 +185,13 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 						.unwrap(),
 					),
 					(
-						frequency_mainnet_keys::ON_FINALITY_COLLATOR_1_SR25519
+						recurrency_mainnet_keys::ON_FINALITY_COLLATOR_1_SR25519
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
 						AuraId::from_slice(
 							&<[u8; 32]>::from_hex(
-								frequency_mainnet_keys::ON_FINALITY_COLLATOR_1_SESSION_KEY
+								recurrency_mainnet_keys::ON_FINALITY_COLLATOR_1_SESSION_KEY
 									.strip_prefix("0x")
 									.unwrap(),
 							)
@@ -200,13 +200,13 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 						.unwrap(),
 					),
 					(
-						frequency_mainnet_keys::EXTERNAL_COLLATOR_1_SR25519
+						recurrency_mainnet_keys::EXTERNAL_COLLATOR_1_SR25519
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
 						AuraId::from_slice(
 							&<[u8; 32]>::from_hex(
-								frequency_mainnet_keys::EXTERNAL_COLLATOR_1_SESSION_KEY
+								recurrency_mainnet_keys::EXTERNAL_COLLATOR_1_SESSION_KEY
 									.strip_prefix("0x")
 									.unwrap(),
 							)
@@ -215,13 +215,13 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 						.unwrap(),
 					),
 					(
-						frequency_mainnet_keys::EXTERNAL_COLLATOR_2_SR25519
+						recurrency_mainnet_keys::EXTERNAL_COLLATOR_2_SR25519
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
 						AuraId::from_slice(
 							&<[u8; 32]>::from_hex(
-								frequency_mainnet_keys::EXTERNAL_COLLATOR_2_SESSION_KEY
+								recurrency_mainnet_keys::EXTERNAL_COLLATOR_2_SESSION_KEY
 									.strip_prefix("0x")
 									.unwrap(),
 							)
@@ -319,7 +319,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 							.into(),
 						100 * DOLLARS,
 					),
-					// Frequency (53% Total)
+					// Recurrency (53% Total)
 					(
 						// Treasury Pallet
 						common_runtime::constants::TREASURY_PALLET_ID.into_account_truncating(),
@@ -327,7 +327,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 					),
 					(
 						// Council Member
-						frequency_mainnet_keys::FREQUENCY_COUNCIL_1
+						recurrency_mainnet_keys::RECURRENCY_COUNCIL_1
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
@@ -335,7 +335,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 					),
 					(
 						// Council Member
-						frequency_mainnet_keys::FREQUENCY_COUNCIL_2
+						recurrency_mainnet_keys::RECURRENCY_COUNCIL_2
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
@@ -343,7 +343,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 					),
 					(
 						// Council Member
-						frequency_mainnet_keys::FREQUENCY_COUNCIL_3
+						recurrency_mainnet_keys::RECURRENCY_COUNCIL_3
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
@@ -351,7 +351,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 					),
 					(
 						// Council Member
-						frequency_mainnet_keys::FREQUENCY_COUNCIL_4
+						recurrency_mainnet_keys::RECURRENCY_COUNCIL_4
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
@@ -359,7 +359,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 					),
 					(
 						// Council Member and TECHNICAL_COUNCIL_2
-						frequency_mainnet_keys::FREQUENCY_COUNCIL_5
+						recurrency_mainnet_keys::RECURRENCY_COUNCIL_5
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
@@ -367,7 +367,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 					),
 					(
 						// Council Member
-						frequency_mainnet_keys::TECHNICAL_COUNCIL_1
+						recurrency_mainnet_keys::TECHNICAL_COUNCIL_1
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
@@ -375,7 +375,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 					),
 					(
 						// Council Member
-						frequency_mainnet_keys::TECHNICAL_COUNCIL_3
+						recurrency_mainnet_keys::TECHNICAL_COUNCIL_3
 							.parse::<AccountId>()
 							.unwrap()
 							.into(),
@@ -383,16 +383,16 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 					),
 				],
 				vec!(
-					frequency_mainnet_keys::FREQUENCY_COUNCIL_1.parse::<AccountId>().unwrap().into(),
-					frequency_mainnet_keys::FREQUENCY_COUNCIL_2.parse::<AccountId>().unwrap().into(),
-					frequency_mainnet_keys::FREQUENCY_COUNCIL_3.parse::<AccountId>().unwrap().into(),
-					frequency_mainnet_keys::FREQUENCY_COUNCIL_4.parse::<AccountId>().unwrap().into(),
-					frequency_mainnet_keys::FREQUENCY_COUNCIL_5.parse::<AccountId>().unwrap().into(),
+					recurrency_mainnet_keys::RECURRENCY_COUNCIL_1.parse::<AccountId>().unwrap().into(),
+					recurrency_mainnet_keys::RECURRENCY_COUNCIL_2.parse::<AccountId>().unwrap().into(),
+					recurrency_mainnet_keys::RECURRENCY_COUNCIL_3.parse::<AccountId>().unwrap().into(),
+					recurrency_mainnet_keys::RECURRENCY_COUNCIL_4.parse::<AccountId>().unwrap().into(),
+					recurrency_mainnet_keys::RECURRENCY_COUNCIL_5.parse::<AccountId>().unwrap().into(),
 				),
 				vec!(
-					frequency_mainnet_keys::TECHNICAL_COUNCIL_1.parse::<AccountId>().unwrap().into(),
-					frequency_mainnet_keys::TECHNICAL_COUNCIL_2.parse::<AccountId>().unwrap().into(),
-					frequency_mainnet_keys::TECHNICAL_COUNCIL_3.parse::<AccountId>().unwrap().into(),
+					recurrency_mainnet_keys::TECHNICAL_COUNCIL_1.parse::<AccountId>().unwrap().into(),
+					recurrency_mainnet_keys::TECHNICAL_COUNCIL_2.parse::<AccountId>().unwrap().into(),
+					recurrency_mainnet_keys::TECHNICAL_COUNCIL_3.parse::<AccountId>().unwrap().into(),
 				),
 				//candidacy bond
 				100_000 * UNITS,
@@ -403,7 +403,7 @@ pub fn benchmark_mainnet_config() -> ChainSpec {
 }
 
 #[allow(clippy::unwrap_used)]
-fn frequency_genesis(
+fn recurrency_genesis(
 	initial_authorities: Vec<(AccountId, AuraId)>,
 	endowed_accounts: Vec<(AccountId, Balance)>,
 	council_members: Vec<AccountId>,
@@ -411,26 +411,26 @@ fn frequency_genesis(
 	candidacy_bond: Balance,
 	id: ParaId,
 ) -> serde_json::Value {
-	let genesis = frequency_runtime::RuntimeGenesisConfig {
-		system: frequency_runtime::SystemConfig { ..Default::default() },
-		balances: frequency_runtime::BalancesConfig { balances: endowed_accounts },
-		parachain_info: frequency_runtime::ParachainInfoConfig {
+	let genesis = recurrency_runtime::RuntimeGenesisConfig {
+		system: recurrency_runtime::SystemConfig { ..Default::default() },
+		balances: recurrency_runtime::BalancesConfig { balances: endowed_accounts },
+		parachain_info: recurrency_runtime::ParachainInfoConfig {
 			parachain_id: id,
 			..Default::default()
 		},
-		collator_selection: frequency_runtime::CollatorSelectionConfig {
+		collator_selection: recurrency_runtime::CollatorSelectionConfig {
 			invulnerables: initial_authorities.iter().cloned().map(|(acc, _)| acc).collect(),
 			candidacy_bond,
 			desired_candidates: 0,
 		},
-		session: frequency_runtime::SessionConfig {
+		session: recurrency_runtime::SessionConfig {
 			keys: initial_authorities
 				.into_iter()
 				.map(|(acc, aura)| {
 					(
 						acc.clone(),                             // account id
 						acc,                                     // validator id
-						frequency_runtime::SessionKeys { aura }, // session keys
+						recurrency_runtime::SessionKeys { aura }, // session keys
 					)
 				})
 				.collect(),
@@ -438,8 +438,8 @@ fn frequency_genesis(
 		aura: Default::default(),
 		aura_ext: Default::default(),
 		parachain_system: Default::default(),
-		// SUDO removed Jan 2023, but needed when testing and checking with frequency-lint-check
-		#[cfg(any(not(feature = "frequency"), feature = "frequency-lint-check"))]
+		// SUDO removed Jan 2023, but needed when testing and checking with recurrency-lint-check
+		#[cfg(any(not(feature = "recurrency"), feature = "recurrency-lint-check"))]
 		sudo: Default::default(),
 		schemas: Default::default(),
 		time_release: Default::default(),

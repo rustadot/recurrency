@@ -3,25 +3,25 @@
 ## Context and Scope
 
 The proposed design consists of changes that is going to be a separate [repository](https://github.com/LibertyDSNP/graph-sdk) to facilitate
-graph related interactions with Frequency chain in test and production environments.
+graph related interactions with Recurrency chain in test and production environments.
 
 ## Problem Statement
 
-Implementing DSNP protocol on Frequency comes with its own challenges and tradeoffs. One of these
-challenges is to decide what is the boundary between DSNP and Frequency and what should be
-implemented directly in Frequency.
+Implementing DSNP protocol on Recurrency comes with its own challenges and tradeoffs. One of these
+challenges is to decide what is the boundary between DSNP and Recurrency and what should be
+implemented directly in Recurrency.
 
-To keep Frequency implementation as DSNP agnostic as possible we decided to store social graph
-related data as blobs in Frequency and keep the details of how these blobs are created and modified
+To keep Recurrency implementation as DSNP agnostic as possible we decided to store social graph
+related data as blobs in Recurrency and keep the details of how these blobs are created and modified
 inside DSNP spec. Graph SDK is an implementation of mentioned DSNP spec for social graph, optimized
-for storage and interaction with Frequency.
+for storage and interaction with Recurrency.
 ## Goals
 
 - Define operations
 - Define interface of Graph SDK.
 - Define the main entities in Graph SDK.
 - Define the memory model of the graph.
-- Define the algorithms to optimize the output regarding Frequency.
+- Define the algorithms to optimize the output regarding Recurrency.
 
 ## Operations
 Following is a list of desired operations in this SDK:
@@ -29,11 +29,11 @@ Following is a list of desired operations in this SDK:
 | Name  | Description |
 | ------------- | ------------- |
 | **Initialise**  | Creates in memory graph structure for a desired DSNP user.  |
-| **Import**  | Import the blob(s) and keys from frequency into Graph SDK for desired DSNP user.  |
+| **Import**  | Import the blob(s) and keys from recurrency into Graph SDK for desired DSNP user.  |
 | **Update**  | Changes the current in-memory graph structure with incoming updates.  |
 | **Get Graph**  | Exposes current state of in-memory graph to the consumer of the SDK.  |
-| **Has Updates**  | Determines if the applied changes created some updates in graph that needs to be persisted on Frequency.  |
-| **Calculate Updates**  | Applies the graph changes and generates optimized blobs to be applied to Frequency  |
+| **Has Updates**  | Determines if the applied changes created some updates in graph that needs to be persisted on Recurrency.  |
+| **Calculate Updates**  | Applies the graph changes and generates optimized blobs to be applied to Recurrency  |
 
 #### Import actions
 Steps necessary to import a social graph blob:
@@ -155,12 +155,12 @@ pub struct Rotation {
 
 ![Entities](https://user-images.githubusercontent.com/9152501/222261121-185d4d9d-1ecb-4ffa-8fe0-8612e58d7b27.png)
 
-* **Tracker**: This is used only to allow generating optimized pages for Frequency.
+* **Tracker**: This is used only to allow generating optimized pages for Recurrency.
 
 ## Memory model and usage
 It is recommended to batch the graph changes for DSNP users as much as possible and initialize the
 library with all the keys and page blobs related to desired users. Apply all changes to in-memory
-graph and calculate and apply all page updates to Frequency chain.
+graph and calculate and apply all page updates to Recurrency chain.
 
 To ensure local graph state is in sync with the chain graph state, it is recommended to
 only initialize and use the library in case there are any changes to the graph, instead of having a
@@ -170,7 +170,7 @@ state being stale.
 ## Algorithms
 
 We would like to minimize the number of transactions and related data which needs to be submitted to
-Frequency.
+Recurrency.
 
 An example of such an algorithm would be as follows
 1. apply all removes before adds to determine all pages that are required to be changed

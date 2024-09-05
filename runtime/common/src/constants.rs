@@ -10,9 +10,9 @@ use frame_support::{
 	PalletId,
 };
 
-pub const FREQUENCY_TESTNET_TOKEN: &str = "XRQCY";
-pub const FREQUENCY_LOCAL_TOKEN: &str = "UNIT";
-pub const FREQUENCY_TOKEN: &str = "FRQCY";
+pub const RECURRENCY_TESTNET_TOKEN: &str = "XRQCY";
+pub const RECURRENCY_LOCAL_TOKEN: &str = "UNIT";
+pub const RECURRENCY_TOKEN: &str = "FRQCY";
 pub const TOKEN_DECIMALS: u8 = 8;
 
 /// The maximum number of schema grants allowed per delegation
@@ -63,13 +63,13 @@ pub const AVERAGE_ON_INITIALIZE_RATIO: Perbill = Perbill::from_percent(5);
 /// `Operational` extrinsics.
 pub const NORMAL_DISPATCH_RATIO: Perbill = Perbill::from_percent(75);
 
-#[cfg(not(any(feature = "frequency-testnet", feature = "frequency-local")))]
+#[cfg(not(any(feature = "recurrency-testnet", feature = "recurrency-local")))]
 /// We allow for 0.5 of a second of compute with a 12 second average block time.
 pub const MAXIMUM_BLOCK_WEIGHT: Weight = Weight::from_parts(WEIGHT_REF_TIME_PER_SECOND, 0)
 	.saturating_div(2)
 	.set_proof_size(cumulus_primitives_core::relay_chain::MAX_POV_SIZE as u64);
 
-#[cfg(any(feature = "frequency-testnet", feature = "frequency-local"))]
+#[cfg(any(feature = "recurrency-testnet", feature = "recurrency-local"))]
 /// We allow for 2 seconds of compute with a 6 second average block time.
 pub const MAXIMUM_BLOCK_WEIGHT: Weight = Weight::from_parts(
 	WEIGHT_REF_TIME_PER_SECOND.saturating_mul(2),
@@ -134,11 +134,11 @@ pub type MinReleaseTransfer = ConstU128<0>;
 pub const MAX_RELEASE_SCHEDULES: u32 = 50;
 // -end- TimeRelease Pallet ---
 
-#[cfg(any(feature = "frequency-testnet", feature = "frequency-local"))]
+#[cfg(any(feature = "recurrency-testnet", feature = "recurrency-local"))]
 // --- Timestamp Pallet ---
 pub type MinimumPeriod = ConstU64<0>;
 
-#[cfg(not(any(feature = "frequency-testnet", feature = "frequency-local")))]
+#[cfg(not(any(feature = "recurrency-testnet", feature = "recurrency-local")))]
 // --- Timestamp Pallet ---
 pub type MinimumPeriod = ConstU64<{ SLOT_DURATION / 2 }>;
 // -end- Timestamp Pallet ---
@@ -251,9 +251,9 @@ pub type TransactionPaymentOperationalFeeMultiplier = ConstU8<5>;
 pub type TransactionByteFee = ConstU128<{ 10 * currency::MILLICENTS }>;
 // -end- Transaction Payment Pallet ---
 
-// --- Frequency Transaction Payment Pallet ---
+// --- Recurrency Transaction Payment Pallet ---
 pub type MaximumCapacityBatchLength = ConstU8<10>;
-// -end- Frequency Transaction Payment Pallet ---
+// -end- Recurrency Transaction Payment Pallet ---
 
 // --- Session Pallet ---
 pub type SessionPeriod = ConstU32<{ 6 * HOURS }>;
@@ -327,8 +327,8 @@ impl MaxEncodedLen for MessagesMaxPayloadSizeBytes {
 
 // Needs parameter_types! to reduce pallet dependencies
 parameter_types! {
-	/// SS58 Prefix for the for Frequency Network
-	/// 90 is the prefix for the Frequency Network on Polkadot
+	/// SS58 Prefix for the for Recurrency Network
+	/// 90 is the prefix for the Recurrency Network on Polkadot
 	/// 42 is the default prefix elsewhere
 	pub const Ss58Prefix: u16 = prod_or_testnet_or_local!(90, 42, 42);
 }
@@ -398,10 +398,10 @@ pub type CapacityMinimumTokenBalance = ConstU128<{ currency::DOLLARS }>;
 pub type CapacityMaxUnlockingChunks = ConstU32<4>;
 pub type CapacityMaxEpochLength = ConstU32<7_200>; // one day, assuming 12 second blocks.
 
-#[cfg(not(any(feature = "frequency-local", feature = "frequency-no-relay")))]
+#[cfg(not(any(feature = "recurrency-local", feature = "recurrency-no-relay")))]
 pub type CapacityUnstakingThawPeriod = ConstU16<30>; // 30 Epochs, or 30 days given the above
 
-#[cfg(any(feature = "frequency-local", feature = "frequency-no-relay"))]
+#[cfg(any(feature = "recurrency-local", feature = "recurrency-no-relay"))]
 pub type CapacityUnstakingThawPeriod = ConstU16<2>; // 2 Epochs
 
 // Needs parameter_types! for the Perbil

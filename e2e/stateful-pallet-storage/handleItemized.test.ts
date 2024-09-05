@@ -1,5 +1,5 @@
 // E2E tests for pallets/stateful-pallet-storage/handleItemized.ts
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import assert from 'assert';
 import {
   DOLLARS,
@@ -12,7 +12,7 @@ import {
 import { KeyringPair } from '@polkadot/keyring/types';
 import { ExtrinsicHelper } from '../scaffolding/extrinsicHelpers';
 import { AVRO_CHAT_MESSAGE } from '../stateful-pallet-storage/fixtures/itemizedSchemaType';
-import { MessageSourceId, SchemaId } from '@frequency-chain/api-augment/interfaces';
+import { MessageSourceId, SchemaId } from '@rustadot/api-augment/interfaces';
 import { Bytes, u16, u64 } from '@polkadot/types';
 import { getFundingSource } from '../scaffolding/funding';
 
@@ -58,13 +58,13 @@ describe('📗 Stateful Pallet Storage', function () {
   describe('Itemized Storage Tests 😊/😥', function () {
     it('✅ should be able to call applyItemizedAction and apply actions', async function () {
       // Add and update actions
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
 
       const add_action = {
         Add: payload_1,
       };
 
-      const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Frequency');
+      const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Recurrency');
 
       const update_action = {
         Add: payload_2,
@@ -100,7 +100,7 @@ describe('📗 Stateful Pallet Storage', function () {
     });
 
     it('🛑 should fail call to applyItemizedAction with invalid schemaId', async function () {
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
       const add_action = {
         Add: payload_1,
       };
@@ -120,7 +120,7 @@ describe('📗 Stateful Pallet Storage', function () {
     });
 
     it('🛑 should fail call to applyItemizedAction with invalid schema location', async function () {
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
       const add_action = {
         Add: payload_1,
       };
@@ -139,7 +139,7 @@ describe('📗 Stateful Pallet Storage', function () {
     });
 
     it('🛑 should fail call to applyItemizedAction with for un-delegated attempts', async function () {
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
       const add_action = {
         Add: payload_1,
       };
@@ -160,13 +160,13 @@ describe('📗 Stateful Pallet Storage', function () {
 
     it('🛑 should fail call to applyItemizedAction for target hash mismatch', async function () {
       // Add and update actions
-      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+      const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
 
       const add_action = {
         Add: payload_1,
       };
 
-      const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Frequency');
+      const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Recurrency');
 
       const update_action = {
         Add: payload_2,

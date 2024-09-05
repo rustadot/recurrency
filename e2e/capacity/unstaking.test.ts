@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { u64 } from '@polkadot/types';
 import assert from 'assert';

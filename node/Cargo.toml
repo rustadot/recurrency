@@ -1,44 +1,44 @@
 [package]
-authors = ["Frequency"]
+authors = ["Recurrency"]
 build = "build.rs"
-description = "Substrate node for Frequency"
+description = "Substrate node for Recurrency"
 edition = "2021"
-homepage = "https://frequency.xyz"
+homepage = "https://recurrency.xyz"
 license = "Apache-2.0"
-name = "frequency"
-repository = "https://github.com/frequency-chain/frequency/"
+name = "recurrency"
+repository = "https://github.com/rustadot/recurrency/"
 version = "0.0.0"
 
 [[bin]]
-name = "frequency"
+name = "recurrency"
 path = "src/main.rs"
 
 [build-dependencies]
 substrate-build-script-utils = { workspace = true }
 
 [dependencies]
-# Frequency Runtime
-frequency-cli = { path = "cli" }
-frequency-service = { path = "service" }
+# Recurrency Runtime
+recurrency-cli = { path = "cli" }
+recurrency-service = { path = "service" }
 
 [features]
 std = []
 default = []
-runtime-benchmarks = ["frequency-cli/runtime-benchmarks"]
-frequency = ["frequency-service/frequency", "frequency-cli/frequency"]
-frequency-no-relay = [
-  "frequency-service/frequency-no-relay",
-  "frequency-cli/frequency-no-relay",
+runtime-benchmarks = ["recurrency-cli/runtime-benchmarks"]
+recurrency = ["recurrency-service/recurrency", "recurrency-cli/recurrency"]
+recurrency-no-relay = [
+  "recurrency-service/recurrency-no-relay",
+  "recurrency-cli/recurrency-no-relay",
 ]
-frequency-local = [
-  "frequency-service/frequency-local",
-  "frequency-cli/frequency-local",
+recurrency-local = [
+  "recurrency-service/recurrency-local",
+  "recurrency-cli/recurrency-local",
 ]
-frequency-testnet = [
-  "frequency-service/frequency-testnet",
-  "frequency-cli/frequency-testnet",
+recurrency-testnet = [
+  "recurrency-service/recurrency-testnet",
+  "recurrency-cli/recurrency-testnet",
 ]
-frequency-lint-check = [
-  "frequency-service/frequency-lint-check",
-  "frequency-cli/frequency-lint-check",
+recurrency-lint-check = [
+  "recurrency-service/recurrency-lint-check",
+  "recurrency-cli/recurrency-lint-check",
 ]

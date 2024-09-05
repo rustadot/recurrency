@@ -1,6 +1,6 @@
 # Schemas Pallet
 
-The Schemas Pallet provides universal schema registration for data flowing through Frequency.
+The Schemas Pallet provides universal schema registration for data flowing through Recurrency.
 
 ## Summary
 
@@ -22,28 +22,28 @@ For example, two schemas might both only have a hash for contents, but one is a 
 
 #### Model Types
 
-- [`Parquet`](https://frequency-chain.github.io/frequency/common_primitives/schema/enum.ModelType.html#variant.Parquet): Designed for lists and when a Provider is collecting items from many different MSAs and publishing them together.
-- [`AvroBinary`](https://frequency-chain.github.io/frequency/common_primitives/schema/enum.ModelType.html#variant.AvroBinary): Useful for most generic data structures.
+- [`Parquet`](https://rustadot.github.io/recurrency/common_primitives/schema/enum.ModelType.html#variant.Parquet): Designed for lists and when a Provider is collecting items from many different MSAs and publishing them together.
+- [`AvroBinary`](https://rustadot.github.io/recurrency/common_primitives/schema/enum.ModelType.html#variant.AvroBinary): Useful for most generic data structures.
 
 #### Settings
 
-- [`AppendOnly`](https://frequency-chain.github.io/frequency/common_primitives/schema/enum.SchemaSetting.html#variant.AppendOnly)
+- [`AppendOnly`](https://rustadot.github.io/recurrency/common_primitives/schema/enum.SchemaSetting.html#variant.AppendOnly)
   - Prior data is immutable and all new data is appended to existing data.
   - For Payload Locations: `Itemized`
-- [`SignatureRequired`](https://frequency-chain.github.io/frequency/common_primitives/schema/enum.SchemaSetting.html#variant.SignatureRequired)
+- [`SignatureRequired`](https://rustadot.github.io/recurrency/common_primitives/schema/enum.SchemaSetting.html#variant.SignatureRequired)
   - An MSA control key signature is required instead of a delegation.
   - For Payload Locations: `Itemized` or `Paginated`
 
 #### Payload Locations
 
-- [`OnChain`](https://frequency-chain.github.io/frequency/common_primitives/schema/enum.PayloadLocation.html#variant.OnChain): Data is stored directly in the Messages pallet data storage, usually as `AvroBinary`.
-- [`IPFS`](https://frequency-chain.github.io/frequency/common_primitives/schema/enum.PayloadLocation.html#variant.IPFS): Data is stored in IPFS and Messages pallet stores the CID.
-- [`Itemized`](https://frequency-chain.github.io/frequency/common_primitives/schema/enum.PayloadLocation.html#variant.Itemized): Data is stored in the Stateful Storage pallet as an array of individual items.
-- [`Paginated`](https://frequency-chain.github.io/frequency/common_primitives/schema/enum.PayloadLocation.html#variant.Paginated): Data is stored in the Stateful Storage pallet as a list of paged blobs.
+- [`OnChain`](https://rustadot.github.io/recurrency/common_primitives/schema/enum.PayloadLocation.html#variant.OnChain): Data is stored directly in the Messages pallet data storage, usually as `AvroBinary`.
+- [`IPFS`](https://rustadot.github.io/recurrency/common_primitives/schema/enum.PayloadLocation.html#variant.IPFS): Data is stored in IPFS and Messages pallet stores the CID.
+- [`Itemized`](https://rustadot.github.io/recurrency/common_primitives/schema/enum.PayloadLocation.html#variant.Itemized): Data is stored in the Stateful Storage pallet as an array of individual items.
+- [`Paginated`](https://rustadot.github.io/recurrency/common_primitives/schema/enum.PayloadLocation.html#variant.Paginated): Data is stored in the Stateful Storage pallet as a list of paged blobs.
 
 ### Mainnet vs Testnet Schema Creation
 
-Mainnet schemas must be approved by the Frequency Council.
+Mainnet schemas must be approved by the Recurrency Council.
 This is to prevent malicious schemas and increase the documentation around the schemas available.
 
 On Testnets, schemas can be created by anyone, so there are _no_ guarantees around schema correctness or quality.
@@ -64,14 +64,14 @@ The Schemas pallet provides for:
 
 | Name/Description                                                                                      | Caller                                          | Payment | Key Events                                                                                                                               | Runtime Added |
 | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `set_max_schema_model_bytes`<br />Governance action to alter the maximum byte length of Schema models | Governance                                      | Tokens  | [`SchemaMaxSizeChanged`](https://frequency-chain.github.io/frequency/pallet_schemas/pallet/enum.Event.html#variant.SchemaMaxSizeChanged) | 1             |
-| `propose_to_create_schema_v2`<br />Creates a proposal to the Frequency Council for a new schema       | Token Account                                   | Tokens  | [`Proposed`](https://paritytech.github.io/polkadot-sdk/master/pallet_collective/pallet/enum.Event.html#variant.Proposed)                 | 66            |
-| `create_schema_via_governance_v2`<br />Governance action version of `create_schema_v3`                | Frequency Council                               | Tokens  | [`SchemaCreated`](https://frequency-chain.github.io/frequency/pallet_schemas/pallet/enum.Event.html#variant.SchemaCreated)               | 66            |
-| `create_schema_v3`<br />Creates a new Schema.                                                         | Mainnet: Governance<br />Testnet: Token Account | Tokens  | [`SchemaCreated`](https://frequency-chain.github.io/frequency/pallet_schemas/pallet/enum.Event.html#variant.SchemaCreated)               | 1             |
+| `set_max_schema_model_bytes`<br />Governance action to alter the maximum byte length of Schema models | Governance                                      | Tokens  | [`SchemaMaxSizeChanged`](https://rustadot.github.io/recurrency/pallet_schemas/pallet/enum.Event.html#variant.SchemaMaxSizeChanged) | 1             |
+| `propose_to_create_schema_v2`<br />Creates a proposal to the Recurrency Council for a new schema       | Token Account                                   | Tokens  | [`Proposed`](https://paritytech.github.io/polkadot-sdk/master/pallet_collective/pallet/enum.Event.html#variant.Proposed)                 | 66            |
+| `create_schema_via_governance_v2`<br />Governance action version of `create_schema_v3`                | Recurrency Council                               | Tokens  | [`SchemaCreated`](https://rustadot.github.io/recurrency/pallet_schemas/pallet/enum.Event.html#variant.SchemaCreated)               | 66            |
+| `create_schema_v3`<br />Creates a new Schema.                                                         | Mainnet: Governance<br />Testnet: Token Account | Tokens  | [`SchemaCreated`](https://rustadot.github.io/recurrency/pallet_schemas/pallet/enum.Event.html#variant.SchemaCreated)               | 1             |
 | `propose_to_create_schema_name`<br />Creates a Council proposal to set the name of a Schema           | Token Account                                   | Tokens  | [`Proposed`](https://paritytech.github.io/polkadot-sdk/master/pallet_collective/pallet/enum.Event.html#variant.Proposed)                 | 1             |
-| `create_schema_name_via_governance`<br />Governance action to set the name of a Schema                | Frequency Council                               | Tokens  | [`SchemaNameCreated`](https://frequency-chain.github.io/frequency/pallet_schemas/pallet/enum.Event.html#variant.SchemaNameCreated)       | 66            |
+| `create_schema_name_via_governance`<br />Governance action to set the name of a Schema                | Recurrency Council                               | Tokens  | [`SchemaNameCreated`](https://rustadot.github.io/recurrency/pallet_schemas/pallet/enum.Event.html#variant.SchemaNameCreated)       | 66            |
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_schemas/pallet/struct.Pallet.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_schemas/pallet/struct.Pallet.html) for more details.
 
 ### State Queries
 
@@ -83,7 +83,7 @@ See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_schemas/palle
 | Get Schema Ids by Name            | Fetch matching Schemas Ids by namespace and name                    | `schemaNameToIds`                | 62            |
 | Get Schema Payload/Model          | Fetch the payload/model JSON for the specified Schema               | `schemaPayloads`                 | 62            |
 
-See the [Rust Docs](https://frequency-chain.github.io/frequency/pallet_schemas/pallet/storage_types/index.html) for additional state queries and details.
+See the [Rust Docs](https://rustadot.github.io/recurrency/pallet_schemas/pallet/storage_types/index.html) for additional state queries and details.
 
 ### RPCs
 
@@ -91,10 +91,10 @@ Note: May be restricted based on node settings and configuration.
 
 | Name                  | Description                                                         | Call                                                                                                                                               | Node Version |
 | --------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Get Schema by Id      | Retrieves the schema for the given Schema Id                        | [`getBySchemaId`](https://frequency-chain.github.io/frequency/pallet_schemas_rpc/trait.SchemasApiServer.html#tymethod.get_by_schema_id)            | v1.0.0+      |
-| Check Schema Validity | Validates a schema model and returns “true” if the model is correct | [`checkSchemaValidity`](https://frequency-chain.github.io/frequency/pallet_schemas_rpc/trait.SchemasApiServer.html#tymethod.check_schema_validity) | v1.0.0+      |
-| Get Schema Versions   | Returns an array of schema versions                                 | [`getVersions`](https://frequency-chain.github.io/frequency/pallet_schemas_rpc/trait.SchemasApiServer.html#tymethod.get_versions)                  | v1.10.0+     |
+| Get Schema by Id      | Retrieves the schema for the given Schema Id                        | [`getBySchemaId`](https://rustadot.github.io/recurrency/pallet_schemas_rpc/trait.SchemasApiServer.html#tymethod.get_by_schema_id)            | v1.0.0+      |
+| Check Schema Validity | Validates a schema model and returns “true” if the model is correct | [`checkSchemaValidity`](https://rustadot.github.io/recurrency/pallet_schemas_rpc/trait.SchemasApiServer.html#tymethod.check_schema_validity) | v1.0.0+      |
+| Get Schema Versions   | Returns an array of schema versions                                 | [`getVersions`](https://rustadot.github.io/recurrency/pallet_schemas_rpc/trait.SchemasApiServer.html#tymethod.get_versions)                  | v1.10.0+     |
 
 \* Must be enabled with off-chain indexing
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_schemas_rpc/trait.SchemasApiServer.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_schemas_rpc/trait.SchemasApiServer.html) for more details.

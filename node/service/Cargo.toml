@@ -1,11 +1,11 @@
 [package]
-authors = ["Frequency"]
-description = "Substrate node for frequency"
+authors = ["Recurrency"]
+description = "Substrate node for recurrency"
 edition = "2021"
-homepage = "https://frequency.xyz"
+homepage = "https://recurrency.xyz"
 license = "Apache-2.0"
-name = "frequency-service"
-repository = "https://github.com/frequency-chain/frequency/"
+name = "recurrency-service"
+repository = "https://github.com/rustadot/recurrency/"
 version = "0.0.0"
 
 [dependencies]
@@ -23,8 +23,8 @@ serde = { workspace = true, features = ["derive"] }
 tokio = { workspace = true, features = ["macros", "time", "parking_lot"] }
 serde_json = { workspace = true }
 
-# Frequency Runtime
-frequency-runtime = { path = "../../runtime/frequency", optional = true }
+# Recurrency Runtime
+recurrency-runtime = { path = "../../runtime/recurrency", optional = true }
 common-runtime = { path = "../../runtime/common" }
 cli-opt = { default-features = false, path = "../cli-opt" }
 # Substrate
@@ -91,7 +91,7 @@ cumulus-relay-chain-inprocess-interface = { workspace = true }
 cumulus-relay-chain-interface = { workspace = true }
 cumulus-relay-chain-minimal-node = { workspace = true }
 cumulus-relay-chain-rpc-interface = { workspace = true }
-# Frequency
+# Recurrency
 common-helpers = { default-features = false, path = "../../common/helpers" }
 common-primitives = { default-features = false, path = "../../common/primitives" }
 pallet-messages-rpc = { path = "../../pallets/messages/src/rpc" }
@@ -104,8 +104,8 @@ pallet-stateful-storage-rpc = { path = "../../pallets/stateful-storage/src/rpc" 
 pallet-stateful-storage-runtime-api = { path = "../../pallets/stateful-storage/src/runtime-api" }
 pallet-handles-rpc = { path = "../../pallets/handles/src/rpc" }
 pallet-handles-runtime-api = { path = "../../pallets/handles/src/runtime-api" }
-pallet-frequency-tx-payment-rpc = { path = "../../pallets/frequency-tx-payment/src/rpc" }
-pallet-frequency-tx-payment-runtime-api = { path = "../../pallets/frequency-tx-payment/src/runtime-api" }
+pallet-recurrency-tx-payment-rpc = { path = "../../pallets/recurrency-tx-payment/src/rpc" }
+pallet-recurrency-tx-payment-runtime-api = { path = "../../pallets/recurrency-tx-payment/src/runtime-api" }
 system-runtime-api = { path = "../../runtime/system-runtime-api" }
 
 [build-dependencies]
@@ -119,17 +119,17 @@ scale-info = { workspace = true, features = ["derive"] }
 default = ["std"]
 std = ["sp-api/std", "sp-core/std"]
 runtime-benchmarks = [
-  "frequency-runtime/runtime-benchmarks",
+  "recurrency-runtime/runtime-benchmarks",
   "polkadot-service/runtime-benchmarks",
 ]
-frequency = ["frequency-runtime"]
-frequency-no-relay = ["frequency-runtime"]
-frequency-local = ["frequency-runtime"]
-frequency-testnet = ["frequency-runtime"]
-frequency-lint-check = [
-  "frequency",
-  "frequency-no-relay",
-  "frequency-local",
-  "frequency-testnet",
+recurrency = ["recurrency-runtime"]
+recurrency-no-relay = ["recurrency-runtime"]
+recurrency-local = ["recurrency-runtime"]
+recurrency-testnet = ["recurrency-runtime"]
+recurrency-lint-check = [
+  "recurrency",
+  "recurrency-no-relay",
+  "recurrency-local",
+  "recurrency-testnet",
 ]
-try-runtime = ["frequency-runtime/try-runtime", "polkadot-service/try-runtime"]
+try-runtime = ["recurrency-runtime/try-runtime", "polkadot-service/try-runtime"]

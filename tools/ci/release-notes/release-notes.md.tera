@@ -4,7 +4,7 @@ This release contains the changes from `{{env.PREVIOUS_RELEASE_TAG}}` to `{{env.
 This release candidate contains the changes from `{{env.PREVIOUS_RELEASE_TAG}}` to `{{env.NEW_RELEASE_TAG}}`.
 {% endif %}
 
-Full changelog: https://github.com/frequency-chain/frequency/compare/{{env.PREVIOUS_RELEASE_TAG}}...{{env.NEW_RELEASE_TAG}}
+Full changelog: https://github.com/rustadot/recurrency/compare/{{env.PREVIOUS_RELEASE_TAG}}...{{env.NEW_RELEASE_TAG}}
 
 ## Versions
 - Rust Toolchain: `{{env.RUST_TOOLCHAIN}}`
@@ -13,8 +13,8 @@ Full changelog: https://github.com/frequency-chain/frequency/compare/{{env.PREVI
 {% if env.IS_FULL_RELEASE == 'true' %}
 ## Deployed
 
-- Frequency-Paseo Testnet: [TBD]()
-- Frequency Mainnet: [TBD]()
+- Recurrency-Paseo Testnet: [TBD]()
+- Recurrency Mainnet: [TBD]()
 
 {% endif %}
 ## What's Changed
@@ -37,7 +37,7 @@ The information about the runtimes included in this release can be found below.
 {% endfor -%}
 ```
 
-### Frequency Paseo Testnet
+### Recurrency Paseo Testnet
 
 {% set runtime = env.RUNTIME_PASEO_INFO | split(pat='|') -%}
 ```

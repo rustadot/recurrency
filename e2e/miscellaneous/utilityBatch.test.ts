@@ -85,7 +85,7 @@ describe('Utility Batch Filtering', function () {
   });
 
   it('should fail to execute ❌ batch  with `Pays::No` calls', async function () {
-    // bad batch: with frequency related Pays::No call
+    // bad batch: with recurrency related Pays::No call
     const badBatch: SubmittableExtrinsic<ApiTypes>[] = [];
     badBatch.push(ExtrinsicHelper.api.tx.msa.retireMsa());
     const batch = ExtrinsicHelper.executeUtilityBatchAll(sender, badBatch);
@@ -97,8 +97,8 @@ describe('Utility Batch Filtering', function () {
     }
   });
 
-  it('should fail to execute ❌ batch with `Pays::Yes` `create_provider`call blocked by Frequency', async function () {
-    // bad batch: with frequency related Pays::Yes call
+  it('should fail to execute ❌ batch with `Pays::Yes` `create_provider`call blocked by Recurrency', async function () {
+    // bad batch: with recurrency related Pays::Yes call
     const badBatch: SubmittableExtrinsic<ApiTypes>[] = [];
     badBatch.push(ExtrinsicHelper.api.tx.msa.createProvider('I am a ba(tch)d provider'));
     const batch = ExtrinsicHelper.executeUtilityBatchAll(sender, badBatch);
@@ -110,8 +110,8 @@ describe('Utility Batch Filtering', function () {
     }
   });
 
-  it('should fail to execute ❌ batch with `Pays::Yes` `create_schema` call blocked by Frequency', async function () {
-    // bad batch: with frequency related Pays::Yes call
+  it('should fail to execute ❌ batch with `Pays::Yes` `create_schema` call blocked by Recurrency', async function () {
+    // bad batch: with recurrency related Pays::Yes call
     const badBatch: SubmittableExtrinsic<ApiTypes>[] = [];
     badBatch.push(ExtrinsicHelper.api.tx.msa.createProvider('I am a ba(tch)d provider'));
     const batch = ExtrinsicHelper.executeUtilityBatchAll(sender, badBatch);

@@ -9,9 +9,9 @@ promptly and protect our users.
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-Instead, please report the vulnerability via [https://github.com/frequency-chain/frequency/security/advisories/new](https://github.com/frequency-chain/frequency/security/advisories/new).
+Instead, please report the vulnerability via [https://github.com/rustadot/recurrency/security/advisories/new](https://github.com/rustadot/recurrency/security/advisories/new).
 
-Alternatively, you can send email to [security@frequency.xyz](mailto:security@frequency.xyz). If
+Alternatively, you can send email to [security@recurrency.xyz](mailto:security@recurrency.xyz). If
 possible, encrypt your message with our PGP key; you can download it from [OpenGPG key server](https://keys.openpgp.org/vks/v1/by-fingerprint/0E50AE7CFD8195999CF45370B766E94411B9B734)
 or copy from below.
 
@@ -30,7 +30,7 @@ understand the nature and scope of the possible issue:
 - Any other details
 
 **Reminder: This process is only for security related vulnerabilities and if this is a generic issue
-(no security implications) with Frequency or Polkadot-sdk or any other dependencies please open a
+(no security implications) with Recurrency or Polkadot-sdk or any other dependencies please open a
 regular GitHub issue.**
 
 ## Plaintext PGP Key

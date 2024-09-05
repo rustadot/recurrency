@@ -17,7 +17,7 @@ pub fn wasm_binary_unwrap() -> &'static [u8] {
 	)
 }
 
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 use cumulus_pallet_parachain_system::{RelayNumberMonotonicallyIncreases, RelaychainDataProvider};
 
 use sp_runtime::{
@@ -80,7 +80,7 @@ pub use sp_runtime::{MultiAddress, Perbill, Permill};
 pub use sp_runtime::BuildStorage;
 
 pub use pallet_capacity;
-pub use pallet_frequency_tx_payment::{capacity_stable_weights, types::GetStableWeight};
+pub use pallet_recurrency_tx_payment::{capacity_stable_weights, types::GetStableWeight};
 pub use pallet_msa;
 pub use pallet_passkey;
 pub use pallet_schemas;
@@ -153,7 +153,7 @@ pub struct BaseCallFilter;
 
 impl Contains<RuntimeCall> for BaseCallFilter {
 	fn contains(call: &RuntimeCall) -> bool {
-		#[cfg(not(feature = "frequency"))]
+		#[cfg(not(feature = "recurrency"))]
 		{
 			match call {
 				RuntimeCall::Utility(pallet_utility_call) =>
@@ -161,7 +161,7 @@ impl Contains<RuntimeCall> for BaseCallFilter {
 				_ => true,
 			}
 		}
-		#[cfg(feature = "frequency")]
+		#[cfg(feature = "recurrency")]
 		{
 			match call {
 				RuntimeCall::Utility(pallet_utility_call) =>
@@ -195,8 +195,8 @@ impl BaseCallFilter {
 			RuntimeCall::Utility(pallet_utility::Call::batch_all { .. }) |
 			RuntimeCall::Utility(pallet_utility::Call::force_batch { .. }) => false,
 
-			// Block all `FrequencyTxPayment` calls from utility batch
-			RuntimeCall::FrequencyTxPayment(..) => false,
+			// Block all `RecurrencyTxPayment` calls from utility batch
+			RuntimeCall::RecurrencyTxPayment(..) => false,
 
 			// Block `create_provider` and `create_schema` calls from utility batch
 			RuntimeCall::Msa(pallet_msa::Call::create_provider { .. }) |
@@ -230,7 +230,7 @@ impl InstanceFilter<RuntimeCall> for ProxyType {
 				| RuntimeCall::CollatorSelection(..)
 				| RuntimeCall::Council(..)
 				| RuntimeCall::Democracy(..)
-				| RuntimeCall::FrequencyTxPayment(..) // Capacity Tx never transfer
+				| RuntimeCall::RecurrencyTxPayment(..) // Capacity Tx never transfer
 				| RuntimeCall::Handles(..)
 				| RuntimeCall::Messages(..)
 				| RuntimeCall::Msa(..)
@@ -308,7 +308,7 @@ pub type SignedExtra = (
 	frame_system::CheckEra<Runtime>,
 	common_runtime::extensions::check_nonce::CheckNonce<Runtime>,
 	frame_system::CheckWeight<Runtime>,
-	pallet_frequency_tx_payment::ChargeFrqTransactionPayment<Runtime>,
+	pallet_recurrency_tx_payment::ChargeFrqTransactionPayment<Runtime>,
 	pallet_msa::CheckFreeExtrinsicUse<Runtime>,
 	pallet_handles::handles_signed_extension::HandlesSignedExtension<Runtime>,
 	StaleHashCheckExtension,
@@ -369,11 +369,11 @@ impl_opaque_keys! {
 }
 
 // IMPORTANT: Remember to update spec_version in BOTH structs below
-#[cfg(feature = "frequency")]
+#[cfg(feature = "recurrency")]
 #[sp_version::runtime_version]
 pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: create_runtime_str!("frequency"),
-	impl_name: create_runtime_str!("frequency"),
+	spec_name: create_runtime_str!("recurrency"),
+	impl_name: create_runtime_str!("recurrency"),
 	authoring_version: 1,
 	spec_version: 110,
 	impl_version: 0,
@@ -383,11 +383,11 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 };
 
 // IMPORTANT: Remember to update spec_version in above struct too
-#[cfg(not(feature = "frequency"))]
+#[cfg(not(feature = "recurrency"))]
 #[sp_version::runtime_version]
 pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: create_runtime_str!("frequency-testnet"),
-	impl_name: create_runtime_str!("frequency"),
+	spec_name: create_runtime_str!("recurrency-testnet"),
+	impl_name: create_runtime_str!("recurrency"),
 	authoring_version: 1,
 	spec_version: 110,
 	impl_version: 0,
@@ -440,7 +440,7 @@ impl frame_system::Config for Runtime {
 	/// The identifier used to distinguish between accounts.
 	type AccountId = AccountId;
 	/// Base call filter to use in dispatchable.
-	// enable for cfg feature "frequency" only
+	// enable for cfg feature "recurrency" only
 	type BaseCallFilter = BaseCallFilter;
 	/// The aggregated dispatch type that is available for extrinsics.
 	type RuntimeCall = RuntimeCall;
@@ -481,9 +481,9 @@ impl frame_system::Config for Runtime {
 	/// This is used as an identifier of the chain. 42 is the generic substrate prefix.
 	type SS58Prefix = Ss58Prefix;
 	/// The action to take on a Runtime Upgrade
-	#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+	#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 	type OnSetCode = cumulus_pallet_parachain_system::ParachainSetCode<Self>;
-	#[cfg(feature = "frequency-no-relay")]
+	#[cfg(feature = "recurrency-no-relay")]
 	type OnSetCode = ();
 	type MaxConsumers = FrameSystemMaxConsumers;
 	///  A new way of configuring migrations that run in a single block.
@@ -598,9 +598,9 @@ impl pallet_time_release::Config for Runtime {
 	type TransferOrigin = EnsureSigned<AccountId>;
 	type WeightInfo = pallet_time_release::weights::SubstrateWeight<Runtime>;
 	type MaxReleaseSchedules = MaxReleaseSchedules;
-	#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+	#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 	type BlockNumberProvider = RelaychainDataProvider<Runtime>;
-	#[cfg(feature = "frequency-no-relay")]
+	#[cfg(feature = "recurrency-no-relay")]
 	type BlockNumberProvider = System;
 	type RuntimeFreezeReason = RuntimeFreezeReason;
 }
@@ -654,7 +654,7 @@ impl pallet_scheduler::Config for Runtime {
 	type RuntimeCall = RuntimeCall;
 	type MaximumWeight = MaximumSchedulerWeight;
 	/// Origin to schedule or cancel calls
-	/// Set to Root or a simple majority of the Frequency Council
+	/// Set to Root or a simple majority of the Recurrency Council
 	type ScheduleOrigin = EitherOfDiverse<
 		EnsureRoot<AccountId>,
 		pallet_collective::EnsureProportionAtLeast<AccountId, CouncilCollective, 1, 2>,
@@ -820,7 +820,7 @@ impl pallet_treasury::Config for Runtime {
 
 	/// Who approves treasury proposals?
 	/// - Root (sudo or governance)
-	/// - 3/5ths of the Frequency Council
+	/// - 3/5ths of the Recurrency Council
 	type ApproveOrigin = EitherOfDiverse<
 		EnsureRoot<AccountId>,
 		pallet_collective::EnsureProportionAtLeast<AccountId, CouncilCollective, 3, 5>,
@@ -828,7 +828,7 @@ impl pallet_treasury::Config for Runtime {
 
 	/// Who rejects treasury proposals?
 	/// - Root (sudo or governance)
-	/// - Simple majority of the Frequency Council
+	/// - Simple majority of the Recurrency Council
 	type RejectOrigin = EitherOfDiverse<
 		EnsureRoot<AccountId>,
 		pallet_collective::EnsureProportionMoreThan<AccountId, CouncilCollective, 1, 2>,
@@ -891,7 +891,7 @@ impl pallet_transaction_payment::Config for Runtime {
 	type OperationalFeeMultiplier = TransactionPaymentOperationalFeeMultiplier;
 }
 
-use pallet_frequency_tx_payment::Call as FrequencyPaymentCall;
+use pallet_recurrency_tx_payment::Call as RecurrencyPaymentCall;
 use pallet_handles::Call as HandlesCall;
 use pallet_messages::Call as MessagesCall;
 use pallet_msa::Call as MsaCall;
@@ -901,7 +901,7 @@ use pallet_utility::Call as UtilityCall;
 pub struct CapacityEligibleCalls;
 impl GetStableWeight<RuntimeCall, Weight> for CapacityEligibleCalls {
 	fn get_stable_weight(call: &RuntimeCall) -> Option<Weight> {
-		use pallet_frequency_tx_payment::capacity_stable_weights::WeightInfo;
+		use pallet_recurrency_tx_payment::capacity_stable_weights::WeightInfo;
 		match call {
 			RuntimeCall::Msa(MsaCall::add_public_key_to_msa { .. }) => Some(
 				capacity_stable_weights::SubstrateWeight::<Runtime>::add_public_key_to_msa()
@@ -927,31 +927,31 @@ impl GetStableWeight<RuntimeCall, Weight> for CapacityEligibleCalls {
 
 	fn get_inner_calls(outer_call: &RuntimeCall) -> Option<Vec<&RuntimeCall>> {
 		match outer_call {
-			RuntimeCall::FrequencyTxPayment(FrequencyPaymentCall::pay_with_capacity {
+			RuntimeCall::RecurrencyTxPayment(RecurrencyPaymentCall::pay_with_capacity {
 				call,
 				..
 			}) => return Some(vec![call]),
-			RuntimeCall::FrequencyTxPayment(
-				FrequencyPaymentCall::pay_with_capacity_batch_all { calls, .. },
+			RuntimeCall::RecurrencyTxPayment(
+				RecurrencyPaymentCall::pay_with_capacity_batch_all { calls, .. },
 			) => return Some(calls.iter().collect()),
 			_ => Some(vec![outer_call]),
 		}
 	}
 }
 
-impl pallet_frequency_tx_payment::Config for Runtime {
+impl pallet_recurrency_tx_payment::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type RuntimeCall = RuntimeCall;
 	type Capacity = Capacity;
-	type WeightInfo = pallet_frequency_tx_payment::weights::SubstrateWeight<Runtime>;
+	type WeightInfo = pallet_recurrency_tx_payment::weights::SubstrateWeight<Runtime>;
 	type CapacityCalls = CapacityEligibleCalls;
-	type OnChargeCapacityTransaction = pallet_frequency_tx_payment::CapacityAdapter<Balances, Msa>;
+	type OnChargeCapacityTransaction = pallet_recurrency_tx_payment::CapacityAdapter<Balances, Msa>;
 	type BatchProvider = CapacityBatchProvider;
 	type MaximumCapacityBatchLength = MaximumCapacityBatchLength;
 }
 
 /// Configurations for passkey pallet
-#[cfg(any(not(feature = "frequency"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency"), feature = "recurrency-lint-check"))]
 impl pallet_passkey::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type RuntimeCall = RuntimeCall;
@@ -963,28 +963,28 @@ impl pallet_passkey::Config for Runtime {
 }
 
 #[cfg(any(
-	feature = "frequency",
+	feature = "recurrency",
 	feature = "runtime-benchmarks",
-	feature = "frequency-lint-check",
+	feature = "recurrency-lint-check",
 ))]
 /// Maximum number of blocks simultaneously accepted by the Runtime, not yet included
 /// into the relay chain.
 const UNINCLUDED_SEGMENT_CAPACITY: u32 = 1;
 
-#[cfg(any(feature = "frequency-testnet", feature = "frequency-local"))]
+#[cfg(any(feature = "recurrency-testnet", feature = "recurrency-local"))]
 const UNINCLUDED_SEGMENT_CAPACITY: u32 = 3;
 
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 /// How many parachain blocks are processed by the relay chain per parent. Limits the
 /// number of blocks authored per slot.
 const BLOCK_PROCESSING_VELOCITY: u32 = 1;
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 /// Relay chain slot duration, in milliseconds.
 const RELAY_CHAIN_SLOT_DURATION_MILLIS: u32 = 6_000;
 
 // See https://paritytech.github.io/substrate/master/pallet_parachain_system/index.html for
 // the descriptions of these configs.
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 impl cumulus_pallet_parachain_system::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type OnSystemEvent = ();
@@ -999,7 +999,7 @@ impl cumulus_pallet_parachain_system::Config for Runtime {
 	type ConsensusHook = ConsensusHook;
 }
 
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 pub type ConsensusHook = cumulus_pallet_aura_ext::FixedVelocityConsensusHook<
 	Runtime,
 	RELAY_CHAIN_SLOT_DURATION_MILLIS,
@@ -1177,7 +1177,7 @@ impl pallet_handles::Config for Runtime {
 
 // See https://paritytech.github.io/substrate/master/pallet_sudo/index.html for
 // the descriptions of these configs.
-#[cfg(any(not(feature = "frequency"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency"), feature = "recurrency-lint-check"))]
 impl pallet_sudo::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type RuntimeCall = RuntimeCall;
@@ -1199,7 +1199,7 @@ construct_runtime!(
 	pub enum Runtime {
 		// System support stuff.
 		System: frame_system::{Pallet, Call, Config<T>, Storage, Event<T>} = 0,
-		#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+		#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 		ParachainSystem: cumulus_pallet_parachain_system::{
 			Pallet, Call, Config<T>, Storage, Inherent, Event<T>, ValidateUnsigned,
 		} = 1,
@@ -1207,7 +1207,7 @@ construct_runtime!(
 		ParachainInfo: parachain_info::{Pallet, Storage, Config<T>} = 3,
 
 		// Sudo removed from mainnet Jan 2023
-		#[cfg(any(not(feature = "frequency"), feature = "frequency-lint-check"))]
+		#[cfg(any(not(feature = "recurrency"), feature = "recurrency-lint-check"))]
 		Sudo: pallet_sudo::{Pallet, Call, Config<T>, Storage, Event<T> }= 4,
 
 		Preimage: pallet_preimage::{Pallet, Call, Storage, Event<T>, HoldReason} = 5,
@@ -1242,16 +1242,16 @@ construct_runtime!(
 		// Allowing accounts to give permission to other accounts to dispatch types of calls from their signed origin
 		Proxy: pallet_proxy = 43,
 
-		// Frequency related pallets
+		// Recurrency related pallets
 		Msa: pallet_msa::{Pallet, Call, Storage, Event<T>} = 60,
 		Messages: pallet_messages::{Pallet, Call, Storage, Event<T>} = 61,
 		Schemas: pallet_schemas::{Pallet, Call, Storage, Event<T>, Config<T>} = 62,
 		StatefulStorage: pallet_stateful_storage::{Pallet, Call, Storage, Event<T>} = 63,
 		Capacity: pallet_capacity::{Pallet, Call, Storage, Event<T>, FreezeReason} = 64,
-		FrequencyTxPayment: pallet_frequency_tx_payment::{Pallet, Call, Event<T>} = 65,
+		RecurrencyTxPayment: pallet_recurrency_tx_payment::{Pallet, Call, Event<T>} = 65,
 		Handles: pallet_handles::{Pallet, Call, Storage, Event<T>} = 66,
 		// Currently enabled only under feature flag
-		#[cfg(any(not(feature = "frequency"), feature = "frequency-lint-check"))]
+		#[cfg(any(not(feature = "recurrency"), feature = "recurrency-lint-check"))]
 		Passkey: pallet_passkey::{Pallet, Call, Storage, Event<T>, ValidateUnsigned} = 67,
 	}
 );
@@ -1450,12 +1450,12 @@ impl StaleHashCheckExtension {
 				)],
 				_ => vec![],
 			},
-			RuntimeCall::FrequencyTxPayment(FrequencyPaymentCall::pay_with_capacity {
+			RuntimeCall::RecurrencyTxPayment(RecurrencyPaymentCall::pay_with_capacity {
 				call,
 				..
 			}) => Self::extract_hash_data(call),
-			RuntimeCall::FrequencyTxPayment(
-				FrequencyPaymentCall::pay_with_capacity_batch_all { calls, .. },
+			RuntimeCall::RecurrencyTxPayment(
+				RecurrencyPaymentCall::pay_with_capacity_batch_all { calls, .. },
 			) => calls.iter().flat_map(|c| Self::extract_hash_data(c)).collect(),
 			RuntimeCall::Utility(UtilityCall::batch { calls, .. }) |
 			RuntimeCall::Utility(UtilityCall::batch_all { calls, .. }) =>
@@ -1552,7 +1552,7 @@ mod benches {
 		[pallet_utility, Utility]
 		[pallet_proxy, Proxy]
 
-		// Frequency
+		// Recurrency
 		[pallet_msa, Msa]
 		[pallet_schemas, Schemas]
 		[pallet_messages, Messages]
@@ -1560,13 +1560,13 @@ mod benches {
 		[pallet_handles, Handles]
 		[pallet_time_release, TimeRelease]
 		[pallet_capacity, Capacity]
-		[pallet_frequency_tx_payment, FrequencyTxPayment]
+		[pallet_recurrency_tx_payment, RecurrencyTxPayment]
 		// Todo: uncomment after removing the feature flag
 		// [pallet_passkey, Passkey]
 	);
 }
 
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 cumulus_pallet_parachain_system::register_validate_block! {
 	Runtime = Runtime,
 	BlockExecutor = cumulus_pallet_aura_ext::BlockExecutor::<Runtime, Executive>,

@@ -1,12 +1,12 @@
 [package]
-name = "pallet-frequency-tx-payment-runtime-api"
+name = "pallet-recurrency-tx-payment-runtime-api"
 version = "0.0.0"
 description = "A package that adds Runtime Api for payment pallet"
-authors = ["Frequency"]
+authors = ["Recurrency"]
 license = "Apache-2.0"
 publish = false
-homepage = "https://frequency.xyz"
-repository = "https://github.com/frequency-chain/frequency/"
+homepage = "https://recurrency.xyz"
+repository = "https://github.com/rustadot/recurrency/"
 edition = "2021"
 
 [dependencies]
@@ -15,7 +15,7 @@ parity-scale-codec = { workspace = true, features = ["derive"] }
 sp-api = { workspace = true }
 sp-std = { workspace = true }
 frame-support = { workspace = true }
-# Frequency related dependencies
+# Recurrency related dependencies
 common-primitives = { default-features = false, path = "../../../../common/primitives" }
 pallet-transaction-payment = { workspace = true }
 

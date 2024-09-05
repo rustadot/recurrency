@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-function get_frequency_pid () {
-    lsof -i tcp:9944 | grep frequency | xargs | awk '{print $2}'
+function get_recurrency_pid () {
+    lsof -i tcp:9944 | grep recurrency | xargs | awk '{print $2}'
 }
 
 function cleanup () {
@@ -20,9 +20,9 @@ function cleanup () {
             if [ -n "${PID}" ]
             then
                 kill -9 ${PID}
-                echo "Frequency has been killed. 💀"
+                echo "Recurrency has been killed. 💀"
             else
-                echo "Frequency was not started by this script."
+                echo "Recurrency was not started by this script."
             fi
             ;;
     esac
@@ -80,42 +80,42 @@ case "${CHAIN}" in
         NPM_RUN_COMMAND="test:relay"
         CHAIN_ENVIRONMENT="paseo-testnet"
 
-        read -p "Enter the seed phrase for the Frequency Paseo account funding source: " FUNDING_ACCOUNT_SEED_PHRASE
+        read -p "Enter the seed phrase for the Recurrency Paseo account funding source: " FUNDING_ACCOUNT_SEED_PHRASE
     ;;
 esac
 
 echo "The E2E test output will be logged on this console"
 
-echo "The Frequency node output will be logged to the file frequency.log."
-echo "You can 'tail -f frequency.log' in another terminal to see both side-by-side."
+echo "The Recurrency node output will be logged to the file recurrency.log."
+echo "You can 'tail -f recurrency.log' in another terminal to see both side-by-side."
 echo ""
-echo -e "Checking to see if Frequency is running..."
+echo -e "Checking to see if Recurrency is running..."
 
-if [ -n "$( get_frequency_pid )" ]
+if [ -n "$( get_recurrency_pid )" ]
 then
-    echo "Frequency is already running."
+    echo "Recurrency is already running."
 else
     if [ "${CHAIN_ENVIRONMENT}" = "paseo-local" ]
     then
-        echo "Frequency is not running."
+        echo "Recurrency is not running."
         echo "The intended use case of running E2E tests with a chain environment"
-        echo "of \"paseo-local\" is to run the tests against a locally running Frequency"
+        echo "of \"paseo-local\" is to run the tests against a locally running Recurrency"
         echo "chain with locally running Polkadot relay nodes."
         exit 1
     fi
 
-    echo "Building a no-relay Frequency executable..."
+    echo "Building a no-relay Recurrency executable..."
     if ! make build-no-relay
     then
-        echo "Error building Frequency executable; aborting."
+        echo "Error building Recurrency executable; aborting."
         exit 1
     fi
 
-    echo "Starting a Frequency Node with block sealing ${LOCAL_NODE_BLOCK_SEALING}..."
+    echo "Starting a Recurrency Node with block sealing ${LOCAL_NODE_BLOCK_SEALING}..."
     case ${LOCAL_NODE_BLOCK_SEALING} in
-        "instant") ${RUNDIR}/init.sh start-frequency-instant >& frequency.log &
+        "instant") ${RUNDIR}/init.sh start-recurrency-instant >& recurrency.log &
         ;;
-        "manual") ${RUNDIR}/init.sh start-frequency-manual >& frequency.log &
+        "manual") ${RUNDIR}/init.sh start-recurrency-manual >& recurrency.log &
         ;;
     esac
 
@@ -123,18 +123,18 @@ else
     declare -i i=0
     while (( !PID && i < timeout_secs ))
     do
-        PID=$( get_frequency_pid )
+        PID=$( get_recurrency_pid )
         sleep 1
         (( i += 1 ))
     done
 
     if [ -z "${PID}" ]
     then
-        echo "Unable to find or start a Frequency node; aborting."
+        echo "Unable to find or start a Recurrency node; aborting."
         exit 1
     fi
     echo "---------------------------------------------"
-    echo "Frequency running here:"
+    echo "Recurrency running here:"
     echo "PID: ${PID}"
     echo "---------------------------------------------"
 fi
@@ -149,15 +149,15 @@ else
     npm run fetch:local
     npm run --silent build
     cd dist
-    echo "Packaging up into js/api-augment/dist/frequency-chain-api-augment-0.0.0.tgz"
+    echo "Packaging up into js/api-augment/dist/rustadot-api-augment-0.0.0.tgz"
     npm pack --silent
     cd ../../..
 fi
 
 
 cd e2e
-echo "Installing js/api-augment/dist/frequency-chain-api-augment-0.0.0.tgz"
-npm i ../js/api-augment/dist/frequency-chain-api-augment-0.0.0.tgz
+echo "Installing js/api-augment/dist/rustadot-api-augment-0.0.0.tgz"
+npm i ../js/api-augment/dist/rustadot-api-augment-0.0.0.tgz
 npm install
 echo "---------------------------------------------"
 echo "Starting Tests..."

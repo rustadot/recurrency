@@ -4,16 +4,16 @@
 //! DATE: 2024-09-04, STEPS: `50`, REPEAT: `20`, LOW RANGE: `[]`, HIGH RANGE: `[]`
 //! WORST CASE MAP SIZE: `1000000`
 //! HOSTNAME: `ip-10-173-10-33`, CPU: `Intel(R) Xeon(R) Platinum 8375C CPU @ 2.90GHz`
-//! EXECUTION: , WASM-EXECUTION: Compiled, CHAIN: Some("frequency-bench"), DB CACHE: 1024
+//! EXECUTION: , WASM-EXECUTION: Compiled, CHAIN: Some("recurrency-bench"), DB CACHE: 1024
 
 // Executed Command:
-// ./scripts/../target/release/frequency
+// ./scripts/../target/release/recurrency
 // benchmark
 // pallet
 // --pallet=pallet_multisig
 // --extrinsic
 // *
-// --chain=frequency-bench
+// --chain=recurrency-bench
 // --heap-pages=4096
 // --wasm-execution=compiled
 // --steps=50

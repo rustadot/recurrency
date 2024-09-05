@@ -1,4 +1,4 @@
-//! # Frequency Primitives
+//! # Recurrency Primitives
 //!
 //! Primitives package contains many of the structs and trait implementations
 //! for Pallets and utilities that need to be shared across packages

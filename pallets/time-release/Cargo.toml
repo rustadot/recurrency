@@ -1,11 +1,11 @@
 [package]
 name = "pallet-time-release"
 description = "Provides scheduled balance freezing mechanism, in a *graded release* way."
-authors = ["Frequency"]
+authors = ["Recurrency"]
 edition = "2021"
-homepage = "https://frequency.xyz"
+homepage = "https://recurrency.xyz"
 license = "Apache-2.0"
-repository = "https://github.com/frequency-chain/frequency/"
+repository = "https://github.com/rustadot/recurrency/"
 publish = false
 version = "0.0.0"
 

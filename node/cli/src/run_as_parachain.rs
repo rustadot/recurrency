@@ -1,6 +1,6 @@
 use crate::cli::{Cli, RelayChainCli};
 use cumulus_primitives_core::ParaId;
-use frequency_service::chain_spec;
+use recurrency_service::chain_spec;
 use log::info;
 use sc_cli::SubstrateCli;
 
@@ -36,7 +36,7 @@ pub fn run_as_parachain(cli: Cli) -> sc_service::Result<(), sc_cli::Error> {
 		info!("Parachain id: {:?}", id);
 		info!("Is collating: {}", if config.role.is_authority() { "yes" } else { "no" });
 
-		return frequency_service::service::start_parachain_node(
+		return recurrency_service::service::start_parachain_node(
 			config,
 			polkadot_config,
 			collator_options,

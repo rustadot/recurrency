@@ -1,14 +1,14 @@
 [package]
-authors = ["Frequency"]
+authors = ["Recurrency"]
 description = "Handles Utilities"
 edition = "2021"
 build = "build.rs"
-homepage = "https://frequency.xyz"
+homepage = "https://recurrency.xyz"
 license = "Apache-2.0"
 name = "handles-utils"
 version = "0.0.0"
 publish = false
-repository = "https://github.com/frequency-chain/frequency/"
+repository = "https://github.com/rustadot/recurrency/"
 
 [dependencies]
 phf = { workspace = true, features = ["macros"] }

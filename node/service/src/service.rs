@@ -8,7 +8,7 @@ use sc_client_api::Backend;
 use std::{sync::Arc, time::Duration};
 
 use cumulus_client_cli::CollatorOptions;
-use frequency_runtime::apis::RuntimeApi;
+use recurrency_runtime::apis::RuntimeApi;
 
 // RPC
 use common_primitives::node::{AccountId, Balance, Block, Hash, Index as Nonce};
@@ -67,11 +67,11 @@ type HostFunctions = (
 	common_primitives::offchain::custom::HostFunctions,
 );
 
-pub use frequency_runtime;
+pub use recurrency_runtime;
 
 type ParachainExecutor = WasmExecutor<HostFunctions>;
 
-/// Frequency parachain
+/// Recurrency parachain
 pub type ParachainClient = TFullClient<Block, RuntimeApi, ParachainExecutor>;
 
 type ParachainBackend = TFullBackend<Block>;
@@ -146,14 +146,14 @@ pub fn new_partial(
 
 	let block_import = ParachainBlockImport::new(client.clone(), backend.clone());
 
-	#[cfg(feature = "frequency-no-relay")]
+	#[cfg(feature = "recurrency-no-relay")]
 	let import_queue = sc_consensus_manual_seal::import_queue(
 		Box::new(client.clone()),
 		&task_manager.spawn_essential_handle(),
 		config.prometheus_registry(),
 	);
 
-	#[cfg(not(feature = "frequency-no-relay"))]
+	#[cfg(not(feature = "recurrency-no-relay"))]
 	let import_queue = build_import_queue(
 		client.clone(),
 		block_import.clone(),
@@ -184,7 +184,7 @@ pub fn new_partial(
 /// This is the actual implementation that is abstract over the executor and the runtime api.
 #[allow(clippy::expect_used)]
 #[sc_tracing::logging::prefix_logs_with("Parachain")]
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 pub async fn start_parachain_node(
 	parachain_config: Configuration,
 	polkadot_config: Configuration,
@@ -386,7 +386,7 @@ pub async fn start_parachain_node(
 }
 
 /// Build the import queue for the parachain runtime.
-#[cfg(not(feature = "frequency-no-relay"))]
+#[cfg(not(feature = "recurrency-no-relay"))]
 /// Build the import queue for the parachain runtime.
 fn build_import_queue(
 	client: Arc<ParachainClient>,
@@ -414,7 +414,7 @@ fn build_import_queue(
 	)
 }
 
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 fn start_consensus(
 	client: Arc<ParachainClient>,
 	backend: Arc<ParachainBackend>,

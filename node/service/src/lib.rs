@@ -1,10 +1,10 @@
-//! Frequency Client library.
+//! Recurrency Client library.
 
 #![warn(missing_docs)]
 #![warn(unused_extern_crates)]
 
 /// Block sealing
-#[cfg(feature = "frequency-no-relay")]
+#[cfg(feature = "recurrency-no-relay")]
 pub mod block_sealing;
 pub mod chain_spec;
 pub mod common;

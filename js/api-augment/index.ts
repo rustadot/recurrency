@@ -26,7 +26,7 @@ export const rpc = Object.entries(definitions).reduce((acc, [key, value]) => {
 }, {});
 
 /**
- * Frequency Specific Signed Extensions
+ * Recurrency Specific Signed Extensions
  */
 export const signedExtensions: ExtDef = {
   // `CheckFreeExtrinsicUse` has no payload or extrinsic requirements

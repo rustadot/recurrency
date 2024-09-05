@@ -1,6 +1,6 @@
 # Capacity Pallet
 
-The Capacity Pallet manages the staking and balances for Capacity, an alternative payment system on Frequency.
+The Capacity Pallet manages the staking and balances for Capacity, an alternative payment system on Recurrency.
 
 ## Summary
 
@@ -8,7 +8,7 @@ Capacity is an alternative to paying with tokens for a limited set of calls.
 These Capacity eligible extrinsics are noted in each pallet's documentation with "Capacity" in the Payment column of the extrinsics section.
 Tokens can be staked to generate Capacity for a targeted Provider.
 The generated Capacity renews each [Epoch](#capacity-epoch).
-[Learn more about Capacity](https://docs.frequency.xyz/Tokenomics/ProviderIncentives.html#capacity-model).
+[Learn more about Capacity](https://docs.recurrency.xyz/Tokenomics/ProviderIncentives.html#capacity-model).
 
 ### Staking & Unstaking
 Currently, the token to Capacity ratio is 50:1.
@@ -42,11 +42,11 @@ The Capacity Pallet provides for:
 
 | Name/Description                 | Caller        | Payment | Key Events                                                                                                    | Runtime Added |
 | -------------------------------- | ------------- | ------- | ------------------------------------------------------------------------------------------------------------- | ------------- |
-| `stake`<br />Lock tokens to grant Capacity to a Provider | Token Account | Tokens | [`Staked`](https://frequency-chain.github.io/frequency/pallet_capacity/pallet/enum.Event.html#variant.Staked) | 1             |
-| `unstake`<br />Begin the process of unlocking tokens by unstaking currently staked tokens | Token Account | Tokens | [`UnStaked`](https://frequency-chain.github.io/frequency/pallet_capacity/pallet/enum.Event.html#variant.UnStaked) | 1             |
-| `withdraw_unstaked`<br />Complete the process of unlocking tokens staked by releasing locks on expired unlock chunks | Token Account | Tokens | [`StakeWithdrawn`](https://frequency-chain.github.io/frequency/pallet_capacity/pallet/enum.Event.html#variant.StakeWithdrawn) | 1             |
+| `stake`<br />Lock tokens to grant Capacity to a Provider | Token Account | Tokens | [`Staked`](https://rustadot.github.io/recurrency/pallet_capacity/pallet/enum.Event.html#variant.Staked) | 1             |
+| `unstake`<br />Begin the process of unlocking tokens by unstaking currently staked tokens | Token Account | Tokens | [`UnStaked`](https://rustadot.github.io/recurrency/pallet_capacity/pallet/enum.Event.html#variant.UnStaked) | 1             |
+| `withdraw_unstaked`<br />Complete the process of unlocking tokens staked by releasing locks on expired unlock chunks | Token Account | Tokens | [`StakeWithdrawn`](https://rustadot.github.io/recurrency/pallet_capacity/pallet/enum.Event.html#variant.StakeWithdrawn) | 1             |
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_capacity/pallet/struct.Pallet.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_capacity/pallet/struct.Pallet.html) for more details.
 
 ### State Queries
 
@@ -60,4 +60,4 @@ See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_capacity/pall
 | Get Unstake Information | Returns the information about an account's current unstaking details and the unlocking chunks | `unstakeUnlocks` | 1             |
 
 
-See the [Rust Docs](https://frequency-chain.github.io/frequency/pallet_capacity/pallet/storage_types/index.html) for additional state queries and details.
+See the [Rust Docs](https://rustadot.github.io/recurrency/pallet_capacity/pallet/storage_types/index.html) for additional state queries and details.

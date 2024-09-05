@@ -30,7 +30,7 @@ use std::sync::Arc;
 #[cfg(test)]
 mod tests;
 
-/// Frequency Handles Custom RPC API
+/// Recurrency Handles Custom RPC API
 #[rpc(client, server)]
 pub trait HandlesApi<BlockHash> {
 	/// retrieve `HandleResponse` for a given `MessageSourceId`
@@ -54,7 +54,7 @@ pub trait HandlesApi<BlockHash> {
 	fn validate_handle(&self, base_handle: String) -> RpcResult<bool>;
 }
 
-/// The client handler for the API used by Frequency Service RPC with `jsonrpsee`
+/// The client handler for the API used by Recurrency Service RPC with `jsonrpsee`
 pub struct HandlesHandler<C, M> {
 	client: Arc<C>,
 	_marker: std::marker::PhantomData<M>,

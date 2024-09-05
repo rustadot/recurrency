@@ -6,7 +6,7 @@ set -x
 changelog='### Major Changes|n|
 
   - Restrict Pays:No call in batches #1452|n|
-  - refactor: feature frequency-local => frequency-paseo-local #1511|n|
+  - refactor: feature recurrency-local => recurrency-paseo-local #1511|n|
 
   |n||n|### Uncategorized Changes|n||n| - [Handles] Testing Cleanup #1445|n|
   - fix type definition mismatch for schemas #1443|n|
@@ -20,7 +20,7 @@ changelog='### Major Changes|n|
   - add CI base image #1468|n|
   - clear metadata mismatch label on Verify PR workflow start #1480|n|
   - switch Merge PR workflow to EKS runners #1459|n|
-  - 1401 Build/run Frequency runtime without a relay chain #1464|n|
+  - 1401 Build/run Recurrency runtime without a relay chain #1464|n|
   - Bump robinraju/release-downloader from 1.7 to 1.8 #1473|n|
   - Update README.md #1489|n|
   - Update README.md #1490|n|

@@ -83,7 +83,7 @@ pub mod pallet {
 	/// Creates a freeze reason for this pallet that is aggregated by `construct_runtime`.
 	#[pallet::composite_enum]
 	pub enum FreezeReason {
-		/// The account has staked tokens to the Frequency network.
+		/// The account has staked tokens to the Recurrency network.
 		CapacityStaking,
 	}
 
@@ -214,7 +214,7 @@ pub mod pallet {
 	#[pallet::event]
 	#[pallet::generate_deposit(pub (super) fn deposit_event)]
 	pub enum Event<T: Config> {
-		/// Tokens have been staked to the Frequency network.
+		/// Tokens have been staked to the Recurrency network.
 		Staked {
 			/// The token account that staked tokens to the network.
 			account: T::AccountId,
@@ -232,7 +232,7 @@ pub mod pallet {
 			/// the total amount withdrawn, i.e. put back into free balance.
 			amount: BalanceOf<T>,
 		},
-		/// A token account has unstaked the Frequency network.
+		/// A token account has unstaked the Recurrency network.
 		UnStaked {
 			/// The token account that unstaked tokens from the network.
 			account: T::AccountId,

@@ -2,7 +2,7 @@
 //! DATE: 2024-08-22 (Y/M/D)
 //! HOSTNAME: `ip-10-173-4-131`, CPU: `Intel(R) Xeon(R) Platinum 8375C CPU @ 2.90GHz`
 //!
-//! DATABASE: `RocksDb`, RUNTIME: `Frequency`
+//! DATABASE: `RocksDb`, RUNTIME: `Recurrency`
 //! BLOCK-NUM: `BlockId::Number(4413540)`
 //! SKIP-WRITE: `false`, SKIP-READ: `false`, WARMUPS: `2`
 //! STATE-VERSION: `V1`, STATE-CACHE-SIZE: ``
@@ -10,17 +10,17 @@
 //! METRIC: `Average`, WEIGHT-MUL: `1.3`, WEIGHT-ADD: `0`
 
 // Executed Command:
-//   ./target/release/frequency
+//   ./target/release/recurrency
 //   benchmark
 //   storage
 //   --state-version=1
-//   --chain=frequency
+//   --chain=recurrency
 //   --base-path=/data
 //   --include-child-trees
 //   --warmups=2
 //   --mul=1.3
 
-/// Storage DB weights for the `Frequency` runtime and `RocksDb`.
+/// Storage DB weights for the `Recurrency` runtime and `RocksDb`.
 pub mod constants {
 	use frame_support::weights::constants;
 	use sp_core::parameter_types;

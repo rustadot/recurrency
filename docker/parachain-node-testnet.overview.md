@@ -1,24 +1,24 @@
-# Frequency Parachain Node for Testnets
+# Recurrency Parachain Node for Testnets
 
-Frequency parachain node which connects to Frequency testnets:
+Recurrency parachain node which connects to Recurrency testnets:
 
-- Frequency Paseo Testnet `--chain=frequency-paseo` (Default)
+- Recurrency Paseo Testnet `--chain=recurrency-paseo` (Default)
 
 To view all available options and arguments:
 
 ```sh
-docker run --rm frequencychain/parachain-node-testnet:<version.tag> --help
+docker run --rm recurrencychain/parachain-node-testnet:<version.tag> --help
 ```
 
 ## Run Full Node
 
-### Frequency Paseo Testnet
+### Recurrency Paseo Testnet
 
 Start full chain node that connects to Paseo Testnet network and syncs with warp:
 
 ```sh
-docker run -p 9944:9944 -p 30333:30333 frequencychain/parachain-node-testnet:<version.tag> \
-    --chain=frequency-paseo \
+docker run -p 9944:9944 -p 30333:30333 recurrencychain/parachain-node-testnet:<version.tag> \
+    --chain=recurrency-paseo \
     --base-path=/chain-data \
     --rpc-external \
     --rpc-cors=all \

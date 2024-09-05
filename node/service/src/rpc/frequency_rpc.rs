@@ -25,25 +25,25 @@ use system_runtime_api::AdditionalRuntimeApi;
 /// This is an upper limit to restrict the number of returned nonce holes to eliminate a potential
 /// attack vector
 const MAX_RETURNED_MISSING_NONCE_SIZE: usize = 1000;
-/// Frequency MSA Custom RPC API
+/// Recurrency MSA Custom RPC API
 #[rpc(client, server)]
-pub trait FrequencyRpcApi<B: BlockT, AccountId, Nonce> {
+pub trait RecurrencyRpcApi<B: BlockT, AccountId, Nonce> {
 	/// gets the events for a block hash
-	#[method(name = "frequency_getEvents")]
+	#[method(name = "recurrency_getEvents")]
 	fn get_events(&self, at: B::Hash) -> RpcResult<Vec<RpcEvent>>;
 	/// returns a list of missing nonce values from Future transaction pool.
-	#[method(name = "frequency_getMissingNonceValues")]
+	#[method(name = "recurrency_getMissingNonceValues")]
 	fn get_missing_nonce_values(&self, account: AccountId) -> RpcResult<Vec<Nonce>>;
 }
 
-/// The client handler for the API used by Frequency Service RPC with `jsonrpsee`
-pub struct FrequencyRpcHandler<P: TransactionPool, C, M> {
+/// The client handler for the API used by Recurrency Service RPC with `jsonrpsee`
+pub struct RecurrencyRpcHandler<P: TransactionPool, C, M> {
 	client: Arc<C>,
 	pool: Arc<P>,
 	_marker: std::marker::PhantomData<M>,
 }
 
-impl<P: TransactionPool, C, M> FrequencyRpcHandler<P, C, M> {
+impl<P: TransactionPool, C, M> RecurrencyRpcHandler<P, C, M> {
 	/// Create new instance with the given reference to the client.
 	pub fn new(client: Arc<C>, pool: Arc<P>) -> Self {
 		Self { client, pool, _marker: Default::default() }
@@ -51,8 +51,8 @@ impl<P: TransactionPool, C, M> FrequencyRpcHandler<P, C, M> {
 }
 
 #[async_trait]
-impl<P, C, Block, AccountId, Nonce> FrequencyRpcApiServer<Block, AccountId, Nonce>
-	for FrequencyRpcHandler<P, C, Block>
+impl<P, C, Block, AccountId, Nonce> RecurrencyRpcApiServer<Block, AccountId, Nonce>
+	for RecurrencyRpcHandler<P, C, Block>
 where
 	Block: BlockT,
 	C: HeaderBackend<Block>,

@@ -21,5 +21,5 @@ Tests require getting the metadata and building first.
 - `npm run build`
 
 ### From CLI
-- Frequency Project Root
+- Recurrency Project Root
 - `make js`

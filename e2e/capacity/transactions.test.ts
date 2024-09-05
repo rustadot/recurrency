@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { Bytes, u64, u16 } from '@polkadot/types';
 import { u8aToHex } from '@polkadot/util/u8a/toHex';
@@ -6,7 +6,7 @@ import { u8aWrapBytes } from '@polkadot/util';
 import assert from 'assert';
 import { AddKeyData, AddProviderPayload, EventMap, ExtrinsicHelper } from '../scaffolding/extrinsicHelpers';
 import { base64 } from 'multiformats/bases/base64';
-import { SchemaId } from '@frequency-chain/api-augment/interfaces';
+import { SchemaId } from '@rustadot/api-augment/interfaces';
 import {
   createKeys,
   createAndFundKeypair,
@@ -209,7 +209,7 @@ describe('Capacity Transactions', function () {
 
         it('successfully pays with Capacity for eligible transaction - addIPFSMessage', async function () {
           const schemaId = await getOrCreateParquetBroadcastSchema(fundingSource);
-          const ipfs_payload_data = 'This is a test of Frequency.';
+          const ipfs_payload_data = 'This is a test of Recurrency.';
           const ipfs_payload_len = ipfs_payload_data.length + 1;
           const ipfs_cid_64 = (await ipfsCid(ipfs_payload_data, './e2e_test.txt')).toString(base64);
           const call = ExtrinsicHelper.addIPFSMessage(capacityKeys, schemaId, ipfs_cid_64, ipfs_payload_len);
@@ -261,12 +261,12 @@ describe('Capacity Transactions', function () {
           const schemaId_deletable: SchemaId = await getOrCreateAvroChatMessageItemizedSchema(fundingSource);
 
           // Add and update actions
-          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
           const add_action = {
             Add: payload_1,
           };
 
-          const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Frequency');
+          const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Recurrency');
           const update_action = {
             Add: payload_2,
           };
@@ -294,7 +294,7 @@ describe('Capacity Transactions', function () {
           let target_hash = await getCurrentPaginatedHash(capacityProvider, schemaId, page_id);
 
           // Add and update actions
-          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
           const call = ExtrinsicHelper.upsertPage(
             capacityKeys,
             schemaId,
@@ -322,12 +322,12 @@ describe('Capacity Transactions', function () {
           const itemizedSchemaId: SchemaId = await getOrCreateAvroChatMessageItemizedSchema(fundingSource);
 
           // Add and update actions
-          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
           const add_action = {
             Add: payload_1,
           };
 
-          const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Frequency');
+          const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Recurrency');
           const update_action = {
             Add: payload_2,
           };
@@ -366,12 +366,12 @@ describe('Capacity Transactions', function () {
           const itemizedSchemaId: SchemaId = await getOrCreateAvroChatMessageItemizedSchema(fundingSource);
 
           // Add and update actions
-          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
           const add_action = {
             Add: payload_1,
           };
 
-          const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Frequency');
+          const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Recurrency');
           const update_action = {
             Add: payload_2,
           };
@@ -416,7 +416,7 @@ describe('Capacity Transactions', function () {
             targetHash: target_hash,
             schemaId: paginatedSchemaId,
             pageId: page_id,
-            payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+            payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
           });
           const upsertPayloadData = ExtrinsicHelper.api.registry.createType(
             'PalletStatefulStoragePaginatedUpsertSignaturePayload',
@@ -477,7 +477,7 @@ describe('Capacity Transactions', function () {
             targetHash: target_hash,
             schemaId: paginatedSchemaId,
             pageId: page_id,
-            payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency'),
+            payload: new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency'),
           });
           const upsertPayloadData = ExtrinsicHelper.api.registry.createType(
             'PalletStatefulStoragePaginatedUpsertSignaturePayloadV2',

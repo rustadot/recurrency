@@ -36,7 +36,7 @@ use std::sync::Arc;
 #[cfg(test)]
 mod tests;
 
-/// Frequency MSA Custom RPC API
+/// Recurrency MSA Custom RPC API
 #[rpc(client, server)]
 pub trait MsaApi<BlockHash, AccountId> {
 	/// Check for a list of delegations
@@ -74,7 +74,7 @@ pub trait MsaApi<BlockHash, AccountId> {
 	) -> RpcResult<Option<KeyInfoResponse<AccountId>>>;
 }
 
-/// The client handler for the API used by Frequency Service RPC with `jsonrpsee`
+/// The client handler for the API used by Recurrency Service RPC with `jsonrpsee`
 pub struct MsaHandler<C, M, OffchainDB> {
 	client: Arc<C>,
 	offchain: Arc<RwLock<Option<OffchainDB>>>,

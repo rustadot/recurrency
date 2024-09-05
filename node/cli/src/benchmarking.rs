@@ -6,14 +6,14 @@
 use common_primitives::node::{AccountId, Balance, Signature};
 use frame_support::pallet_prelude::InherentData;
 use frame_system::{Call as SystemCall, Config};
-use frequency_service::service::{frequency_runtime as runtime, ParachainClient as FullClient};
+use recurrency_service::service::{recurrency_runtime as runtime, ParachainClient as FullClient};
 use sc_cli::Result;
 use sc_client_api::BlockBackend;
 use sp_core::{Encode, Pair};
 use sp_keyring::Sr25519Keyring;
 use sp_runtime::{OpaqueExtrinsic, SaturatedConversion};
 
-use frequency_runtime::StaleHashCheckExtension;
+use recurrency_runtime::StaleHashCheckExtension;
 use pallet_balances::Call as BalancesCall;
 use pallet_msa;
 use sp_inherents::InherentDataProvider;
@@ -130,7 +130,7 @@ pub fn create_benchmark_extrinsic(
 		)),
 		common_runtime::extensions::check_nonce::CheckNonce::<runtime::Runtime>::from(nonce),
 		frame_system::CheckWeight::<runtime::Runtime>::new(),
-		pallet_frequency_tx_payment::ChargeFrqTransactionPayment::<runtime::Runtime>::from(0),
+		pallet_recurrency_tx_payment::ChargeFrqTransactionPayment::<runtime::Runtime>::from(0),
 		pallet_msa::CheckFreeExtrinsicUse::<runtime::Runtime>::new(),
 		pallet_handles::handles_signed_extension::HandlesSignedExtension::<runtime::Runtime>::new(),
 		StaleHashCheckExtension,

@@ -2,7 +2,7 @@ mod rpc_mock;
 
 use super::*;
 use common_primitives::node::{Balance, Block};
-use pallet_frequency_tx_payment_runtime_api::CapacityTransactionPaymentRuntimeApi;
+use pallet_recurrency_tx_payment_runtime_api::CapacityTransactionPaymentRuntimeApi;
 use rpc_mock::*;
 use sp_runtime::{traits::Zero, OpaqueExtrinsic};
 use std::sync::Arc;

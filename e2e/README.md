@@ -1,15 +1,15 @@
 Running E2E Tests
 =========================
 
-To run all tests (and automatically start up a Frequency node):
+To run all tests (and automatically start up a Recurrency node):
 
 `make e2e-tests`
 
-To run all tests (after starting up a Frequency node):
+To run all tests (after starting up a Recurrency node):
 
 `npm run test`
 
-To run an individual test (after starting up a Frequency node):
+To run an individual test (after starting up a Recurrency node):
 
 Note: this is for the "createMsa" tests
 
@@ -23,7 +23,7 @@ Notes on E2E Testing
 1. Avoid using anonymous arrow functions for test blocks (`describe`, `it`, `before`, etc).
 Though technically legal, it's discouraged in Mocha. See [here](https://mochajs.org/#arrow-functions) for details.
 2. Avoid using the standard Substrate dev accounts ('//Alice', '//Bob', etc) for running tests. It causes interference
-when multiple test suites are running in parallel, or against the same Frequency chain. Instead, create a new account & MSA
+when multiple test suites are running in parallel, or against the same Recurrency chain. Instead, create a new account & MSA
 for each test and fund it from one of the well-known dev accounts. There are helper functions to assist in this, like so:
 ```
 /* In suite initialization */
@@ -38,7 +38,7 @@ it is not necessary to look for the `ExtrinsicFailed` event, but simply to expec
 or not.
 4. There are 2 environment variables that can be set:
     `VERBOSE_TESTS`: 'true' or '1' enables verbose logging in tests using the `log()` function
-    `WS_PROVIDER_URL`: allows override of the default Frequency URL (localhost)
+    `WS_PROVIDER_URL`: allows override of the default Recurrency URL (localhost)
 5. ExtrinsicHelpers: this is a static class that is initialized by the root hooks. Each helper method returns an Extrinsic object
 with the following methods:
     - getEstimatedTxFee(): Get payment info for the extrinsic call represented by the current object

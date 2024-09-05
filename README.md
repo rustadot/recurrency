@@ -12,7 +12,7 @@
 [![Issues][issues-shield]][issues-url]
 [![Codecov][codecov-shield]][codecov-url]
 
-Frequency is a [Polkadot](https://www.parity.io/technologies/polkadot) parachain for data distribution protocols such as [DSNP](https://www.dsnp.org).
+Recurrency is a [Polkadot](https://www.parity.io/technologies/polkadot) parachain for data distribution protocols such as [DSNP](https://www.dsnp.org).
 
 # Table of Contents
 
@@ -70,7 +70,7 @@ Non-Collator nodes may have less power, but low memory configurations may lead t
 1. Install Rust using the [official instructions](https://www.rust-lang.org/tools/install).
 2. Check out this repository
 3. `rust-toolchain.toml` specifies the standard toolchain to use. If you have `rustup` installed, it will automatically install the correct toolchain when you run any cargo command.
-4. Running `make check` will run cargo checks for all Frequency features. This is the recommended way to check your code before committing. Alternatively, you can run following for specific features:
+4. Running `make check` will run cargo checks for all Recurrency features. This is the recommended way to check your code before committing. Alternatively, you can run following for specific features:
 
    ```sh
    make check-no-relay
@@ -91,7 +91,7 @@ Non-Collator nodes may have less power, but low memory configurations may lead t
    make build
    ```
 
-   Above will build Frequency with all features. Alternatively you may run following command to build with specific features:
+   Above will build Recurrency with all features. Alternatively you may run following command to build with specific features:
 
    ```sh
    make build-no-relay
@@ -106,7 +106,7 @@ At this point you should have `./target/debug` directory generated locally with 
 
 ### asdf Support
 
-Frequency optionally supports [asdf](https://asdf-vm.com) for managing dependencies of the following tools:
+Recurrency optionally supports [asdf](https://asdf-vm.com) for managing dependencies of the following tools:
 Install the required plugins for [asdf](https://asdf-vm.com):
 Please note that if you use rustup, asdf may conflict and cause issues. It is recommended to use one or the other, but not both for rust.
 
@@ -141,13 +141,13 @@ sudo apt install --assume-yes clang curl libssl-dev cmake
 
 2. Follow [official instructions to install Rust](https://www.rust-lang.org/tools/install), but select `3. customize the installation`, then reply **n** to `Modify PATH variable? (Y/n)`
 3. Follow steps 6-10 at [Substrate: Linux development](https://docs.substrate.io/main-docs/install/linux/)
-4. Proceed with checking out and building Frequency as above.
+4. Proceed with checking out and building Recurrency as above.
 
 # Run
 
 There are 2 options to run the chain locally:
 
-_Note, Running Frequency via following options does not require binary to be built or chain specs to be generated separately, and is programmed within the scripts for simplicity._
+_Note, Running Recurrency via following options does not require binary to be built or chain specs to be generated separately, and is programmed within the scripts for simplicity._
 
 1.  Collator Node without a relay chain (in manual/instant/interval sealing mode)
 2.  Collator Node with a local relay chain
@@ -190,17 +190,17 @@ Great for most testing.
 make start
 ```
 
-Also available as a Docker image: [`frequencychain/standalone-node`](https://hub.docker.com/r/frequencychain/standalone-node)
+Also available as a Docker image: [`recurrencychain/standalone-node`](https://hub.docker.com/r/recurrencychain/standalone-node)
 
 ```sh
-docker run --rm -p 9944:9944 frequencychain/standalone-node
+docker run --rm -p 9944:9944 recurrencychain/standalone-node
 ```
 
 To stop running chain hit [Ctrl+C] in terminal where the chain was started.
 
 | **Node**                |     **Ports**     | **Explorer URL**                                                                          |
 | ----------------------- | :---------------: | ----------------------------------------------------------------------------------------- |
-| Frequency Collator Node | ws and rpc:`9944` | [127.0.0.1:9944](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) |
+| Recurrency Collator Node | ws and rpc:`9944` | [127.0.0.1:9944](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) |
 
 ### Interval Sealing
 
@@ -224,7 +224,7 @@ This option runs two collator nodes as local host processes and two relay chain 
    make start-paseo-relay
    ```
 
-1. Register a new parachain slot (parachain id) for Frequency. _Note, if parachain was
+1. Register a new parachain slot (parachain id) for Recurrency. _Note, if parachain was
    previously registered on a running relay chain and no new registration is required,
    then you can skip the above step._
 
@@ -232,7 +232,7 @@ This option runs two collator nodes as local host processes and two relay chain 
    make register
    ```
 
-1. Start Frequency as parachain with a single collator.
+1. Start Recurrency as parachain with a single collator.
 
    ```sh
    make start-paseo-collator-alice
@@ -241,39 +241,39 @@ This option runs two collator nodes as local host processes and two relay chain 
    make start-paseo-collator-bob
    ```
 
-1.  Generate genesis/wasm and onboard Frequency to the relay chain.
+1.  Generate genesis/wasm and onboard Recurrency to the relay chain.
    ```sh
    make onboard
    ```
 
 #### Stop and Clean Environment
 
-1. Off-board Frequency from relay chain: `make offboard`
-2. To stop Frequency running in the terminal: `[Ctrl+C] `
+1. Off-board Recurrency from relay chain: `make offboard`
+2. To stop Recurrency running in the terminal: `[Ctrl+C] `
 3. Stop the relay chain. `make stop-relay`
 4. Run to remove unused volumes. `make docker-prune`
 5. Clean up temporary directory to avoid any conflicts with next onboarding:
-   `rm -fr /tmp/frequency`
+   `rm -fr /tmp/recurrency`
 
 ### All in Docker Container
 
-:exclamation: Currently does not work on M\* series MacOS laptops. See https://github.com/frequency-chain/frequency/issues/779
+:exclamation: Currently does not work on M\* series MacOS laptops. See https://github.com/rustadot/recurrency/issues/779
 
 Start:
 
 ```sh
-make start-frequency-docker
+make start-recurrency-docker
 ```
 
 Stop:
 
 ```sh
-make stop-frequency-docker
+make stop-recurrency-docker
 ```
 
 | **Node**             | **Ports**                       | **Explorer URL**                                                                          |
 | -------------------- | ------------------------------- | ----------------------------------------------------------------------------------------- |
-| Frequency Relay Node | ws and rpc: `9944`, p2p:`30333` | [127.0.0.1:9944](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) |
+| Recurrency Relay Node | ws and rpc: `9944`, p2p:`30333` | [127.0.0.1:9944](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) |
 | Alice Relay Node     | ws and rpc: `9946`, p2p:`30335` | [127.0.0.1:9946](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9946#/explorer) |
 | Bob Relay Node       | ws and rpc: `9947`, p2p:`30336` | [127.0.0.1:9947](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9947#/explorer) |
 
@@ -283,7 +283,7 @@ make stop-frequency-docker
 # Run all the tests
 make test
 # Activate selected features
-cargo test --features frequency
+cargo test --features recurrency
 ```
 
 ### E2E Tests
@@ -299,7 +299,7 @@ make benchmarks
 ## Run with offchain features
 
 ```sh
-make start-frequency-with-offchain
+make start-recurrency-with-offchain
 ```
 
 # Format, Lint and Audit Source Code
@@ -321,9 +321,9 @@ make start-frequency-with-offchain
 2. Use [srtool](https://github.com/paritytech/srtool) and [srtool-cli](https://github.com/chevdor/srtool-cli) to verify the runtime:
    ```sh
    SRTOOL_TAG="1.77.0" srtool build \
-           --build-opts="'--features on-chain-release-build,no-metadata-docs,frequency'" \
+           --build-opts="'--features on-chain-release-build,no-metadata-docs,recurrency'" \
            --profile=release \
-           --package=frequency-runtime \
+           --package=recurrency-runtime \
            --root
    ```
 
@@ -369,18 +369,18 @@ make docker-prune
 # View all listening ports
 lsof -i -P | grep -i "listen"
 
-# View ports Frequency node is listening on
-lsof -i -P | grep -i "listen" | grep frequency
+# View ports Recurrency node is listening on
+lsof -i -P | grep -i "listen" | grep recurrency
 ```
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[issues-shield]: https://img.shields.io/github/issues/frequency-chain/frequency.svg?style=for-the-badge
-[issues-url]: https://github.com/frequency-chain/frequency/issues
-[codecov-shield]: https://img.shields.io/codecov/c/github/frequency-chain/frequency?style=for-the-badge
-[codecov-url]: https://app.codecov.io/gh/frequency-chain/frequency
-[release-shield]: https://img.shields.io/github/v/release/frequency-chain/frequency?style=for-the-badge
-[release-url]: https://github.com/frequency-chain/frequency/releases
-[docker-shield]: https://img.shields.io/docker/v/frequencychain/parachain-node-mainnet/latest?color=1c90ed&label=Docker&style=for-the-badge
-[docker-url]: https://hub.docker.com/u/frequencychain
+[issues-shield]: https://img.shields.io/github/issues/rustadot/recurrency.svg?style=for-the-badge
+[issues-url]: https://github.com/rustadot/recurrency/issues
+[codecov-shield]: https://img.shields.io/codecov/c/github/rustadot/recurrency?style=for-the-badge
+[codecov-url]: https://app.codecov.io/gh/rustadot/recurrency
+[release-shield]: https://img.shields.io/github/v/release/rustadot/recurrency?style=for-the-badge
+[release-url]: https://github.com/rustadot/recurrency/releases
+[docker-shield]: https://img.shields.io/docker/v/recurrencychain/parachain-node-mainnet/latest?color=1c90ed&label=Docker&style=for-the-badge
+[docker-url]: https://hub.docker.com/u/recurrencychain

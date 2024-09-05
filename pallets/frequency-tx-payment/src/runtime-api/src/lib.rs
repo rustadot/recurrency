@@ -25,7 +25,7 @@ pub use pallet_transaction_payment::{FeeDetails, InclusionFee};
 // Here we declare the runtime API. It is implemented in the `impl` block in
 // runtime files (the `runtime` folder)
 sp_api::decl_runtime_apis! {
-	/// Runtime Version for Frequency Payment
+	/// Runtime Version for Recurrency Payment
 	#[api_version(1)]
 	pub trait CapacityTransactionPaymentRuntimeApi<Balance> where
 		Balance: Codec + MaybeDisplay,

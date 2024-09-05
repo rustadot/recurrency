@@ -1,12 +1,12 @@
 [package]
 name = "system-runtime-api"
 version = "0.0.0"
-description = "Additional RPC package for Frequency"
-authors = ["Frequency"]
+description = "Additional RPC package for Recurrency"
+authors = ["Recurrency"]
 license = "Apache-2.0"
 publish = false
-homepage = "https://frequency.xyz"
-repository = "https://github.com/frequency-chain/frequency/"
+homepage = "https://recurrency.xyz"
+repository = "https://github.com/rustadot/recurrency/"
 edition = "2021"
 
 [dependencies]
@@ -17,7 +17,7 @@ sp-api = { workspace = true }
 sp-std = { workspace = true }
 frame-support = { workspace = true }
 frame-system = { workspace = true }
-# Frequency related dependencies
+# Recurrency related dependencies
 common-primitives = { default-features = false, path = "../../common/primitives" }
 
 [features]

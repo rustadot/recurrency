@@ -1,5 +1,5 @@
 use crate::{
-	self as pallet_frequency_tx_payment, tests::mock::*, ChargeFrqTransactionPayment, DispatchInfo,
+	self as pallet_recurrency_tx_payment, tests::mock::*, ChargeFrqTransactionPayment, DispatchInfo,
 	*,
 };
 use frame_support::{assert_noop, assert_ok, dispatch::DispatchErrorWithPostInfo, weights::Weight};
@@ -10,7 +10,7 @@ use sp_runtime::{testing::TestXt, transaction_validity::TransactionValidityError
 
 use pallet_balances::Call as BalancesCall;
 use pallet_capacity::CapacityLedger;
-use pallet_frequency_tx_payment::Call as FrequencyTxPaymentCall;
+use pallet_recurrency_tx_payment::Call as RecurrencyTxPaymentCall;
 use pallet_msa::Call as MsaCall;
 
 #[test]
@@ -168,7 +168,7 @@ fn transaction_payment_with_capacity_and_no_overcharge_post_dispatch_refund_is_s
 		.execute_with(|| {
 			let account_id = 1u64;
 			let balances_call: &<Test as Config>::RuntimeCall =
-				&RuntimeCall::FrequencyTxPayment(Call::pay_with_capacity {
+				&RuntimeCall::RecurrencyTxPayment(Call::pay_with_capacity {
 					call: Box::new(RuntimeCall::Balances(BalancesCall::transfer_allow_death {
 						dest: 2,
 						value: 100,
@@ -221,7 +221,7 @@ fn pay_with_capacity_happy_path() {
 			let key_without_msa = 20u64;
 			let create_msa_call = Box::new(RuntimeCall::Msa(MsaCall::<Test>::create {}));
 
-			assert_ok!(FrequencyTxPayment::pay_with_capacity(
+			assert_ok!(RecurrencyTxPayment::pay_with_capacity(
 				RuntimeOrigin::signed(key_without_msa),
 				create_msa_call
 			));
@@ -241,7 +241,7 @@ fn pay_with_capacity_errors_with_call_error() {
 			let create_msa_call = Box::new(RuntimeCall::Msa(MsaCall::<Test>::create {}));
 
 			assert_noop!(
-				FrequencyTxPayment::pay_with_capacity(
+				RecurrencyTxPayment::pay_with_capacity(
 					RuntimeOrigin::signed(existing_key_with_msa),
 					create_msa_call
 				),
@@ -255,8 +255,8 @@ fn pay_with_capacity_returns_weight_of_child_call() {
 	let create_msa_call = Box::new(RuntimeCall::Msa(MsaCall::<Test>::create {}));
 	let create_msa_dispatch_info = create_msa_call.get_dispatch_info();
 
-	let pay_with_capacity_call = Box::new(RuntimeCall::FrequencyTxPayment(
-		FrequencyTxPaymentCall::<Test>::pay_with_capacity { call: create_msa_call },
+	let pay_with_capacity_call = Box::new(RuntimeCall::RecurrencyTxPayment(
+		RecurrencyTxPaymentCall::<Test>::pay_with_capacity { call: create_msa_call },
 	));
 	let pay_with_capacity_dispatch_info = pay_with_capacity_call.get_dispatch_info();
 
@@ -279,7 +279,7 @@ fn charge_frq_transaction_payment_withdraw_fee_for_capacity_batch_tx_returns_tup
 			let charge_tx_payment = ChargeFrqTransactionPayment::<Test>::from(0u64);
 			let who = 1u64;
 			let call: &<Test as Config>::RuntimeCall =
-				&RuntimeCall::FrequencyTxPayment(Call::pay_with_capacity_batch_all {
+				&RuntimeCall::RecurrencyTxPayment(Call::pay_with_capacity_batch_all {
 					calls: vec![RuntimeCall::Balances(BalancesCall::transfer_allow_death {
 						dest: 2,
 						value: 100,
@@ -314,7 +314,7 @@ fn charge_frq_transaction_payment_withdraw_fee_for_capacity_tx_returns_tupple_wi
 			let charge_tx_payment = ChargeFrqTransactionPayment::<Test>::from(0u64);
 			let who = 1u64;
 			let call: &<Test as Config>::RuntimeCall =
-				&RuntimeCall::FrequencyTxPayment(Call::pay_with_capacity {
+				&RuntimeCall::RecurrencyTxPayment(Call::pay_with_capacity {
 					call: Box::new(RuntimeCall::Balances(BalancesCall::transfer_allow_death {
 						dest: 2,
 						value: 100,
@@ -351,7 +351,7 @@ fn charge_frq_transaction_payment_withdraw_fee_errors_for_capacity_tx_when_user_
 			let charge_tx_payment = ChargeFrqTransactionPayment::<Test>::from(0u64);
 			let who = 1u64;
 			let call: &<Test as Config>::RuntimeCall =
-				&RuntimeCall::FrequencyTxPayment(Call::pay_with_capacity {
+				&RuntimeCall::RecurrencyTxPayment(Call::pay_with_capacity {
 					call: Box::new(RuntimeCall::Balances(BalancesCall::transfer_allow_death {
 						dest: 2,
 						value: 100,
@@ -463,7 +463,7 @@ fn charge_frq_transaction_payment_tip_is_zero_for_capacity_calls() {
 	let fake_tip = 100;
 	let charge_tx_payment = ChargeFrqTransactionPayment::<Test>::from(fake_tip);
 	let call: &<Test as Config>::RuntimeCall =
-		&RuntimeCall::FrequencyTxPayment(Call::pay_with_capacity {
+		&RuntimeCall::RecurrencyTxPayment(Call::pay_with_capacity {
 			call: Box::new(RuntimeCall::Balances(BalancesCall::transfer_allow_death {
 				dest: 2,
 				value: 100,
@@ -497,7 +497,7 @@ pub fn assert_withdraw_fee_result(
 	let dispatch_info = DispatchInfo { weight: Weight::from_parts(5, 0), ..Default::default() };
 
 	let call: &<Test as Config>::RuntimeCall =
-		&RuntimeCall::FrequencyTxPayment(Call::pay_with_capacity { call: Box::new(call.clone()) });
+		&RuntimeCall::RecurrencyTxPayment(Call::pay_with_capacity { call: Box::new(call.clone()) });
 
 	let withdraw_fee = ChargeFrqTransactionPayment::<Test>::from(0u64).withdraw_fee(
 		&account_id,
@@ -698,7 +698,7 @@ fn compute_capacity_fee_successful() {
 				&RuntimeCall::Balances(BalancesCall::transfer_allow_death { dest: 2, value: 100 });
 
 			// fee = base_weight + extrinsic weight + len = CAPACITY_EXTRINSIC_BASE_WEIGHT + 11 + 10 = CAPACITY_EXTRINSIC_BASE_WEIGHT + 21
-			let fee = FrequencyTxPayment::compute_capacity_fee(
+			let fee = RecurrencyTxPayment::compute_capacity_fee(
 				10u32,
 				<Test as Config>::CapacityCalls::get_stable_weight(call).unwrap(),
 			);
@@ -725,7 +725,7 @@ fn pay_with_capacity_batch_all_happy_path() {
 
 			let token_balance_before_call = Balances::free_balance(origin);
 
-			assert_ok!(FrequencyTxPayment::pay_with_capacity_batch_all(
+			assert_ok!(RecurrencyTxPayment::pay_with_capacity_batch_all(
 				RuntimeOrigin::signed(origin),
 				calls
 			));
@@ -762,7 +762,7 @@ fn pay_with_capacity_batch_all_errors_when_transaction_amount_exceeds_maximum() 
 				RuntimeCall::Balances(BalancesCall::transfer_allow_death { dest: 2, value: 100 }),
 			];
 			assert_noop!(
-				FrequencyTxPayment::pay_with_capacity_batch_all(
+				RecurrencyTxPayment::pay_with_capacity_batch_all(
 					RuntimeOrigin::signed(origin),
 					too_many_calls
 				),
@@ -799,7 +799,7 @@ fn pay_with_capacity_batch_all_transactions_will_all_fail_if_one_fails() {
 			let calls_to_batch =
 				vec![successful_balance_transfer_call, balance_transfer_call_insufficient_funds];
 
-			let result = FrequencyTxPayment::pay_with_capacity_batch_all(
+			let result = RecurrencyTxPayment::pay_with_capacity_batch_all(
 				RuntimeOrigin::signed(origin),
 				calls_to_batch,
 			);
@@ -837,7 +837,7 @@ fn compute_capacity_fee_returns_zero_when_call_is_not_capacity_eligible() {
 		.build()
 		.execute_with(|| {
 			let fee =
-				FrequencyTxPayment::compute_capacity_fee_details(call, &dispatch_info.weight, len);
+				RecurrencyTxPayment::compute_capacity_fee_details(call, &dispatch_info.weight, len);
 			assert!(fee.inclusion_fee.is_some());
 			assert!(fee.tip == 0);
 		});
@@ -847,7 +847,7 @@ fn compute_capacity_fee_returns_zero_when_call_is_not_capacity_eligible() {
 fn compute_capacity_fee_returns_fee_when_call_is_capacity_eligible() {
 	let balance_factor = 10;
 	let call: &<Test as Config>::RuntimeCall =
-		&RuntimeCall::FrequencyTxPayment(Call::pay_with_capacity {
+		&RuntimeCall::RecurrencyTxPayment(Call::pay_with_capacity {
 			call: Box::new(RuntimeCall::Msa(MsaCall::<Test>::create {})),
 		});
 	let origin = 111111;
@@ -864,7 +864,7 @@ fn compute_capacity_fee_returns_fee_when_call_is_capacity_eligible() {
 		.build()
 		.execute_with(|| {
 			let fee_res =
-				FrequencyTxPayment::compute_capacity_fee_details(call, &dispatch_info.weight, len);
+				RecurrencyTxPayment::compute_capacity_fee_details(call, &dispatch_info.weight, len);
 			assert!(fee_res.inclusion_fee.is_some());
 		});
 }

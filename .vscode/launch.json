@@ -12,10 +12,10 @@
                 "args": [
                     "build",
                     "--features",
-                    "frequency-no-relay",
+                    "recurrency-no-relay",
                 ],
                 "filter": {
-                    "name": "frequency",
+                    "name": "recurrency",
                     "kind": "bin"
                 }
             },
@@ -46,22 +46,22 @@
         {
             "type": "lldb",
             "request": "attach",
-            "name": "Attach to Frequency",
-            "program": "${workspaceFolder}/target/debug/frequency",
+            "name": "Attach to Recurrency",
+            "program": "${workspaceFolder}/target/debug/recurrency",
         },
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'frequency'",
+            "name": "Debug unit tests in executable 'recurrency'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=frequency",
-                    "--package=frequency"
+                    "--bin=recurrency",
+                    "--package=recurrency"
                 ],
                 "filter": {
-                    "name": "frequency",
+                    "name": "recurrency",
                     "kind": "bin"
                 }
             },
@@ -71,16 +71,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in library 'frequency-cli'",
+            "name": "Debug unit tests in library 'recurrency-cli'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
                     "--lib",
-                    "--package=frequency-cli"
+                    "--package=recurrency-cli"
                 ],
                 "filter": {
-                    "name": "frequency-cli",
+                    "name": "recurrency-cli",
                     "kind": "lib"
                 }
             },
@@ -109,16 +109,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in library 'frequency-service'",
+            "name": "Debug unit tests in library 'recurrency-service'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
                     "--lib",
-                    "--package=frequency-service"
+                    "--package=recurrency-service"
                 ],
                 "filter": {
-                    "name": "frequency-service",
+                    "name": "recurrency-service",
                     "kind": "lib"
                 }
             },
@@ -166,16 +166,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in library 'frequency-runtime'",
+            "name": "Debug unit tests in library 'recurrency-runtime'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
                     "--lib",
-                    "--package=frequency-runtime"
+                    "--package=recurrency-runtime"
                 ],
                 "filter": {
-                    "name": "frequency-runtime",
+                    "name": "recurrency-runtime",
                     "kind": "lib"
                 }
             },
@@ -242,16 +242,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in library 'pallet-frequency-tx-payment'",
+            "name": "Debug unit tests in library 'pallet-recurrency-tx-payment'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
                     "--lib",
-                    "--package=pallet-frequency-tx-payment"
+                    "--package=pallet-recurrency-tx-payment"
                 ],
                 "filter": {
-                    "name": "pallet-frequency-tx-payment",
+                    "name": "pallet-recurrency-tx-payment",
                     "kind": "lib"
                 }
             },

@@ -12,7 +12,7 @@ runs:
       run: cargo install --locked grcov
     - name: Build
       shell: bash # Limited to 10 threads max
-      run: cargo build -j 10 --features frequency-lint-check
+      run: cargo build -j 10 --features recurrency-lint-check
       env:
         RUSTC_BOOTSTRAP: 1
         CARGO_INCREMENTAL: "0"
@@ -20,7 +20,7 @@ runs:
         RUSTDOCFLAGS: "-Cpanic=abort"
     - name: Test
       shell: bash # Limited to 10 threads max
-      run: cargo test -j 10 --features frequency-lint-check
+      run: cargo test -j 10 --features recurrency-lint-check
       env:
         RUSTC_BOOTSTRAP: 1
         CARGO_INCREMENTAL: "0"

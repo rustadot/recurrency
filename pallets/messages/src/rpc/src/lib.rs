@@ -26,7 +26,7 @@ use std::sync::Arc;
 #[cfg(test)]
 mod tests;
 
-/// Frequency Messages Custom RPC API
+/// Recurrency Messages Custom RPC API
 #[rpc(client, server)]
 pub trait MessagesApi {
 	/// Retrieve paginated messages by schema id
@@ -38,7 +38,7 @@ pub trait MessagesApi {
 	) -> RpcResult<BlockPaginationResponse<MessageResponse>>;
 }
 
-/// The client handler for the API used by Frequency Service RPC with `jsonrpsee`
+/// The client handler for the API used by Recurrency Service RPC with `jsonrpsee`
 pub struct MessagesHandler<C, M> {
 	client: Arc<C>,
 	_marker: std::marker::PhantomData<M>,

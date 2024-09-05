@@ -10,18 +10,18 @@ use sp_runtime::traits::{IdentifyAccount, Verify};
 /// Dummy chain spec for building and checking
 pub type DummyChainSpec = sc_service::GenericChainSpec<Extensions>;
 
-#[cfg(feature = "frequency")]
-pub mod frequency;
+#[cfg(feature = "recurrency")]
+pub mod recurrency;
 
 #[cfg(any(
-	feature = "frequency-testnet",
-	feature = "frequency-local",
-	feature = "frequency-no-relay"
+	feature = "recurrency-testnet",
+	feature = "recurrency-local",
+	feature = "recurrency-no-relay"
 ))]
-pub mod frequency_paseo;
+pub mod recurrency_paseo;
 
-#[cfg(any(feature = "frequency-no-relay"))]
-pub mod frequency_dev;
+#[cfg(any(feature = "recurrency-no-relay"))]
+pub mod recurrency_dev;
 
 #[allow(clippy::expect_used)]
 /// Helper function to generate a crypto pair from seed

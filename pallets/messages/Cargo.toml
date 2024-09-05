@@ -1,12 +1,12 @@
 [package]
-authors = ["Frequency"]
+authors = ["Recurrency"]
 description = "Message Storage Pallet"
 edition = "2021"
-homepage = "https://frequency.xyz"
+homepage = "https://recurrency.xyz"
 license = "Apache-2.0"
 name = "pallet-messages"
 publish = false
-repository = "https://github.com/frequency-chain/frequency/"
+repository = "https://github.com/rustadot/recurrency/"
 version = "0.0.0"
 
 [package.metadata.docs.rs]
@@ -24,7 +24,7 @@ sp-core = { workspace = true }
 sp-io = { workspace = true }
 sp-runtime = { workspace = true }
 sp-std = { workspace = true }
-# Frequency related dependencies
+# Recurrency related dependencies
 common-primitives = { default-features = false, path = "../../common/primitives" }
 cid = { version = "0.11", default-features = false }
 multibase = { version = "0.9", default-features = false }

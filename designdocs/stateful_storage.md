@@ -14,7 +14,7 @@ communicating parties and for some others it might be directly dependent on the 
 particular party.
 
 ### DSNP Usecase
-**Frequency** is the first implementation of [DSNP](https://dsnp.org) and most of the state
+**Recurrency** is the first implementation of [DSNP](https://dsnp.org) and most of the state
 transitions in **DSNP** can be modeled via `Announcements`. For some of these state transitions we
 only care about the latest state, and currently the only way to achieve this via announcements is to
 have some kind of third party indexer to track the latest state for these types.

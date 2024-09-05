@@ -17,7 +17,7 @@ on:
 
 jobs:
   run-benchmarks:
-    if: github.repository == 'frequency-chain/frequency'
+    if: github.repository == 'rustadot/recurrency'
     name: Run Benchmarks
     runs-on: [self-hosted, Linux, X64, benchmark]
     permissions:

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# this script runs the frequency after fetching
+# this script runs the recurrency after fetching
 # appropriate bootnode IDs
 
 set -e -o pipefail
 
-ctpc="${Frequency_BINARY_PATH:-./target/release/frequency}"
+ctpc="${Recurrency_BINARY_PATH:-./target/release/recurrency}"
 
 if [ ! -x "$ctpc" ]; then
     echo "FATAL: $ctpc does not exist or is not executable"

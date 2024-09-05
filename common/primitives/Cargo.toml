@@ -1,12 +1,12 @@
 [package]
-authors = ["Frequency"]
+authors = ["Recurrency"]
 description = "A package that defines common primitives used in runtime and RPCs"
 edition = "2021"
-homepage = "https://frequency.xyz"
+homepage = "https://recurrency.xyz"
 license = "Apache-2.0"
 name = "common-primitives"
 publish = false
-repository = "https://github.com/frequency-chain/frequency/"
+repository = "https://github.com/rustadot/recurrency/"
 version = "0.0.0"
 
 [package.metadata.docs.rs]

@@ -8,11 +8,11 @@ BOLD_MESSAGE='\033[1;33m'  # Bold Yellow
 SUCCESS='\033[0;92m'       # Green
 NC='\033[0m'               # No Color
 
-echo -e "${STEP_COLOR}Checking to see if Frequency is running...${NC}"
+echo -e "${STEP_COLOR}Checking to see if Recurrency is running...${NC}"
 echo ""
-echo -e "${MESSAGE}Is Frequency running?${NC}"
+echo -e "${MESSAGE}Is Recurrency running?${NC}"
 
-PID=$(lsof -i tcp:9944 | grep frequency | grep -v grep | xargs | awk '{print $2}')
+PID=$(lsof -i tcp:9944 | grep recurrency | grep -v grep | xargs | awk '{print $2}')
 
 if [ -z "$PID" ]
 then
@@ -21,7 +21,7 @@ then
     echo -e "${NC}"
     echo -e "${STEP_COLOR}Generating using CLI...${NC}"
     rm -f ./js/api-augment/metadata.json
-    cargo run --features frequency-local -- export-metadata --tmp --chain=frequency-paseo-local ./js/api-augment/metadata.json
+    cargo run --features recurrency-local -- export-metadata --tmp --chain=recurrency-paseo-local ./js/api-augment/metadata.json
     # cd into js dir
     cd "js/api-augment"
     npm install # in case things have changed
@@ -31,7 +31,7 @@ else
     echo "Yes. ( You better go catch it ;-) )"
     echo ""
     echo "---------------------------------------------"
-    echo "Use this PID to kill the Frequency process:"
+    echo "Use this PID to kill the Recurrency process:"
     echo -e "${BOLD_MESSAGE}PID: ${PID}${SUCCESS}"
     echo "---------------------------------------------"
     echo -e "${NC}"

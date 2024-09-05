@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { base64 } from 'multiformats/bases/base64';
 import { base32 } from 'multiformats/bases/base32';
@@ -12,7 +12,7 @@ import { ipfsCid } from './ipfs';
 import { getFundingSource } from '../scaffolding/funding';
 
 const fundingSource = getFundingSource('messages-add-ipfs');
-const ipfs_payload_data = 'This is a test of Frequency.';
+const ipfs_payload_data = 'This is a test of Recurrency.';
 const ipfs_payload_len = ipfs_payload_data.length + 1;
 
 describe('Add Offchain Message', function () {
@@ -76,7 +76,7 @@ describe('Add Offchain Message', function () {
 
   it('should fail if schema does not exist (InvalidSchemaId)', async function () {
     // Pick an arbitrarily high schemaId, such that it won't exist on the test chain.
-    // If we ever create more than 999 schemas in a test suite/single Frequency instance, this test will fail.
+    // If we ever create more than 999 schemas in a test suite/single Recurrency instance, this test will fail.
     const f = ExtrinsicHelper.addIPFSMessage(keys, 999, ipfs_cid_64, ipfs_payload_len);
     await assert.rejects(f.fundAndSend(fundingSource), {
       name: 'InvalidSchemaId',

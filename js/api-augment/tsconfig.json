@@ -15,7 +15,7 @@
     "target": "es2022",
     "typeRoots": ["node_modules/@types"],
     "paths": {
-      "@frequency-chain/api-augment/*": ["./interfaces/*"],
+      "@rustadot/api-augment/*": ["./interfaces/*"],
       "@polkadot/api/augment": ["./interfaces/augment-api.ts"],
       "@polkadot/types/augment": ["./interfaces/augment-types.ts"],
       "@polkadot/types/lookup": ["./interfaces/types-lookup.ts"]

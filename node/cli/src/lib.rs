@@ -1,4 +1,4 @@
-//! Frequency CLI library.
+//! Recurrency CLI library.
 
 #![allow(missing_docs)]
 #[cfg(feature = "cli")]
@@ -33,7 +33,7 @@ pub use runtime_version_cmd::*;
 
 #[cfg(feature = "cli")]
 pub use sc_cli::{Error, Result};
-#[cfg(feature = "frequency-no-relay")]
+#[cfg(feature = "recurrency-no-relay")]
 pub mod run_as_localchain;
-#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 pub mod run_as_parachain;

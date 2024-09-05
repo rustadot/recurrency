@@ -1,15 +1,15 @@
 {
-  "name": "@frequency-chain/api-augment",
+  "name": "@rustadot/api-augment",
   "version": "0.0.0",
   "bugs": {
-    "url": "https://github.com/frequency-chain/frequency/issues"
+    "url": "https://github.com/rustadot/recurrency/issues"
   },
-  "description": "RPC configuration for Frequency for use with Polkadotjs API",
+  "description": "RPC configuration for Recurrency for use with Polkadotjs API",
   "main": "index.js",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/frequency-chain/frequency.git",
+    "url": "https://github.com/rustadot/recurrency.git",
     "directory": "js/api-augment"
   },
   "scripts": {
@@ -23,14 +23,14 @@
     "build": "tsc -p ./tsconfig.types.json && tsc -p ./tsconfig.cjs.json && tsc -p ./tsconfig.esm.json",
     "postbuild": "npm run package",
     "fetch:local": "curl -H \"Content-Type: application/json\" -d '{\"id\":\"1\", \"jsonrpc\":\"2.0\", \"method\": \"state_getMetadata\", \"params\":[]}' http://localhost:9944 -o ./metadata.json",
-    "generate:defs": "node --import=tsx/esm node_modules/.bin/polkadot-types-from-defs --package @frequency-chain/api-augment --input ./interfaces --endpoint ./metadata.json",
-    "generate:meta": "node --import=tsx/esm node_modules/.bin/polkadot-types-from-chain --package @frequency-chain/api-augment --endpoint ./metadata.json --output ./interfaces",
+    "generate:defs": "node --import=tsx/esm node_modules/.bin/polkadot-types-from-defs --package @rustadot/api-augment --input ./interfaces --endpoint ./metadata.json",
+    "generate:meta": "node --import=tsx/esm node_modules/.bin/polkadot-types-from-chain --package @rustadot/api-augment --endpoint ./metadata.json --output ./interfaces",
     "test": "mocha --import=tsx  ./test/**/*.test.ts",
     "test:only": "mocha --import=tsx",
     "format": "tsc --noEmit --pretty && prettier --write . && eslint --fix",
     "lint": "tsc --noEmit --pretty && prettier --check . && eslint"
   },
-  "author": "frequency-chain",
+  "author": "rustadot",
   "license": "Apache-2.0",
   "dependencies": {
     "@polkadot/api": "^12.3.1",

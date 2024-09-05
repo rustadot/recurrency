@@ -18,7 +18,7 @@ use sp_api::ProvideRuntimeApi;
 use sp_block_builder::BlockBuilder;
 use sp_blockchain::{Error as BlockChainError, HeaderBackend, HeaderMetadata};
 
-mod frequency_rpc;
+mod recurrency_rpc;
 
 /// A type representing all RPC extensions.
 pub type RpcExtension = jsonrpsee::RpcModule<()>;
@@ -50,7 +50,7 @@ where
 		+ Sync
 		+ 'static,
 	C::Api: pallet_transaction_payment_rpc::TransactionPaymentRuntimeApi<Block, Balance>,
-	C::Api: pallet_frequency_tx_payment_rpc::CapacityTransactionPaymentRuntimeApi<Block, Balance>,
+	C::Api: pallet_recurrency_tx_payment_rpc::CapacityTransactionPaymentRuntimeApi<Block, Balance>,
 	C::Api: substrate_frame_rpc_system::AccountNonceApi<Block, AccountId, Nonce>,
 	C::Api: BlockBuilder<Block>,
 	C::Api: pallet_messages_runtime_api::MessagesRuntimeApi<Block>,
@@ -65,9 +65,9 @@ where
 	use pallet_transaction_payment_rpc::{TransactionPayment, TransactionPaymentApiServer};
 	use substrate_frame_rpc_system::{System, SystemApiServer};
 
-	// Frequency RPCs
-	use frequency_rpc::{FrequencyRpcApiServer, FrequencyRpcHandler};
-	use pallet_frequency_tx_payment_rpc::{CapacityPaymentApiServer, CapacityPaymentHandler};
+	// Recurrency RPCs
+	use recurrency_rpc::{RecurrencyRpcApiServer, RecurrencyRpcHandler};
+	use pallet_recurrency_tx_payment_rpc::{CapacityPaymentApiServer, CapacityPaymentHandler};
 	use pallet_handles_rpc::{HandlesApiServer, HandlesHandler};
 	use pallet_messages_rpc::{MessagesApiServer, MessagesHandler};
 	use pallet_msa_rpc::{MsaApiServer, MsaHandler};
@@ -85,7 +85,7 @@ where
 	module.merge(StatefulStorageHandler::new(client.clone()).into_rpc())?;
 	module.merge(HandlesHandler::new(client.clone()).into_rpc())?;
 	module.merge(CapacityPaymentHandler::new(client.clone()).into_rpc())?;
-	module.merge(FrequencyRpcHandler::new(client, pool).into_rpc())?;
+	module.merge(RecurrencyRpcHandler::new(client, pool).into_rpc())?;
 	if let Some(command_sink) = command_sink {
 		module.merge(
 			// We provide the rpc handler with the sending end of the channel to allow the rpc

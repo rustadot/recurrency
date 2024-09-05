@@ -1,18 +1,18 @@
 [package]
-authors = ["Frequency"]
-description = "Common Runtime for Frequency parachain"
+authors = ["Recurrency"]
+description = "Common Runtime for Recurrency parachain"
 edition = "2021"
-homepage = "https://frequency.xyz"
+homepage = "https://recurrency.xyz"
 license = "Apache-2.0"
 name = "common-runtime"
-repository = "https://github.com/frequency-chain/frequency/"
+repository = "https://github.com/rustadot/recurrency/"
 version = "0.0.0"
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
-# Frequency
+# Recurrency
 parity-scale-codec = { workspace = true, features = ["derive"] }
 common-primitives = { default-features = false, path = "../../common/primitives" }
 scale-info = { workspace = true, features = ["derive"] }
@@ -44,10 +44,10 @@ pallet-time-release = { path = "../../pallets/time-release", default-features = 
 
 [features]
 default = ["std"]
-frequency = []
-frequency-testnet = []
-frequency-local = []
-frequency-no-relay = []
+recurrency = []
+recurrency-testnet = []
+recurrency-local = []
+recurrency-no-relay = []
 runtime-benchmarks = ["pallet-collective/runtime-benchmarks"]
 std = [
   "frame-support/std",

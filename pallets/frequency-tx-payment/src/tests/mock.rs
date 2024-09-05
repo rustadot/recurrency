@@ -1,4 +1,4 @@
-use crate as pallet_frequency_tx_payment;
+use crate as pallet_recurrency_tx_payment;
 use crate::*;
 
 use common_primitives::{
@@ -40,7 +40,7 @@ frame_support::construct_runtime!(
 			Msa: pallet_msa::{Pallet, Call, Storage, Event<T>},
 			Capacity: pallet_capacity::{Pallet, Call, Storage, Event<T>, FreezeReason},
 			TransactionPayment: pallet_transaction_payment::{Pallet, Storage, Event<T>},
-			FrequencyTxPayment: pallet_frequency_tx_payment::{Pallet, Call, Event<T>},
+			RecurrencyTxPayment: pallet_recurrency_tx_payment::{Pallet, Call, Event<T>},
 			Utility: pallet_utility::{Pallet, Call, Storage, Event},
 		}
 );

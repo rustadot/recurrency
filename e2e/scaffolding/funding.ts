@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import { Keyring } from '@polkadot/api';
 import { isTestnet } from './env';
 
@@ -14,7 +14,7 @@ export const fundingSources = [
   'capacity-staking',
   'capacity-transactions',
   'capacity-unstaking',
-  'frequency-misc',
+  'recurrency-misc',
   'handles',
   'load-signature-registry',
   'messages-add-ipfs',

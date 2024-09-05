@@ -37,6 +37,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842
         with:
           commit_message: "Record new Polkadot release version"
-          commit_user_name: Frequency CI [bot]
+          commit_user_name: Recurrency CI [bot]
           commit_user_email: do-not-reply@users.noreply.github.com
-          commit_author: Frequency CI [bot] <do-not-reply@users.noreply.github.com>
+          commit_author: Recurrency CI [bot] <do-not-reply@users.noreply.github.com>

@@ -3,8 +3,8 @@
 //! ## Quick Links
 //! - [Configuration: `Config`](Config)
 //! - [Extrinsics: `Call`](Call)
-//! - [Runtime API: `CapacityTransactionPaymentRuntimeApi`](../pallet_frequency_tx_payment_runtime_api/trait.CapacityTransactionPaymentRuntimeApi.html)
-//! - [Custom RPC API: `CapacityPaymentApiServer`](../pallet_frequency_tx_payment_rpc/trait.CapacityPaymentApiServer.html)
+//! - [Runtime API: `CapacityTransactionPaymentRuntimeApi`](../pallet_recurrency_tx_payment_runtime_api/trait.CapacityTransactionPaymentRuntimeApi.html)
+//! - [Custom RPC API: `CapacityPaymentApiServer`](../pallet_recurrency_tx_payment_rpc/trait.CapacityPaymentApiServer.html)
 //! - [Event Enum: `Event`](Event)
 //! - [Error Enum: `Error`](Error)
 #![doc = include_str!("../README.md")]

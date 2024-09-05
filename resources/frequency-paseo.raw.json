@@ -1,17 +1,17 @@
 {
-  "name": "Frequency Paseo",
-  "id": "frequency-paseo",
+  "name": "Recurrency Paseo",
+  "id": "recurrency-paseo",
   "chainType": "Live",
   "bootNodes": [
     "/dns4/0.boot.testnet.amplica.io/tcp/30333/ws/p2p/12D3KooWArmKDbY8Y6XXHGodosWAjRWWxSw5YxWEjSZTBNjJXVSC"
   ],
   "telemetryEndpoints": [
     [
-      "/dns/telemetry.frequency.xyz/tcp/443/x-parity-wss/%2Fsubmit%2F",
+      "/dns/telemetry.recurrency.xyz/tcp/443/x-parity-wss/%2Fsubmit%2F",
       0
     ]
   ],
-  "protocolId": "frequency-paseo",
+  "protocolId": "recurrency-paseo",
   "properties": {
     "ss58Format": 42,
     "tokenDecimals": 8,

@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import assert from 'assert';
 import { createAndFundKeypair, getNextEpochBlock, getNonce } from '../scaffolding/helpers';
 import { KeyringPair } from '@polkadot/keyring/types';

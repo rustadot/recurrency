@@ -24,10 +24,10 @@ use sp_runtime::{
 use sp_std::{collections::btree_map::BTreeMap, fmt::Debug, vec, vec::Vec};
 
 /// Block event storage prefix
-const BLOCK_EVENT_KEY: &[u8] = b"frequency::block_event::msa::";
+const BLOCK_EVENT_KEY: &[u8] = b"recurrency::block_event::msa::";
 
 /// Offchain index for MSA events count
-const BLOCK_EVENT_COUNT_KEY: &[u8] = b"frequency::block_event::msa::count::";
+const BLOCK_EVENT_COUNT_KEY: &[u8] = b"recurrency::block_event::msa::count::";
 
 /// Lock expiration timeout in in milli-seconds for initial data import msa pallet
 const MSA_INITIAL_LOCK_TIMEOUT_EXPIRATION_MS: u64 = 3000;

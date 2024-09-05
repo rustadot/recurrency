@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import { ApiPromise, ApiRx } from '@polkadot/api';
 import { ApiTypes, AugmentedEvent, SubmittableExtrinsic } from '@polkadot/api/types';
 import { KeyringPair } from '@polkadot/keyring/types';
@@ -19,7 +19,7 @@ import {
   PresumptiveSuffixesResponse,
   RpcEvent,
   SchemaResponse,
-} from '@frequency-chain/api-augment/interfaces';
+} from '@rustadot/api-augment/interfaces';
 import { u8aToHex } from '@polkadot/util/u8a/toHex';
 import { u8aWrapBytes } from '@polkadot/util';
 import type { AccountId32, Call, H256 } from '@polkadot/types/interfaces/runtime';
@@ -220,7 +220,7 @@ export class Extrinsic<N = unknown, T extends ISubmittableResult = ISubmittableR
     const nonce = await autoNonce.auto(this.keys, inputNonce);
     // Era is 0 for tests due to issues with BirthBlock
     return await firstValueFrom(
-      this.api.tx.frequencyTxPayment
+      this.api.tx.recurrencyTxPayment
         .payWithCapacity(this.extrinsic())
         .signAndSend(this.keys, { nonce, era: 0 })
         .pipe(
@@ -771,12 +771,12 @@ export class ExtrinsicHelper {
     return ExtrinsicHelper.apiPromise.rpc.handles.validateHandle(base_handle);
   }
 
-  public static getFrequencyEvents(at: H256 | string): Promise<Vec<RpcEvent>> {
-    return ExtrinsicHelper.apiPromise.rpc.frequency.getEvents(at);
+  public static getRecurrencyEvents(at: H256 | string): Promise<Vec<RpcEvent>> {
+    return ExtrinsicHelper.apiPromise.rpc.recurrency.getEvents(at);
   }
 
   public static getMissingNonceValues(accountId: AccountId32 | string | Uint8Array): Promise<Vec<Index>> {
-    return ExtrinsicHelper.apiPromise.rpc.frequency.getMissingNonceValues(accountId);
+    return ExtrinsicHelper.apiPromise.rpc.recurrency.getMissingNonceValues(accountId);
   }
 
   public static addOnChainMessage(keys: KeyringPair, schemaId: any, payload: string) {
@@ -821,7 +821,7 @@ export class ExtrinsicHelper {
 
   public static payWithCapacityBatchAll(keys: KeyringPair, calls: any) {
     return new Extrinsic(
-      () => ExtrinsicHelper.api.tx.frequencyTxPayment.payWithCapacityBatchAll(calls),
+      () => ExtrinsicHelper.api.tx.recurrencyTxPayment.payWithCapacityBatchAll(calls),
       keys,
       ExtrinsicHelper.api.events.utility.BatchCompleted
     );

@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { u64 } from '@polkadot/types';
 import assert from 'assert';
@@ -90,7 +90,7 @@ describe('Capacity Staking Tests', function () {
     });
 
     it('successfully withdraws the unstaked amount', async function () {
-      // Withdrawing unstaked token will only be executed against a Frequency
+      // Withdrawing unstaked token will only be executed against a Recurrency
       // node built for development due to the long length of time it would
       // take to wait for an epoch period to roll over.
       if (!isDev()) this.skip();

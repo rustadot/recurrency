@@ -1,10 +1,10 @@
 {
-  "name": "Frequency",
-  "id": "frequency",
+  "name": "Recurrency",
+  "id": "recurrency",
   "chainType": "Live",
   "bootNodes": [
-    "/dns4/0.boot.frequency.xyz/tcp/30333/ws/p2p/12D3KooWBd4aEArNvXECtt2JHQACBdFmeafpyfre3q81iM1xCcpP",
-    "/dns4/1.boot.frequency.xyz/tcp/30333/ws/p2p/12D3KooWCW8d7Yz2d3Jcb49rWcNppRNEs1K2NZitCpPtrHSQb6dw"
+    "/dns4/0.boot.recurrency.xyz/tcp/30333/ws/p2p/12D3KooWBd4aEArNvXECtt2JHQACBdFmeafpyfre3q81iM1xCcpP",
+    "/dns4/1.boot.recurrency.xyz/tcp/30333/ws/p2p/12D3KooWCW8d7Yz2d3Jcb49rWcNppRNEs1K2NZitCpPtrHSQb6dw"
   ],
   "telemetryEndpoints": [
     [
@@ -12,11 +12,11 @@
       0
     ],
     [
-      "/dns/telemetry.frequency.xyz/tcp/443/x-parity-wss/%2Fsubmit%2F",
+      "/dns/telemetry.recurrency.xyz/tcp/443/x-parity-wss/%2Fsubmit%2F",
       0
     ]
   ],
-  "protocolId": "frequency",
+  "protocolId": "recurrency",
   "properties": {
     "ss58Format": 90,
     "tokenDecimals": 8,

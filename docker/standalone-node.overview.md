@@ -1,13 +1,13 @@
-# Frequency Collator Node in Local Only Sealing Mode
+# Recurrency Collator Node in Local Only Sealing Mode
 
 Runs just one collator node that will not connect to any other nodes.
 Defaults to running in instant sealing mode where a block will be triggered when a transaction enters the validated transaction pool.
-A "collator node" is a Frequency parachain node that is actively collating (aka forming blocks to submit to the relay chain, although in this case without a relay chain).
+A "collator node" is a Recurrency parachain node that is actively collating (aka forming blocks to submit to the relay chain, although in this case without a relay chain).
 
 ### Quick Run
 
 ```sh
-docker run --rm -p 9944:9944 frequencychain/standalone-node:<version.tag>
+docker run --rm -p 9944:9944 recurrencychain/standalone-node:<version.tag>
 ```
 
 
@@ -45,7 +45,7 @@ curl http://localhost:9944 -H "Content-Type:application/json;charset=utf-8" -d  
 Note: Docker `--rm` removes the volume when stopped.
 
 ```sh
-docker run --rm -p 9944:9944 frequencychain/standalone-node:<version.tag>
+docker run --rm -p 9944:9944 recurrencychain/standalone-node:<version.tag>
 ```
 
 ## Environment Variables
@@ -69,9 +69,9 @@ The following environment variables are supported by this image. The same behavi
 ### Run
 
 ```sh
-docker run --rm -p 9944:9944 frequencychain/standalone-node:<version.tag> -- --manual-seal
+docker run --rm -p 9944:9944 recurrencychain/standalone-node:<version.tag> -- --manual-seal
 ```
 
 | **Node**                |             **Ports**             | **Explorer URL**                                                                          |
 | ----------------------- | :-------------------------------: | ----------------------------------------------------------------------------------------- |
-| Frequency Local-Only Node | ws and rpc :`9944`  | [127.0.0.1:9944](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) |
+| Recurrency Local-Only Node | ws and rpc :`9944`  | [127.0.0.1:9944](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) |

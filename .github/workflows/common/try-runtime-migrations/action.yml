@@ -1,4 +1,4 @@
-name: "Check Migrations for Frequency Runtime"
+name: "Check Migrations for Recurrency Runtime"
 description: "An action to check runtime migrations"
 inputs:
   github-token:

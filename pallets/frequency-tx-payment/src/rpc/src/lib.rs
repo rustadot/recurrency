@@ -24,7 +24,7 @@ use jsonrpsee::{
 	proc_macros::rpc,
 	types::{error::ErrorCode, ErrorObject},
 };
-use pallet_frequency_tx_payment_runtime_api::{FeeDetails, InclusionFee};
+use pallet_recurrency_tx_payment_runtime_api::{FeeDetails, InclusionFee};
 use parity_scale_codec::{Codec, Decode};
 use sp_api::ProvideRuntimeApi;
 use sp_blockchain::HeaderBackend;
@@ -32,7 +32,7 @@ use sp_core::Bytes;
 use sp_rpc::number::NumberOrHex;
 use sp_runtime::traits::{Block as BlockT, MaybeDisplay};
 
-pub use pallet_frequency_tx_payment_runtime_api::CapacityTransactionPaymentRuntimeApi;
+pub use pallet_recurrency_tx_payment_runtime_api::CapacityTransactionPaymentRuntimeApi;
 
 #[cfg(test)]
 mod tests;
@@ -41,7 +41,7 @@ mod tests;
 #[rpc(client, server)]
 pub trait CapacityPaymentApi<BlockHash, Balance> {
 	/// Query the capcity fee details for a given extrinsic.
-	#[method(name = "frequencyTxPayment_computeCapacityFeeDetails")]
+	#[method(name = "recurrencyTxPayment_computeCapacityFeeDetails")]
 	fn compute_capacity_fee_details(
 		&self,
 		encoded_xt: Bytes,

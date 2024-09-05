@@ -25,21 +25,21 @@ This process will be described in more detail in the Economic Model Design Docum
 
 ### NOTE: Actual reward amounts are TBD; amounts are for illustration purposes only
 
-![Provider boosted staking](https://github.com/frequency-chain/frequency/assets/502640/ffb632f2-79c2-4a09-a906-e4de02e4f348)
+![Provider boosted staking](https://github.com/rustadot/recurrency/assets/502640/ffb632f2-79c2-4a09-a906-e4de02e4f348)
 
 The proposed feature is a design for staking FRQCY token in exchange for Capacity and/or FRQCY.
-It is specific to the Frequency Substrate parachain.
+It is specific to the Recurrency Substrate parachain.
 It consists of enhancements to the capacity pallet, needed traits and their implementations, and needed runtime configuration.
 
 This does _not_ outline the economic model for Staking Rewards (also known as "Provider Boosting"); it describes the economic model as a black box, i.e. an interface.
 
 ## Context and Scope:
 
-The Frequency Transaction Payment system allows certain transactions on chain to be paid for with Capacity. Accounts that wish to pay with Capacity must:
+The Recurrency Transaction Payment system allows certain transactions on chain to be paid for with Capacity. Accounts that wish to pay with Capacity must:
 
-1. Have an [MSA](https://github.com/frequency-chain/frequency/blob/main/designdocs/accounts.md)
-2. Be a [Provider](https://github.com/frequency-chain/frequency/blob/main/designdocs/provider_registration.md) (see also [Provider Permissions and Grants](https://github.com/frequency-chain/frequency/blob/main/designdocs/provider_permissions.md))
-3. Stake a minimum amount of FRQCY (on mainnet, XRQCY on testnet) token to receive [Capacity](https://github.com/frequency-chain/frequency/blob/main/designdocs/capacity.md).
+1. Have an [MSA](https://github.com/rustadot/recurrency/blob/main/designdocs/accounts.md)
+2. Be a [Provider](https://github.com/rustadot/recurrency/blob/main/designdocs/provider_registration.md) (see also [Provider Permissions and Grants](https://github.com/rustadot/recurrency/blob/main/designdocs/provider_permissions.md))
+3. Stake a minimum amount of FRQCY (on mainnet, XRQCY on testnet) token to receive [Capacity](https://github.com/rustadot/recurrency/blob/main/designdocs/capacity.md).
 
 # Problem Statement
 
@@ -48,9 +48,9 @@ It does not give regard to what the economic model actually is, since that is ye
 
 ## Glossary
 
-1. **FRQCY**: the native token of Frequency, a Substrate parachain in the Polkdaot blockhain ecosystem.
-1. **Capacity**: the non-transferrable utility token which can be used only to pay for certain Frequency transactions.
-1. **Account**: a Frequency System Account controlled by a private key and addressed by a public key, having at least a minimum balance (currently 0.01 FRQCY).
+1. **FRQCY**: the native token of Recurrency, a Substrate parachain in the Polkdaot blockhain ecosystem.
+1. **Capacity**: the non-transferrable utility token which can be used only to pay for certain Recurrency transactions.
+1. **Account**: a Recurrency System Account controlled by a private key and addressed by a public key, having at least a minimum balance (currently 0.01 FRQCY).
 1. **Stake** (verb): to lock some amount of a token against transfer for a period of time in exchange for some reward.
 1. **RewardEra**: the time period (TBD in blocks) that Staking Rewards are based upon. `RewardEra` is to distinguish it easily from Substrate's staking pallet Era, or the index of said time period.
 1. **Staking Reward**: a per-RewardEra share of a staking reward pool of FRQCY tokens for a given staking account.

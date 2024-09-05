@@ -26,12 +26,12 @@ The Time-Release pallet provides for:
 
 | Name/Description                                                                            | Caller            | Payment | Key Events                                                                                                                                          | Runtime Added |
 | ------------------------------------------------------------------------------------------- | ----------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `transfer`<br />Transfer tokens to another account with an unlock schedule                  | Token Account     | Tokens  | [`ReleaseScheduleAdded`](https://frequency-chain.github.io/frequency/pallet_time_release/pallet/enum.Event.html#variant.ReleaseScheduleAdded)       | 24            |
-| `claim`<br />Remove the lock on tokens for the calling account when the schedule allows     | Account with Lock | Tokens  | [`Claimed`](https://frequency-chain.github.io/frequency/pallet_time_release/pallet/enum.Event.html#variant.Claimed)                                 | 24            |
-| `claim_for`<br />Remove the lock on tokens for a different account when the schedule allows | Any Token Account | Tokens  | [`Claimed`](https://frequency-chain.github.io/frequency/pallet_time_release/pallet/enum.Event.html#variant.Claimed)                                 | 24            |
-| `update_release_schedules`<br />Governance action to update existing schedules              | Governance        | Tokens  | [`ReleaseSchedulesUpdated`](https://frequency-chain.github.io/frequency/pallet_time_release/pallet/enum.Event.html#variant.ReleaseSchedulesUpdated) | 24            |
+| `transfer`<br />Transfer tokens to another account with an unlock schedule                  | Token Account     | Tokens  | [`ReleaseScheduleAdded`](https://rustadot.github.io/recurrency/pallet_time_release/pallet/enum.Event.html#variant.ReleaseScheduleAdded)       | 24            |
+| `claim`<br />Remove the lock on tokens for the calling account when the schedule allows     | Account with Lock | Tokens  | [`Claimed`](https://rustadot.github.io/recurrency/pallet_time_release/pallet/enum.Event.html#variant.Claimed)                                 | 24            |
+| `claim_for`<br />Remove the lock on tokens for a different account when the schedule allows | Any Token Account | Tokens  | [`Claimed`](https://rustadot.github.io/recurrency/pallet_time_release/pallet/enum.Event.html#variant.Claimed)                                 | 24            |
+| `update_release_schedules`<br />Governance action to update existing schedules              | Governance        | Tokens  | [`ReleaseSchedulesUpdated`](https://rustadot.github.io/recurrency/pallet_time_release/pallet/enum.Event.html#variant.ReleaseSchedulesUpdated) | 24            |
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_time_release/pallet/struct.Pallet.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_time_release/pallet/struct.Pallet.html) for more details.
 
 ### State Queries
 
@@ -39,4 +39,4 @@ See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_time_release/
 | ---------------- | --------------------------------------------- | ------------------ | ------------- |
 | Release Schedule | Retrieves the release schedule for an account | `releaseSchedules` | 24            |
 
-See the [Rust Docs](https://frequency-chain.github.io/frequency/pallet_time_release/pallet/storage_types/index.html) for additional state queries and details.
+See the [Rust Docs](https://rustadot.github.io/recurrency/pallet_time_release/pallet/storage_types/index.html) for additional state queries and details.

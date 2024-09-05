@@ -1,7 +1,7 @@
 // All the sudo required tests must be in one test for parallelization needs
 
-import '@frequency-chain/api-augment';
-import { MessageSourceId, SchemaId } from '@frequency-chain/api-augment/interfaces';
+import '@rustadot/api-augment';
+import { MessageSourceId, SchemaId } from '@rustadot/api-augment/interfaces';
 import { KeyringPair } from '@polkadot/keyring/types';
 import assert from 'assert';
 import { Extrinsic, ExtrinsicHelper } from '../scaffolding/extrinsicHelpers';
@@ -148,13 +148,13 @@ describe('Sudo required', function () {
       describe('Itemized With AppendOnly Storage Tests', function () {
         it('should not be able to call delete action', async function () {
           // Add and update actions
-          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Frequency');
+          const payload_1 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World From Recurrency');
 
           const add_action = {
             Add: payload_1,
           };
 
-          const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Frequency');
+          const payload_2 = new Bytes(ExtrinsicHelper.api.registry, 'Hello World Again From Recurrency');
 
           const update_action = {
             Add: payload_2,

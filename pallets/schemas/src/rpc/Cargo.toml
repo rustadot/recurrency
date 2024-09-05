@@ -2,16 +2,16 @@
 name = "pallet-schemas-rpc"
 version = "0.0.0"
 description = "RPC package for schemas"
-authors = ["Frequency"]
+authors = ["Recurrency"]
 license = "Apache-2.0"
 publish = false
-homepage = "https://frequency.xyz"
-repository = "https://github.com/frequency-chain/frequency/"
+homepage = "https://recurrency.xyz"
+repository = "https://github.com/rustadot/recurrency/"
 edition = "2021"
 
 [dependencies]
 jsonrpsee = { workspace = true, features = ["client-core", "server", "macros"] }
-# Frequency crates
+# Recurrency crates
 pallet-schemas-runtime-api = { path = "../runtime-api", default-features = false }
 common-primitives = { path = '../../../../common/primitives', default-features = false }
 common-helpers = { path = '../../../../common/helpers', default-features = false }

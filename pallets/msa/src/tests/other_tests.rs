@@ -627,7 +627,7 @@ pub fn ensure_all_schema_ids_are_valid_success() {
 pub fn is_registered_provider_is_true() {
 	new_test_ext().execute_with(|| {
 		let provider = ProviderId(1);
-		let provider_name = Vec::from("frequency".as_bytes()).try_into().unwrap();
+		let provider_name = Vec::from("recurrency".as_bytes()).try_into().unwrap();
 
 		let provider_meta = ProviderRegistryEntry { provider_name };
 		ProviderToRegistryEntry::<Test>::insert(provider, provider_meta);

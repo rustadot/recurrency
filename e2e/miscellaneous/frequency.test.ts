@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import assert from 'assert';
 import { DOLLARS, createAndFundKeypair, getBlockNumber, getNonce } from '../scaffolding/helpers';
 import { KeyringPair } from '@polkadot/keyring/types';
@@ -7,9 +7,9 @@ import { getFundingSource } from '../scaffolding/funding';
 import { u8, Option } from '@polkadot/types';
 import { u8aToHex } from '@polkadot/util/u8a/toHex';
 
-const fundingSource: KeyringPair = getFundingSource('frequency-misc');
+const fundingSource: KeyringPair = getFundingSource('recurrency-misc');
 
-describe('Frequency', function () {
+describe('Recurrency', function () {
   describe('setup', function () {
     let keypairA: KeyringPair;
     let keypairB: KeyringPair;
@@ -38,7 +38,7 @@ describe('Frequency', function () {
 
       for (let i = beforeBlockNumber + 1; i <= afterBlockNumber; i++) {
         const block = await ExtrinsicHelper.apiPromise.rpc.chain.getBlockHash(i);
-        const events = await ExtrinsicHelper.getFrequencyEvents(block);
+        const events = await ExtrinsicHelper.getRecurrencyEvents(block);
         if (
           events.find(
             (e) => e.pallet.eq(balance_pallet) && e.event.eq(transfer_event) && e.data.toHex().includes(dest_account)

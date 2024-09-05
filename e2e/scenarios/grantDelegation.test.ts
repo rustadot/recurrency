@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { u16, u64 } from '@polkadot/types';
 import assert from 'assert';
@@ -13,7 +13,7 @@ import {
   getOrCreateDummySchema,
   signPayloadSr25519,
 } from '../scaffolding/helpers';
-import { SchemaGrantResponse, SchemaId } from '@frequency-chain/api-augment/interfaces';
+import { SchemaGrantResponse, SchemaId } from '@rustadot/api-augment/interfaces';
 import { getFundingSource } from '../scaffolding/funding';
 
 const fundingSource = getFundingSource('scenarios-grant-delegation');

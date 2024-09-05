@@ -2,7 +2,7 @@ export const AVRO_GRAPH_CHANGE = {
   type: 'record',
   name: 'GraphChange',
   fields: [
-    // When converting from Frequency Schema Message to DSNP Announcement, assume announcementType=1
+    // When converting from Recurrency Schema Message to DSNP Announcement, assume announcementType=1
     {
       name: 'changeType',
       type: {

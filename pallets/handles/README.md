@@ -43,11 +43,11 @@ The Handles pallet provides for:
 
 | Name/Description                 | Caller        | Payment | Key Events                                                                                                    | Runtime Added |
 | -------------------------------- | ------------- | ------- | ------------------------------------------------------------------------------------------------------------- | ------------- |
-| `claim_handle`<br />Claim a handle with the given  | Provider or MSA Owner | Capacity or Tokens  | [`HandleClaimed`](https://frequency-chain.github.io/frequency/pallet_handles/pallet/enum.Event.html#variant.HandleClaimed) | 27             |
-| `retire_handle`<br />Retire a handle. Retired handles + suffix are never reused.   | MSA Owner | Free  | [`HandleRetired`](https://frequency-chain.github.io/frequency/pallet_handles/pallet/enum.Event.html#variant.HandleRetired) | 27             |
-| `change_handle`<br />Convenience method to retire and then claim a new handle  | Provider or MSA Owner | Capacity or Tokens  | [`HandleRetired`](https://frequency-chain.github.io/frequency/pallet_handles/pallet/enum.Event.html#variant.HandleRetired), [`HandleClaimed`](https://frequency-chain.github.io/frequency/{pallet_name}/pallet/enum.Event.html#variant.HandleClaimed) | 47             |
+| `claim_handle`<br />Claim a handle with the given  | Provider or MSA Owner | Capacity or Tokens  | [`HandleClaimed`](https://rustadot.github.io/recurrency/pallet_handles/pallet/enum.Event.html#variant.HandleClaimed) | 27             |
+| `retire_handle`<br />Retire a handle. Retired handles + suffix are never reused.   | MSA Owner | Free  | [`HandleRetired`](https://rustadot.github.io/recurrency/pallet_handles/pallet/enum.Event.html#variant.HandleRetired) | 27             |
+| `change_handle`<br />Convenience method to retire and then claim a new handle  | Provider or MSA Owner | Capacity or Tokens  | [`HandleRetired`](https://rustadot.github.io/recurrency/pallet_handles/pallet/enum.Event.html#variant.HandleRetired), [`HandleClaimed`](https://rustadot.github.io/recurrency/{pallet_name}/pallet/enum.Event.html#variant.HandleClaimed) | 47             |
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_handles/pallet/struct.Pallet.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_handles/pallet/struct.Pallet.html) for more details.
 
 ### State Queries
 
@@ -58,7 +58,7 @@ Note: RPC use is suggested over the direct state queries for handles.
 | Get Handle by MSA Id  | Returns the Display Handle and the block number in which it was claimed   | `msaIdToDisplayName` | 29             |
 | Get MSA Id by Canonical Base and Suffix  | Uses the stored canonical lookup string NOT the display handle with the suffix to retrieve the MSA Id   | `canonicalBaseHandleAndSuffixToMSAId` | 29             |
 
-See the [Rust Docs](https://frequency-chain.github.io/frequency/pallet_handles/pallet/storage_types/index.html) for additional state queries and details.
+See the [Rust Docs](https://rustadot.github.io/recurrency/pallet_handles/pallet/storage_types/index.html) for additional state queries and details.
 
 ### RPCs
 
@@ -66,9 +66,9 @@ Note: May be restricted based on node settings and configuration.
 
 | Name    | Description       | Call                                                                                                 | Node Version |
 | ------- | ----------------- | ---------------------------------------------------------------------------------------------------- | ------------ |
-| Get Handle by MSA Id | Returns the base handle and suffix as well as the canonical version of the handle | [`getHandleforMSA`](https://frequency-chain.github.io/frequency/pallet_handles_rpc/trait.HandlesApiServer.html#tymethod.get_handle_for_msa) | v1.6.0+      |
-| Get MSA Id by Display Handle | Returns the MSA Id for a given Display Handle | [`getMsaForHandle`](https://frequency-chain.github.io/frequency/pallet_handles_rpc/trait.HandlesApiServer.html#tymethod.get_handle_for_msa) | v1.6.0+      |
-| Validate Handle String | Checks to see if the handle string validates | [`validateHandle`](https://frequency-chain.github.io/frequency/pallet_handles_rpc/trait.HandlesApiServer.html#tymethod.validate_handle) | v1.8.0+      |
-| Get Next Suffixes | Given a Base Handle and count, returns the next suffixes that will be used for claimed handles | [`getNextSuffixes`](https://frequency-chain.github.io/frequency/pallet_handles_rpc/trait.HandlesApiServer.html#tymethod.get_next_suffixes) | v1.8.0+      |
+| Get Handle by MSA Id | Returns the base handle and suffix as well as the canonical version of the handle | [`getHandleforMSA`](https://rustadot.github.io/recurrency/pallet_handles_rpc/trait.HandlesApiServer.html#tymethod.get_handle_for_msa) | v1.6.0+      |
+| Get MSA Id by Display Handle | Returns the MSA Id for a given Display Handle | [`getMsaForHandle`](https://rustadot.github.io/recurrency/pallet_handles_rpc/trait.HandlesApiServer.html#tymethod.get_handle_for_msa) | v1.6.0+      |
+| Validate Handle String | Checks to see if the handle string validates | [`validateHandle`](https://rustadot.github.io/recurrency/pallet_handles_rpc/trait.HandlesApiServer.html#tymethod.validate_handle) | v1.8.0+      |
+| Get Next Suffixes | Given a Base Handle and count, returns the next suffixes that will be used for claimed handles | [`getNextSuffixes`](https://rustadot.github.io/recurrency/pallet_handles_rpc/trait.HandlesApiServer.html#tymethod.get_next_suffixes) | v1.8.0+      |
 
-See [Rust Docs](https://frequency-chain.github.io/frequency/pallet_handles_rpc/trait.HandlesApiServer.html) for more details.
+See [Rust Docs](https://rustadot.github.io/recurrency/pallet_handles_rpc/trait.HandlesApiServer.html) for more details.

@@ -15,7 +15,7 @@ then
     CREATE_EMPTY_BLOCKS="--sealing-create-empty-blocks"
 fi
 
-exec /frequency/frequency \
+exec /recurrency/recurrency \
     --dev \
     -lruntime=debug \
     --no-telemetry \

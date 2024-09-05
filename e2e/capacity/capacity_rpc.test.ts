@@ -1,4 +1,4 @@
-import '@frequency-chain/api-augment';
+import '@rustadot/api-augment';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { u64, u16 } from '@polkadot/types';
 import assert from 'assert';
@@ -62,7 +62,7 @@ describe('Capacity RPC', function () {
       proofSize,
     });
 
-    const feeDetails: FeeDetails = await ExtrinsicHelper.apiPromise.rpc.frequencyTxPayment.computeCapacityFeeDetails(
+    const feeDetails: FeeDetails = await ExtrinsicHelper.apiPromise.rpc.recurrencyTxPayment.computeCapacityFeeDetails(
       call.toHex(),
       null
     );
@@ -92,8 +92,8 @@ describe('Capacity RPC', function () {
       signPayloadSr25519(delegatorKeys, addProviderData),
       addProviderPayload
     );
-    const tx = ExtrinsicHelper.api.tx.frequencyTxPayment.payWithCapacity(insideTx);
-    const feeDetails: FeeDetails = await ExtrinsicHelper.apiPromise.rpc.frequencyTxPayment.computeCapacityFeeDetails(
+    const tx = ExtrinsicHelper.api.tx.recurrencyTxPayment.payWithCapacity(insideTx);
+    const feeDetails: FeeDetails = await ExtrinsicHelper.apiPromise.rpc.recurrencyTxPayment.computeCapacityFeeDetails(
       tx.toHex(),
       null
     );
@@ -110,7 +110,7 @@ describe('Capacity RPC', function () {
 
   it('Returns nothing when requesting capacity cost of a non-capacity transaction', async function () {
     const tx = ExtrinsicHelper.api.tx.msa.retireMsa();
-    const feeDetails: FeeDetails = await ExtrinsicHelper.apiPromise.rpc.frequencyTxPayment.computeCapacityFeeDetails(
+    const feeDetails: FeeDetails = await ExtrinsicHelper.apiPromise.rpc.recurrencyTxPayment.computeCapacityFeeDetails(
       tx.toHex(),
       null
     );
@@ -120,8 +120,8 @@ describe('Capacity RPC', function () {
 
   it('Returns nothing when requesting pay with capacity call with a non-capacity transaction', async function () {
     const insideTx = ExtrinsicHelper.api.tx.msa.retireMsa();
-    const tx = ExtrinsicHelper.api.tx.frequencyTxPayment.payWithCapacity(insideTx);
-    const feeDetails: FeeDetails = await ExtrinsicHelper.apiPromise.rpc.frequencyTxPayment.computeCapacityFeeDetails(
+    const tx = ExtrinsicHelper.api.tx.recurrencyTxPayment.payWithCapacity(insideTx);
+    const feeDetails: FeeDetails = await ExtrinsicHelper.apiPromise.rpc.recurrencyTxPayment.computeCapacityFeeDetails(
       tx.toHex(),
       null
     );

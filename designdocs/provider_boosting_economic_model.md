@@ -10,26 +10,26 @@ This document outlines the economic model to be used for:
 
 ## Context and Scope:
 
-The Frequency Transaction Payment system uses Capacity to pay for a limited number of specific transactions on chain. Accounts that wish to pay for transactions with Capacity must:
+The Recurrency Transaction Payment system uses Capacity to pay for a limited number of specific transactions on chain. Accounts that wish to pay for transactions with Capacity must:
 
-1. Have an [MSA](https://github.com/frequency-chain/frequency/blob/main/designdocs/accounts.md)
-2. Be a [Provider](https://github.com/frequency-chain/frequency/blob/main/designdocs/provider_registration.md) (see also [Provider Permissions and Grants](https://github.com/frequency-chain/frequency/blob/main/designdocs/provider_permissions.md))
-3. Lock up a minimum amount of FRQCY token to receive [Capacity](https://github.com/frequency-chain/frequency/blob/main/designdocs/capacity.md).
+1. Have an [MSA](https://github.com/rustadot/recurrency/blob/main/designdocs/accounts.md)
+2. Be a [Provider](https://github.com/rustadot/recurrency/blob/main/designdocs/provider_registration.md) (see also [Provider Permissions and Grants](https://github.com/rustadot/recurrency/blob/main/designdocs/provider_permissions.md))
+3. Lock up a minimum amount of FRQCY token to receive [Capacity](https://github.com/rustadot/recurrency/blob/main/designdocs/capacity.md).
 
 There is also a business case for allowing any token holder to lock up its tokens in exchange for a reward - while also targeting a Provider to receive some Capacity.
 
 ## Problem Statement:
 
 A system consisting only of providers and coinless users who delegate to providers will tend toward centralization.
-To build a self-sustaining Frequency network where control is decentralized, a variety of economic solutions are needed. One of these is the ability to lock up FRQCY token in return for something; this creates an incentive for participation and involvement with the Frequency chain fundamentals and governance.
+To build a self-sustaining Recurrency network where control is decentralized, a variety of economic solutions are needed. One of these is the ability to lock up FRQCY token in return for something; this creates an incentive for participation and involvement with the Recurrency chain fundamentals and governance.
 
-How is that so? Capacity is how Frequency intends Providers to pay for the vast majority of their on-chain messages. In the proposed system, Providers receive Capacity when users lock up some FRQCY. These Providers would then lose Capacity if those users unlock. If a Provider's Capacity from Provider Boosting is significant, this gives Provider Boosters some power over their targeted Providers. If a Provider is utilizing all or nearly all their Capacity almost every Epoch -- which they should do if trying to be economical -- then even a small percentage of lost Capacity will literally cost them to replace it. This gives those end-users relying upon - and Boosting - their Providers the ability to exercise direct market power they did not previously have.
+How is that so? Capacity is how Recurrency intends Providers to pay for the vast majority of their on-chain messages. In the proposed system, Providers receive Capacity when users lock up some FRQCY. These Providers would then lose Capacity if those users unlock. If a Provider's Capacity from Provider Boosting is significant, this gives Provider Boosters some power over their targeted Providers. If a Provider is utilizing all or nearly all their Capacity almost every Epoch -- which they should do if trying to be economical -- then even a small percentage of lost Capacity will literally cost them to replace it. This gives those end-users relying upon - and Boosting - their Providers the ability to exercise direct market power they did not previously have.
 
-Account holders on Frequency may receive FRQCY from different sources. Providers may offer airdrops in return for such bringing in new users or sharing links on other platforms, then encourage their users to participate in Provider Boosting. Rewards could potentially be exchanged for non-transferable, in-app-only benefits such as premium features, special emoji, avatar customization, and the like, similarly to platforms such as [Steam](https://store.steampowered.com).
+Account holders on Recurrency may receive FRQCY from different sources. Providers may offer airdrops in return for such bringing in new users or sharing links on other platforms, then encourage their users to participate in Provider Boosting. Rewards could potentially be exchanged for non-transferable, in-app-only benefits such as premium features, special emoji, avatar customization, and the like, similarly to platforms such as [Steam](https://store.steampowered.com).
 
 ### Provider Boost Accounts are not required to have MSA
 
-Any Frequency account with an existential balance + the minimum staking amount in FRQCY may participate in in the Provider Boost program. An MSA is optional.
+Any Recurrency account with an existential balance + the minimum staking amount in FRQCY may participate in in the Provider Boost program. An MSA is optional.
 
 ## Assumptions
 
@@ -53,7 +53,7 @@ To specify the following:
 This document does not:
 
 - specify implementation details or naming in code.
-- specify reward amounts for all time; values and methods used for calculating rewards should be expected to change to meet economic goals of the Frequency Blockchain and any legal requirements.
+- specify reward amounts for all time; values and methods used for calculating rewards should be expected to change to meet economic goals of the Recurrency Blockchain and any legal requirements.
 
 ## Proposal:
 

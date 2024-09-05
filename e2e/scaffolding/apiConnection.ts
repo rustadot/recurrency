@@ -1,4 +1,4 @@
-import { options } from '@frequency-chain/api-augment';
+import { options } from '@rustadot/api-augment';
 import { ApiRx, WsProvider, ApiPromise } from '@polkadot/api';
 import { firstValueFrom } from 'rxjs';
 import * as env from './env';

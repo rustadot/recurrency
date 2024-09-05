@@ -1,12 +1,12 @@
-# Frequency  Handles
+# Recurrency  Handles
 
 ## Context and Scope
 
-The Frequency blockchain aims to provide a mechanism to register and retrieve user handles on chain to make it easier to use MSA Ids.
-To achieve this, we propose the creation of a user handle ```registry``` system on Frequency chain, coupled with ```MessageSourceAccount```, that allows users to choose a handle for their MSA Ids.  The Handle system would then append an available numeric suffix to the chosen user handle, separated by a delimiter[.], to make it unique and store the mapping of the handle to the MSA Id in the registry.
+The Recurrency blockchain aims to provide a mechanism to register and retrieve user handles on chain to make it easier to use MSA Ids.
+To achieve this, we propose the creation of a user handle ```registry``` system on Recurrency chain, coupled with ```MessageSourceAccount```, that allows users to choose a handle for their MSA Ids.  The Handle system would then append an available numeric suffix to the chosen user handle, separated by a delimiter[.], to make it unique and store the mapping of the handle to the MSA Id in the registry.
 The user handle system will also enforce guidelines to ensure that handles are user-friendly and easy to remember, as well as prevent misuse and abuse.
 
-The goal of this proposal is to enable users to create unique handles on the Frequency blockchain using a registry, making it more accessible for users to engage with the network.
+The goal of this proposal is to enable users to create unique handles on the Recurrency blockchain using a registry, making it more accessible for users to engage with the network.
 
 ## Assumptions
 
@@ -31,8 +31,8 @@ The high level requirements for user handles are:
 
 ### Handles Terminology
 
-* **Base Handle**: A base handle is a string of characters chosen by the user of Frequency.  The base handle is the part of the handle that is not suffixed.
-* **Canonical Base**: A canonical base is a reduced/translated version of a base handle that is used to identify a user on the Frequency blockchain.
+* **Base Handle**: A base handle is a string of characters chosen by the user of Recurrency.  The base handle is the part of the handle that is not suffixed.
+* **Canonical Base**: A canonical base is a reduced/translated version of a base handle that is used to identify a user on the Recurrency blockchain.
 * **Suffix**: A suffix is a numeric value that is appended to a base handle to make it unique.  The suffix is randomly constrained and selected within a range configured on chain.
 * **Delimiter**: A delimiter is a character that is used to separate the base handle and suffix.  The delimiter is a period (.) by default.
 * **Display Handle**: A display handle is formed by concatenating the base handle and suffix with the delimiter.  The display handle is the handle that is displayed to the user.
@@ -51,7 +51,7 @@ The high level requirements for user handles are:
 
 ## Proposal
 
-Handles```registry``` on Frequency chain.
+Handles```registry``` on Recurrency chain.
 
 ### General Steps
 
@@ -80,14 +80,14 @@ sequenceDiagram
     actor User
     participant App
     participant RPC
-    participant Frequency
+    participant Recurrency
     User->>App: enter desired handle
     loop until msa_id and handle successfully claimed
         alt Optionally retrive n number of presumtive suffix
         App->>RPC: get_next_suffixes(handle, n)
-        RPC->>Frequency: query state for current index for a base handle
-        Frequency-->>RPC: return current index
-        Frequency->>RPC: compute suffix options
+        RPC->>Recurrency: query state for current index for a base handle
+        Recurrency-->>RPC: return current index
+        Recurrency->>RPC: compute suffix options
         RPC-->>App: return `n` presumptive suffixes
         App->>User: submit base handle chosen by user
         User->>App: confirm and submit
@@ -95,21 +95,21 @@ sequenceDiagram
         App->>Wallet: send signup data with base handle and expiration
         Wallet->>Wallet: perform 2FA if first attempt
         Wallet-->>App: return signed payload
-        App->>Frequency: claim_handle(.., signed_payload)
-        Frequency-->>Frequency: compute suffix options
-        Frequency-->>Frequency: check_handle_availability(...handle, suffix)
-        Frequency-->>Frequency: fail if available suffix does not match signed_payload suffix
-        Frequency-->>Frequency: submit transaction
-        Frequency-->>App: HandleClaimed event with (msa_id, handle+suffix)
+        App->>Recurrency: claim_handle(.., signed_payload)
+        Recurrency-->>Recurrency: compute suffix options
+        Recurrency-->>Recurrency: check_handle_availability(...handle, suffix)
+        Recurrency-->>Recurrency: fail if available suffix does not match signed_payload suffix
+        Recurrency-->>Recurrency: submit transaction
+        Recurrency-->>App: HandleClaimed event with (msa_id, handle+suffix)
     end
     App->>User: proceed with setup
     User->>App: request to get msa_id
-    App->>Frequency: query state for msa_id (handle<->msa_id)
-    Frequency-->>App: return msa_id (State Query handle<->msa_id)
+    App->>Recurrency: query state for msa_id (handle<->msa_id)
+    Recurrency-->>App: return msa_id (State Query handle<->msa_id)
     User->>App: request to get handle for msa_id
     App->>RPC: get_handle_for_msa_id(msa_id)
-    RPC->>Frequency: query for handle given msa_id (index handle<->msa_id)
-    Frequency-->>RPC: return handle for msa_id
+    RPC->>Recurrency: query for handle given msa_id (index handle<->msa_id)
+    Recurrency-->>RPC: return handle for msa_id
     RPC-->>App: return handle for msa_id
 ```
 
@@ -135,7 +135,7 @@ ClaimHandlePayload {
 
 ### Claim handle
 
- As a network, Frequency should allow users to choose their own handle, while the chain will generate a random numeric suffix within the range of suffixes allowed. The display handle will be the base handle with the suffix.
+ As a network, Recurrency should allow users to choose their own handle, while the chain will generate a random numeric suffix within the range of suffixes allowed. The display handle will be the base handle with the suffix.
 
 Input
 
@@ -173,7 +173,7 @@ The extrinsic must be signed by the MSA owner's private key. The signature must 
 
 ### Retire handle
 
-As a network, Frequency should allow users to retire their handles. This extrinsic will allow users to retire their handles.
+As a network, Recurrency should allow users to retire their handles. This extrinsic will allow users to retire their handles.
 
 Note: As of this implementation
 
@@ -208,11 +208,11 @@ Output
 * **Risk**: The handle feature may not be used by users.
   * **Mitigation**: The handle feature is not a core feature of the protocol. It is an optional feature that users can choose to use or not. If the feature is not used by users, it will not affect the protocol.
 * **Risk**: Homoglpyhs.
-  * **Mitigation**: Frequency handles will use a PRNG to generate suffixes. This will prevent homoglyph attacks. However, a utility to check for homoglyphs will be provided to help users avoid homoglyphs.
+  * **Mitigation**: Recurrency handles will use a PRNG to generate suffixes. This will prevent homoglyph attacks. However, a utility to check for homoglyphs will be provided to help users avoid homoglyphs.
 * **Risk**: Unavailability of desired suffixes.
   * **Mitigation**: The handle feature will provide a utility to check for available suffixes. This will allow users to check for available suffixes before attempting to create a new MSA.
 * **Risk**:  Claims on retired handles.
-  * **Mitigation**: Frequency would use a retirement period to prevent claims on retired handles. The retirement period would be set to some block number in future. This would allow users to claim their handles after the retirement period has ended.
+  * **Mitigation**: Recurrency would use a retirement period to prevent claims on retired handles. The retirement period would be set to some block number in future. This would allow users to claim their handles after the retirement period has ended.
 * **Risk**:  Handle merging.
   * **Mitigation**: To be determined. This will be decided based on implementation requirements.
 

@@ -1,10 +1,10 @@
 #![allow(missing_docs)]
 use common_primitives::node::AccountId;
 use common_runtime::constants::{
-	currency::EXISTENTIAL_DEPOSIT, FREQUENCY_LOCAL_TOKEN, TOKEN_DECIMALS,
+	currency::EXISTENTIAL_DEPOSIT, RECURRENCY_LOCAL_TOKEN, TOKEN_DECIMALS,
 };
 use cumulus_primitives_core::ParaId;
-use frequency_runtime::{AuraId, CouncilConfig, Ss58Prefix, SudoConfig, TechnicalCommitteeConfig};
+use recurrency_runtime::{AuraId, CouncilConfig, Ss58Prefix, SudoConfig, TechnicalCommitteeConfig};
 use sc_service::ChainType;
 use sp_core::sr25519;
 use sp_runtime::traits::AccountIdConversion;
@@ -17,16 +17,16 @@ use super::{get_account_id_from_seed, get_collator_keys_from_seed, get_propertie
 pub fn development_config() -> ChainSpec {
 	// Give your base currency a unit name and decimal places
 	let properties =
-		get_properties(FREQUENCY_LOCAL_TOKEN, TOKEN_DECIMALS as u32, Ss58Prefix::get().into());
+		get_properties(RECURRENCY_LOCAL_TOKEN, TOKEN_DECIMALS as u32, Ss58Prefix::get().into());
 
 	ChainSpec::builder(
-		frequency_runtime::wasm_binary_unwrap(),
+		recurrency_runtime::wasm_binary_unwrap(),
 		Extensions {
 			relay_chain: "dev".into(), // You MUST set this to the correct network!
 			para_id: 1000,
 		},
 	)
-	.with_name("Frequency Development (No Relay)")
+	.with_name("Recurrency Development (No Relay)")
 	.with_id("dev")
 	.with_properties(properties)
 	.with_chain_type(ChainType::Development)
@@ -46,12 +46,12 @@ pub fn development_config() -> ChainSpec {
 /// Generate the session keys from individual elements.
 ///
 /// The input must be a tuple of individual keys (a single arg for now since we have just one key).
-fn template_session_keys(keys: AuraId) -> frequency_runtime::SessionKeys {
-	frequency_runtime::SessionKeys { aura: keys }
+fn template_session_keys(keys: AuraId) -> recurrency_runtime::SessionKeys {
+	recurrency_runtime::SessionKeys { aura: keys }
 }
 
 #[allow(clippy::unwrap_used)]
-fn load_genesis_schemas() -> Vec<frequency_runtime::pallet_schemas::GenesisSchema> {
+fn load_genesis_schemas() -> Vec<recurrency_runtime::pallet_schemas::GenesisSchema> {
 	serde_json::from_slice(include_bytes!("../../../../resources/genesis-schemas.json")).unwrap()
 }
 
@@ -64,21 +64,21 @@ fn development_genesis(
 	technical_committee_members: Vec<AccountId>,
 	id: ParaId,
 ) -> serde_json::Value {
-	let genesis = frequency_runtime::RuntimeGenesisConfig {
+	let genesis = recurrency_runtime::RuntimeGenesisConfig {
 		system: Default::default(),
-		balances: frequency_runtime::BalancesConfig {
+		balances: recurrency_runtime::BalancesConfig {
 			balances: endowed_accounts.iter().cloned().map(|k| (k, 1 << 60)).collect(),
 		},
-		parachain_info: frequency_runtime::ParachainInfoConfig {
+		parachain_info: recurrency_runtime::ParachainInfoConfig {
 			parachain_id: id,
 			..Default::default()
 		},
-		collator_selection: frequency_runtime::CollatorSelectionConfig {
+		collator_selection: recurrency_runtime::CollatorSelectionConfig {
 			invulnerables: invulnerables.iter().cloned().map(|(acc, _)| acc).collect(),
 			candidacy_bond: EXISTENTIAL_DEPOSIT * 16,
 			..Default::default()
 		},
-		session: frequency_runtime::SessionConfig {
+		session: recurrency_runtime::SessionConfig {
 			keys: invulnerables
 				.into_iter()
 				.map(|(acc, aura)| {
@@ -94,13 +94,13 @@ fn development_genesis(
 		// of this.
 		aura: Default::default(),
 		aura_ext: Default::default(),
-		#[cfg(any(not(feature = "frequency-no-relay"), feature = "frequency-lint-check"))]
+		#[cfg(any(not(feature = "recurrency-no-relay"), feature = "recurrency-lint-check"))]
 		parachain_system: Default::default(),
 		sudo: SudoConfig {
 			// Assign network admin rights.
 			key: Some(root_key),
 		},
-		schemas: frequency_runtime::pallet_schemas::GenesisConfig {
+		schemas: recurrency_runtime::pallet_schemas::GenesisConfig {
 			initial_schemas: load_genesis_schemas(),
 			..Default::default()
 		},

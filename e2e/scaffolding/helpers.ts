@@ -32,7 +32,7 @@ import {
   MessageSourceId,
   PageHash,
   SchemaId,
-} from '@frequency-chain/api-augment/interfaces';
+} from '@rustadot/api-augment/interfaces';
 import assert from 'assert';
 import { AVRO_GRAPH_CHANGE } from '../schemas/fixtures/avroGraphChangeSchemaType';
 import { PARQUET_BROADCAST } from '../schemas/fixtures/parquetBroadcastSchemaType';

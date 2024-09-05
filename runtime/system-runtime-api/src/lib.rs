@@ -10,7 +10,7 @@
 	missing_docs
 )]
 
-//! Runtime API definition for additional Frequency RPCs
+//! Runtime API definition for additional Recurrency RPCs
 //! This api must be implemented by the n//!ode runtime.
 //! Runtime APIs Provide:
 //! - An interface between the runtime and Custom RPCs.
@@ -23,13 +23,13 @@ use sp_std::prelude::*;
 // runtime files (the `runtime` folder)
 sp_api::decl_runtime_apis! {
 
-	/// Runtime Version for Additional Frequency Runtime Apis
+	/// Runtime Version for Additional Recurrency Runtime Apis
 	/// - MUST be incremented if anything changes
 	/// - Also update in js/api-augment
 	/// - See: https://paritytech.github.io/polkadot/doc/polkadot_primitives/runtime_api/index.html
 	#[api_version(1)]
 
-	/// Runtime API definition for Frequency
+	/// Runtime API definition for Recurrency
 	pub trait AdditionalRuntimeApi {
 		/// Fetch the events of a block
 		/// An easy to work with structure with minimal SCALE needs
